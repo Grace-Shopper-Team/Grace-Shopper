@@ -3,13 +3,13 @@ import auth from './auth';
 
 // import your reducers here
 // import yourReducer from './reducers/yourReducer'
-import { dummyReducer } from '../reducers/yourReducer';
+import singleProductReducer from '../reducers/singleProductReducer';
 
 // configure store
 const store = configureStore({
   reducer: {
     auth,
-    dummy: dummyReducer,
+    singleProduct:singleProductReducer
   },
 });
 

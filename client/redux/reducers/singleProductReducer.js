@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addProductToCart, fetchSingleProduct } from "../actions/singleProductActions";
 
 export const singleProductSlice = createSlice({
-    name: 'coffee',
+    name: 'singleProduct',
     initialState: {
         singleProduct: null, 
         cart: [], 

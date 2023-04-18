@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { fetchSingleProduct , handleAddToCart} from 
+import { fetchSingleProduct , addProductToCart} from '../../redux/actions/singleProductActions.js'
 
  const SingleProduct = () => {
     const { id: productId } = useParams();
@@ -11,31 +12,48 @@ import { fetchSingleProduct , handleAddToCart} from
         dispatch(fetchSingleProduct(productId));
     }, [dispatch, productId]);
 
-    const coffees = useSelector(state => state.coffees);
-    const singleProduct = coffees.find(coffee => coffee.id === productId);
+    const singleProduct = useSelector(state => state.singleProduct);
 
-    const handleAddToCart = (productId) => {
-        dispatch(addProductToCart(productId));
-    };
+const [quantity, setQuantity] = useState(1);
 
-    return (
-
-        <div className='product-container'>
-        <div className='back-btn'>
-            <Link to={'/allcoffee'}>back</Link>
-        </div>
-            {singleProduct ? (
-                <>
-                    <h1>{singleProduct.name}</h1>
-                    <p>{singleProduct.description}</p>
-                    <p>{singleProduct.stock}</p>
-                    <button id='add-cart' onClick={() =>handleAddToCart(singleProduct.id)}> Add To Cart</button>
-                </>
-            ) : (
-                <p>No data available</p>
-            )}
-        </div>
-    );
+const handleAddToCart = (productId) => {
+  dispatch(addProductToCart({ productId: singleProduct.id, quantity, cartId }));
 };
 
-export default SingleProduct;
+return (
+  <div className='product-container'>
+    <div className='back-btn'>
+      <Link to={'/allcoffee'}>back</Link>
+    </div>
+    {singleProduct ? (
+      <>
+        <img className='singleproduct-img' src={singleProduct.imageUrl} alt={singleProduct.name} />
+        <h1>{singleProduct.name}</h1>
+        <p>{singleProduct.price}</p>
+        <p>{singleProduct.description}</p>
+        <div>
+         <form onSubmit={() => handleAddToCart(productId)}>
+          <label htmlFor='quantity'>Quantity:</label>
+          <input
+            type='number'
+            id='quantity'
+            name='quantity'
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            min='1'
+            max='10'
+          />
+     
+        <button id='add-cart' type='submit'>
+          Add To Cart
+        </button>
+     </form>  </div>
+     </>  
+    ) : (
+      <p>No data available</p>
+    )}
+  </div>
+);
+    }
+
+export default SingleProduct
