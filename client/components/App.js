@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from '../components/Home';
 import { Routes, Route } from 'react-router';
+import AllCoffee from './AllCoffee/AllCoffee';
 // import { Login, Signup } from './AuthForm';
 
 export const App = () => {
@@ -10,6 +11,7 @@ export const App = () => {
       <p>Add some cool stuff here</p>
       <Routes>
         <Route path='/home' element={<Home />} />
+        <Route path='/allcoffee' element={<AllCoffee />} />
       </Routes>
     </div>
   );

@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const coffeeRouter = require('./coffee');
 
 // individual api routes
-router.use('/a', require('./a'));
+router.use('/coffee', coffeeRouter);
 router.use('/b', require('./b'));
 
 // error handling for non existent routes
