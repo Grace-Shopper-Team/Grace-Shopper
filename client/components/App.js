@@ -1,7 +1,9 @@
 import React from 'react';
 import Home from '../components/Home';
 import { Routes, Route } from 'react-router';
-import { Login, Signup } from './AuthForm';
+import { Login } from './Login';
+import { Register } from './Register';
+// import { Admin } from './Admin';
 
 export const App = () => {
   return (
@@ -9,7 +11,8 @@ export const App = () => {
       <Routes>
         <Route path='/home' element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/register' element={<Register />} />
+        {/* <Route path='/admin' element={<Admin />} /> */}
       </Routes>
     </div>
   );
