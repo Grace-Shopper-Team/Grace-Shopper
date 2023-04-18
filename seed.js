@@ -4,6 +4,7 @@ const port = process.env.PORT || 3000;
 const Coffee = require('./server/db/models/Coffee');
 const Cart = require('./server/db/models/Cart');
 const CartItem = require('./server/db/models/CartItem');
+const User = require('./server/db/models/User');
 
 const coffeeData = [
   {
@@ -208,15 +209,40 @@ const coffeeData = [
   },
 ];
 
+const users = [
+  {
+    username: 'user1',
+    password: 'password1',
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'user1@example.com',
+  },
+  {
+    username: 'user2',
+    password: 'password2',
+    firstName: 'Jane',
+    lastName: 'Doe',
+    email: 'user2@example.com',
+  },
+];
+
+const carts = [{ userId: 1 }, { userId: 2 }];
+
+const cartItems = [
+  { cartId: 1, productId: 1, quantity: 2 },
+  { cartId: 1, productId: 2, quantity: 1 },
+  { cartId: 2, productId: 3, quantity: 3 },
+  { cartId: 2, productId: 4, quantity: 1 },
+];
+
 const seed = async () => {
   try {
     await db.sync({ force: true });
 
-    await Promise.all(
-      coffeeData.map((coffee) => {
-        return Coffee.create(coffee);
-      })
-    );
+    await Promise.all(users.map((user) => User.create(user)));
+    await Promise.all(carts.map((cart) => Cart.create(cart)));
+    await Promise.all(coffeeData.map((coffee) => Coffee.create(coffee)));
+    await Promise.all(cartItems.map((cartItem) => CartItem.create(cartItem)));
 
     console.log('Seeding was successful');
     db.close();
