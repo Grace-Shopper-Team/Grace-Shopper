@@ -43,7 +43,7 @@ const AuthForm = (props) => {
   
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={handleSubmit(e, formError)} name={name}>
         {name === 'signup' && (
           <>
             <div>
@@ -155,6 +155,9 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit(e) {
       e.preventDefault();
+      if (formError) {
+        return;
+      }
       const formName = e.target.name;
       const username = e.target.username.value;
       const password = e.target.password.value;
