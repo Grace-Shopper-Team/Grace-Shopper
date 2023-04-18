@@ -10,15 +10,57 @@ body {
 }
 
 #app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
   margin: 0;
   background-color: aliceblue;
 }
 
-#main-container {
+/* NAVBAR */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: bisque;
+}
+
+.logo-name {
+  display: flex;
+  justify-content: space-between;
+  width: 10%;
+}
+
+#logo-img {
+  overflow: hidden;
+  object-fit: cover;
+  width: 3rem;
+  height: 3rem;
   border: 1px solid;
+  border-radius: 15px;
+}
+
+.all-links {
+  display: flex;
+  justify-content: space-between;
+  width: 10%;
+}
+
+/* Home Page/All Products */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.coffee-container {
+  width: 200px;
+  border: 1px solid;
+  margin: 10px;
+}
+
+.coffee-img {
+  overflow: hidden;
+  object-fit: cover;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid;
+  border-radius: 15px;
 }
