@@ -6,7 +6,7 @@ export const fetchSingleProduct = createAsyncThunk (
     'singleProduct/fetchOne',
     async (id) => {
         try {
-            const data = await axios.get (`api/coffee/${id}`);
+            const {data} = await axios.get(`api/coffee/${id}`);
             return data
         } catch (error){
             console.error ('error')
@@ -14,14 +14,20 @@ export const fetchSingleProduct = createAsyncThunk (
     }
 )
 
-export const addProductToCart = createAsyncThunk (
+export const addProductToCart = createAsyncThunk(
     'coffee/addProductToCart',
-    async (id)=> {
-try {
-    const data= await axios.put ('/api/coffee/shoppingcart')
-    return data
-} catch (error){
-    console.error ('error')
-}
-}
-)
+    async ({ productId, quantity, cartId}, { rejectWithValue }) => {
+      try {
+        const { data } = await axios.post('/api/coffee/cart', {
+            cartId,
+          productId,
+          quantity
+        });
+        return data;
+      } catch (error) {
+        console.error(error);
+        return rejectWithValue('Unable to add product to cart');
+      }
+    }
+  );
+  
