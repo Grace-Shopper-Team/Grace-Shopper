@@ -64,3 +64,9 @@ body {
   border: 1px solid;
   border-radius: 15px;
 }
+
+.sort-search-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
