@@ -9,57 +9,37 @@ const AuthForm = (props) => {
   const [email, setEmail] = useState('');
   const [formError, setFormError] = useState('');
 
-  // functions to validate email and password inputs on change
+  // function to validate email and password inputs on change
   ////////////////////////////////////////// add check for existing users?
-  const handleEmailChange = (e) => {
+  const handleValidation= (e) => {
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if(!e.target.value.match(emailRegex)){
+    const emailValid = emailRegex.test(e.target.value);
+    const passwordValid = (
+      password.length >= 8 &&
+      password.search(/[a-z]/) >= 0 &&
+      password.search(/[0-9]/) >= 0 &&
+      password.search(/[A-Z]/) >= 0 &&
+      password.search(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) >= 0
+    );
+    const passwordsMatch = e.target.name === 'confirmPass' ? e.target.value === password : true;
+    if (!emailValid) {
       setFormError("Please enter a valid email address.");
+    } else if (!passwordValid) {
+      setFormError("Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+    } else if (!passwordsMatch) {
+      setFormError("Passwords must match.");
     } else {
       setFormError('');
     }
-    setEmail(e.target.value);
-  }
-  
-  const handlePasswordChange = (e) => {
-    if (e.target.name === 'password') {
+    if (e.target.name === 'email') {
+      setEmail(e.target.value);
+    } else if (e.target.name === 'password') {
       setPassword(e.target.value);
+    } else if (e.target.name === 'confirmPass') {
+      setConfirmPass(e.target.value);
     }
-    if(password.length < 8){
-      setFormError("Password must be at least 8 characters.");
-    } else if(password.search(/[a-z]/) < 0){
-      setFormError("Password must contain at least one lowercase character.");
-    } else if(password.search(/[0-9]/) < 0){
-      setFormError("Password must contain at least one number.");
-    } else if(password.search(/[A-Z]/) < 0){
-      setFormError("Password must contain at least one uppercase character.");
-    } else if(password.search(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) < 0){
-      setFormError("Password must contain at least one special character.");
-    } else if(password !== confirmPass){
-      setFormError("Passwords must match."); 
-    // if requirements are met and there is an input for confirmPass, check that they match 
-    } else if (confirmPass.length > 0) {
-      if (e.target.value !== confirmPass) {
-        setConfirmPass(e.target.value);
-        setFormError('Passwords do not match');
-      } else {
-        setFormError('');
-      }
-    } else {
-      // check that the confirmPass input matches the password input
-      if (e.target.name === 'confirmPass') {
-        if (e.target.value !== password) {
-          setFormError('Passwords do not match');
-        } else {
-          setConfirmPass(e.target.value);
-          setFormError('');
-        }
-      } else {
-        setPassword(e.target.value);
-        setFormError('');
-      }
-    }
-  } 
+  };
+   
   
   return (
     <div>
@@ -82,7 +62,7 @@ const AuthForm = (props) => {
               <label htmlFor='email'>
                 <small>Email</small>
               </label>
-              <input name='email' type='text' onChange={handleEmailChange} required />
+              <input name='email' type='text' onChange={handleValidation} required />
             </div>
             <div>
               <label htmlFor='address'>
@@ -127,14 +107,14 @@ const AuthForm = (props) => {
           <label htmlFor='password'>
             <small>Password</small>
           </label>
-          <input name='password' type='password' onChange={handlePasswordChange} required />
+          <input name='password' type='password' onChange={handleValidation} required />
         </div>
         {name === 'signup' && (
           <div>
             <label htmlFor='confirmPass'>
               <small>Confirm Password</small>
             </label>
-            <input name='confirmPass' type='password' onChange={handlePasswordChange} required />
+            <input name='confirmPass' type='password' onChange={handleValidation} required />
           </div>
         )}
         <div>
