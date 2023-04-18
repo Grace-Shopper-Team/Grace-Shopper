@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchAllCoffeeAsync } from '../actions/allCoffeeActions';
-import { useSelector } from 'react-redux';
 
 export const allCoffeeSlice = createSlice({
   name: 'coffee',

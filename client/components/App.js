@@ -2,7 +2,7 @@ import React from 'react';
 import Home from '../components/Home';
 import { Routes, Route } from 'react-router';
 import AllCoffee from './AllCoffee/AllCoffee';
-// import { Login, Signup } from './AuthForm';
+import { Login, Signup } from './AuthForm';
 
 export const App = () => {
   return (
@@ -12,6 +12,8 @@ export const App = () => {
       <Routes>
         <Route path='/home' element={<Home />} />
         <Route path='/allcoffee' element={<AllCoffee />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
       </Routes>
     </div>
   );
