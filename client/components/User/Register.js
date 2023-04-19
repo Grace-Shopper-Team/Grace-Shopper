@@ -1,10 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { authenticate } from '../redux/store/auth';
+import { authenticate } from '../../redux/store/auth';
 import jwt_decode from 'jwt-decode';
 
 const RegisterForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
+  const [emailError, setEmailError] = useState('');
+  const [pwdError, setPwdError] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+
+  const emailValidation= (e) => {
+    const email = e.target.value;
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if(!email.match(emailRegex)){
+        setEmailError("Please enter a valid email address.");
+    } else {
+        setEmailError('');
+    }
+  }
+
+  const pwdValidation = (e) => {
+    if (e.target.name === 'password') {
+      setPassword(e.target.value);
+      if (password.length < 8) {
+        setPwdError("Password must be at least 8 characters.");
+      } else if (password.search(/[a-z]/) < 0) {
+        setPwdError("Password must contain at least one lowercase character.");
+      } else if (password.search(/[0-9]/) < 0) {
+        setPwdError("Password must contain at least one number.");
+      } else if (password.search(/[A-Z]/) < 0) {
+        setPwdError("Password must contain at least one uppercase character.");
+      } else if (password.search(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) < 0) {
+        setPwdError("Password must contain at least one special character.");
+      } else {
+        setPwdError('')
+      }
+    } else if (e.target.name === 'confirmPass') {
+      setConfirmPass(e.target.value);
+      if(e.target.value !== password) {
+        setPwdError("Passwords do not match.");
+      } else {
+        setPwdError('')
+      }
+    }
+  }
+  
+
 
   return (
     <div>
@@ -26,7 +68,8 @@ const RegisterForm = (props) => {
               <label htmlFor='email'>
                 <small>Email</small>
               </label>
-              <input name='email' type='text' required />
+              <input name='email' type='text' onChange={emailValidation} required />
+              <span style={{ color: 'red' }}>{emailError}</span>
             </div>
             <div>
               <label htmlFor='address'>
@@ -70,13 +113,14 @@ const RegisterForm = (props) => {
           <label htmlFor='password'>
             <small>Password</small>
           </label>
-          <input name='password' type='password' required />
+          <input name='password' type='password' onChange={pwdValidation} required />
+          <span style={{ color: 'red' }}>{pwdError}</span>
         </div>
           <div>
             <label htmlFor='confirmPass'>
               <small>Confirm Password</small>
             </label>
-            <input name='confirmPass' type='password' required />
+            <input name='confirmPass' type='password' onChange={pwdValidation} required />
           </div>
         <div>
           <button type='submit'>{displayName}</button>

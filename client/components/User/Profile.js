@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { updateUser, fetchUser } from '../redux/store/auth';
+import { updateUser, fetchUser } from '../../redux/store/auth';
 
 const ProfilePage = ({ user, updateUser, fetchUser }) => {
   const { userID } = useParams();

@@ -2,9 +2,9 @@ import React from 'react';
 import Home from '../components/Home';
 import { Routes, Route } from 'react-router';
 import SingleProduct from '../components/singleproduct/singleproduct';
-import { Login } from './Login';
-import { Register } from './Register';
-import { Profile } from './Profile';
+import { Login } from './User/Login';
+import { Register } from './User/Register';
+import { Profile } from './User/Profile';
 import Cart from './Cart';
 import NavBar from './NavBar';
 

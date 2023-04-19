@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authenticate } from '../redux/store/auth';
+import { authenticate } from '../../redux/store/auth';
 import jwt_decode from 'jwt-decode';
 
 const LoginForm = (props) => {
