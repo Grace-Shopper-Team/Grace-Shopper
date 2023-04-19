@@ -57,20 +57,6 @@ router.post('/cart', async (req, res, next) => {
   });
   
 
-// router.post('/cart', async (req, res, next) => {
-//     try {
-//       const { productId, quantity } = req.body;
-//       const cart = await CartItem.create({
-//         productId,
-//         quantity,
-//         userId: req.session.userId 
-//       });
-//       res.status(201).send(cart);
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send('Server Error');
-//     }
-//   });
   
 
 router.put('/:bId', async (req, res, next) => {});

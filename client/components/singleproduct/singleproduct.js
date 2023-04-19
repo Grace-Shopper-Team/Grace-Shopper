@@ -2,17 +2,19 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { fetchSingleProduct , addProductToCart} from '../../redux/actions/singleProductActions.js'
+import { fetchSingleProduct , addProductToCart} from '../../redux/actions/singleProductActions'
 
  const SingleProduct = () => {
     const { id: productId } = useParams();
     const dispatch = useDispatch();
 
+  const singleProduct = useSelector(state => state.singleProduct.singleProduct);
+
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
     }, [dispatch, productId]);
 
-    const singleProduct = useSelector(state => state.singleProduct);
+  
 
 const [quantity, setQuantity] = useState(1);
 

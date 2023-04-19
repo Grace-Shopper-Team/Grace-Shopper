@@ -9,7 +9,7 @@ import singleProductReducer from '../reducers/singleProductReducer';
 const store = configureStore({
   reducer: {
     auth,
-    singleProduct:singleProductReducer
+    singleProduct: singleProductReducer,
   },
 });
 
