@@ -1,5 +1,5 @@
 import axios from 'axios';
-import history from 'history';
+// import history from 'history';
 
 const TOKEN = 'token';
 
@@ -41,7 +41,8 @@ export const authenticate =
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
-  history.push('/login');
+  window.location.replace("/login")
+  // history.push('/login');
   return {
     type: SET_AUTH,
     auth: {},

@@ -1,6 +1,7 @@
 // app
 const express = require('express');
 const path = require('path');
+const cors = require('cors')
 
 // authentication
 const { authRouter } = require('./auth');
@@ -11,6 +12,7 @@ const volleyball = require('volleyball');
 // parsing middleware
 const bodyParser = require('body-parser');
 const app = express();
+app.use(cors())
 
 // static middleware
 app.use(express.static(path.join(__dirname, '../public')));
@@ -24,10 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/auth', authRouter);
 app.use('/api', require('./api'));
 
-// send html if route doesnt exist
-app.use('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
-});
+
 
 // error handling for 500
 app.use((err, req, res, next) => {
