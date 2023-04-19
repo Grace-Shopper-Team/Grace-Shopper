@@ -4,8 +4,8 @@ const CartItem = require('../db/models/CartItem');
 const Coffee = require('../db/models/Coffee');
 
 CartItem.belongsTo(Coffee, {
-  foreignKey: "productId"
-})
+  foreignKey: 'productId',
+});
 
 router.get('/', async (req, res, next) => {
   try {
@@ -17,19 +17,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:cartID/', async (req, res, next) => {
+router.get('/:cartID', async (req, res, next) => {
   try {
-    const getAll = await CartItem.findAll({ 
+    const getAll = await CartItem.findAll({
       where: {
         cartId: req.params.cartID,
-       
       },
       include: [
         {
           model: Coffee,
-          attributes: ['name', 'price', 'imageUrl', 'stock']
-        }
-      ]
+          attributes: ['name', 'price', 'imageUrl', 'stock'],
+        },
+      ],
     });
     res.json(getAll);
   } catch (error) {
@@ -40,18 +39,18 @@ router.get('/:cartID/', async (req, res, next) => {
 
 router.get('/:cartID/:productID', async (req, res, next) => {
   try {
-    const getSingle = await CartItem.findOne({ 
-              where: {
-                cartId: req.params.cartID,
-                productId: req.params.productID
-              },
-              include: [
-                {
-                  model: Coffee,
-                  attributes: ["name", "price"]
-                }
-              ]
-            });
+    const getSingle = await CartItem.findOne({
+      where: {
+        cartId: req.params.cartID,
+        productId: req.params.productID,
+      },
+      include: [
+        {
+          model: Coffee,
+          attributes: ['name', 'price'],
+        },
+      ],
+    });
     res.json(getSingle);
   } catch (error) {
     console.error('error getting single Cart', error);
@@ -62,39 +61,36 @@ router.get('/:cartID/:productID', async (req, res, next) => {
 // POST /api/campuses/update
 router.post('/update', async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const data = {
       name: req.body.name,
       address: req.body.address,
-    }
-    await Campus.update(data, 
-    {
-        where: {
-          id: req.body.id
-        }
+    };
+    await Campus.update(data, {
+      where: {
+        id: req.body.id,
+      },
     });
-        //const student = await Student.findByPk(req.body.id)
+    //const student = await Student.findByPk(req.body.id)
     //res.sendStatus(200);
-   res.status(201).send(req.body)
+    res.status(201).send(req.body);
   } catch (error) {
     next(error);
   }
 });
 
-
 router.delete('/:cartID/:productID', async (req, res, next) => {
-    try {
-      await CartItem.destroy({
-        where: {
-          cartId: req.params.cartID,
-          productId: req.params.productID
-        }
-      });
-      res.sendStatus(200)
-    } catch (error) {
-      next (error)
-    }
-})
-
+  try {
+    await CartItem.destroy({
+      where: {
+        cartId: req.params.cartID,
+        productId: req.params.productID,
+      },
+    });
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
