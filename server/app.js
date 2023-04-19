@@ -25,7 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes
 app.use('/auth', authRouter);
-app.use('/api', require('./api'));
+// app.use('/api', require('./api'));
+app.use('/api', authRouter);
 
 
 
