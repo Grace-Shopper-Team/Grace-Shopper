@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const coffeeRouter = require('./coffee');
 
-// individual api routes
 router.use('/coffee', coffeeRouter);
 router.use('/b', require('./b'));
 

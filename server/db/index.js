@@ -1,6 +1,4 @@
-const Cart = require('./models/Cart');
-const User = require('./models/User');
-const CartItem = require('./models/CartItem');
+const { User, Cart, CartItem } = require('./models');
 
 Cart.belongsTo(User);
 User.hasOne(Cart);

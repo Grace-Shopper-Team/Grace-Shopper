@@ -4,10 +4,12 @@ import { fetchAllCoffeeAsync } from '../../redux/actions/allCoffeeActions';
 import { allCoffeeSelector } from '../../redux/reducers/allCoffeeReducer';
 
 const AllCoffee = () => {
-  const coffees = useSelector(allCoffeeSelector);
-  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState('default');
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const coffees = useSelector(allCoffeeSelector);
+  const dispatch = useDispatch();
+  const coffeesPerPage = 6;
 
   useEffect(() => {
     dispatch(fetchAllCoffeeAsync());
@@ -23,8 +25,24 @@ const AllCoffee = () => {
     coffee.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const indexOfLastCoffee = currentPage * coffeesPerPage;
+  const indexOfFirstCoffee = indexOfLastCoffee - coffeesPerPage;
+  const currentCoffees = filteredCoffee.slice(
+    indexOfFirstCoffee,
+    indexOfLastCoffee
+  );
+
   const handleSort = (event) => {
     setSelectedOption(event.target.value);
+  };
+
+  const handleAddCartItem = (coffee) => {
+    // dispatch(AddCartItem(coffee))
+    // add erikas code
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -45,18 +63,33 @@ const AllCoffee = () => {
       </div>
       <div className='container'>
         {coffees ? (
-          filteredCoffee.map((coffee) => (
+          currentCoffees.map((coffee) => (
             <div key={coffee.id} className='coffee-container'>
               <img className='coffee-img' src={coffee.imageUrl} />
               <p>{coffee.name}</p>
               <p>Origin: {coffee.origin}</p>
-              <p>Price: {coffee.price}</p>
-              <button>Add to Cart</button>
+              <p>Price: ${coffee.price}</p>
+              <button onClick={() => handleAddCartItem(coffee)}>
+                Add to Cart
+              </button>
             </div>
           ))
         ) : (
           <p>No data available</p>
         )}
+      </div>
+      <div className='pagination'>
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span>Page {currentPage}</span>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={indexOfLastCoffee >= filteredCoffee.length}>
+          Next
+        </button>
       </div>
     </>
   );
