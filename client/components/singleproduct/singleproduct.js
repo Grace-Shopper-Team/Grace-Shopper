@@ -22,9 +22,9 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = (productId) => {
-    dispatch(
-      addProductToCart({ productId: singleProduct.id, quantity, cartId })
-    );
+    console.log('inside handleaddtocart in component', productId);
+    console.log('inside handleaddtocart in component', quantity);
+    dispatch(addProductToCart({ productId, quantity }));
   };
 
   return (
@@ -46,7 +46,11 @@ const SingleProduct = () => {
           <p>{singleProduct.price}</p>
           <p>{singleProduct.description}</p>
           <div>
-            <form onSubmit={() => handleAddToCart(productId)}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleAddToCart(singleProduct.id);
+              }}>
               <label htmlFor='quantity'>Quantity:</label>
               <input
                 type='number'
