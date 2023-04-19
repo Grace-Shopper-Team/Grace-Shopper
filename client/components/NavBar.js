@@ -21,7 +21,7 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/register'>
           Register
         </Link>
-        <Link className='nav-bar-links' to='/profile'>
+        <Link className='nav-bar-links' to='/profile/:userID'>
           My Profile
         </Link>
         <Link className='nav-bar-links' to='/cart'>

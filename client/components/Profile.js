@@ -4,26 +4,40 @@ import { useParams } from 'react-router-dom';
 import { updateUser, fetchUser } from '../redux/store/auth';
 
 const ProfilePage = ({ user, updateUser, fetchUser }) => {
-    const { userID } = useParams();
-    const [userInfo, setUserInfo] = useState({});
-  
-    useEffect(() => {
-      fetchUser(userID);
-    }, [fetchUser, userID]);
-  
-    useEffect(() => {
-      setUserInfo(user);
-    }, [user]);
-  
-    const handleChange = (event) => {
-      const { name, value } = event.target;
-      setUserInfo({ ...userInfo, [name]: value });
-    };
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      updateUser(userInfo);
-    };
+  const { userID } = useParams();
+  const [userInfo, setUserInfo] = useState({});
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+
+  useEffect(() => {
+    fetchUser(userID);
+  }, [fetchUser, userID]);
+
+  useEffect(() => {
+    setUserInfo(user);
+  }, [user]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    updateUser(userInfo);
+  };
+
+  const handlePasswordChangeSubmit = (event) => {
+    event.preventDefault();
+    updateUser({ ...userInfo, password: newPassword });
+    setNewPassword('');
+    setShowChangePassword(false);
+  };
+
+  const handlePasswordChangeCancel = () => {
+    setNewPassword('');
+    setShowChangePassword(false);
+  };
   
     return (
       <div>
@@ -85,13 +99,32 @@ const ProfilePage = ({ user, updateUser, fetchUser }) => {
             <input name='username' type='text' value={userInfo.username || ''} onChange={handleChange} required />
           </div>
           <div>
-            <label htmlFor='password'>
-              <small>Password</small>
-            </label>
-            <input name='password' type='password' value={userInfo.password || ''} onChange={handleChange} required />
+            <button type='button' onClick={() => setShowChangePassword(true)}>Change Password</button>
           </div>
+          {showChangePassword && (
+           <>
+           <div>
+              <label htmlFor='oldPassword'>
+                <small>Old Password</small>
+              </label>
+              <input name='oldPassword' type='password' value={userInfo.oldPassword || ''} onChange={handleChange} required />
+              <label htmlFor='newPassword'>
+                <small>New Password</small>
+              </label>
+              <input name='newPassword' type='password' value={userInfo.newPassword || ''} onChange={handleChange} required />
+              <label htmlFor='confirmNewPassword'>
+                <small>Confirm New Password</small>
+              </label>
+              <input name='confirmNewPassword' type='password' value={userInfo.confirmNewPassword || ''} onChange={handleChange} required />
+            </div>
+            <div>
+               <button type='submit' onClick={handlePasswordChangeSubmit}>Update Password</button>
+               <button type='button' onClick={handlePasswordChangeCancel}>Cancel</button>
+            </div>
+            </>
+          )}
           <div>
-            <button type='submit'>Update</button>
+            <button type='submit'>Update Profile</button>
           </div>
         </form>
       </div>
