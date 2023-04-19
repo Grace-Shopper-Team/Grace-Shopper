@@ -7,6 +7,12 @@ module.exports = {
   },
   context: __dirname,
   devtool: 'source-map',
+  devServer: {
+    hot: true,
+    port: 3001,
+    open: true,
+    historyApiFallback: true
+  },
   module: {
     rules: [
       {

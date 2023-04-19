@@ -6,6 +6,8 @@ import NavBar from './NavBar';
 import SingleProduct from '../components/singleproduct/singleproduct';
 
 
+import Cart from './Cart';
+// import { Login, Signup } from './AuthForm';
 
 export const App = () => {
   return (
@@ -17,6 +19,7 @@ export const App = () => {
         {/* <Route path='/register' element={<Register />} />
         <Route path='/profile/:userId' element={<Profile/>}/> */}
         <Route path='/coffee/:id' element={<SingleProduct />}> </Route>
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     
     </div>

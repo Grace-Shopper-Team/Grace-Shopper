@@ -5,6 +5,7 @@ import allCoffeeReducer from '../reducers/allCoffeeReducer';
 // import your reducers here
 // import yourReducer from './reducers/yourReducer'
 import singleProductReducer from '../reducers/singleProductReducer';
+import  cartSlice  from '../reducers/cartSlice';
 
 // configure store
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     auth,
     coffee: allCoffeeReducer,
     singleProduct: singleProductReducer,
+    cart: cartSlice
   },
 });
 
