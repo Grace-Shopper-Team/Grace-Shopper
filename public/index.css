@@ -1,11 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,400;0,700;1,200&display=swap');
 
+/* copied in from another project - please edit! */
+
+/* variables */
+:root {
+  --font-family: 'Source Sans Pro', sans-serif;
+  --normal-font: 500;
+  --bold-font: 700;
+  --bolder-font: 900;
+  --primary-bg: white;
+  --secondary-bg: white;
+  --transparent-bg: rgba(255, 255, 255, .78);
+  --primary-color: black;
+  --bottom-margin: 0.5rem;
+}
+
+/* resets */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: var(--font-family);
+  background-color: var(--primary-bg);
   margin: 0;
 }
 
@@ -22,3 +41,112 @@ body {
 #main-container {
   border: 1px solid;
 }
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+/* navbar */
+nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3.5rem;
+  background-color: var(--primary-bg);
+}
+
+nav h1 {
+  color: var(--primary-color);
+}
+
+nav a {
+  color: var(--primary-color);
+  transition: 0.3s;
+}
+
+.navlist a:hover {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+nav ul {
+  display: flex;
+  gap: 1.9rem;
+}
+
+nav ul li {
+  font-weight: var(--bold-font);
+}
+
+  /* hamburger menu */
+  .menu {
+      position: fixed;
+      transform: translateY(-100%);
+      transition: transform 0.2s;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 99;
+      background: var(--primary-bg);;
+      color: var(--primary-color);
+      list-style: none;
+      padding-top: 4rem;
+      visibility: hidden;
+  }
+
+  .menuItem {
+      display: block;
+      margin: 2rem 4rem;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      text-decoration: none;
+  }
+    
+  .menuItem:hover {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+  }
+    
+  .hamburger {
+      position: fixed;
+      z-index: 100;
+      top: 1rem;
+      right: 1rem;
+      padding: 4px;
+      border: 1px solid var(--primary-color);
+      background: var(--primary-bg);
+      cursor: pointer;
+      visibility: hidden;
+  }
+    
+  .closeIcon {
+      display: none;
+  }
+    
+  .showMenu {
+      transform: translateY(0);
+  }
+
+  /* only show hamburger on smaller screens */
+  @media only screen and (max-width: 600px) {
+      nav {
+          visibility: hidden;
+      }
+      .menu {
+          visibility: visible;
+      }
+      .hamburger {
+          visibility: visible;
+      }
+  }
+
