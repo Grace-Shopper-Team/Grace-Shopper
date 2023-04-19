@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "proxy": "htpp://localhost:3000",
   "scripts": {
     "start": "node server",
     "start-dev": "webpack --config webpack.config.js -w & nodemon server",

@@ -1,7 +1,7 @@
 // app
 const express = require('express');
 const path = require('path');
-const cors = require('cors')
+const cors = require('cors')  //change 
 
 // authentication
 const { authRouter } = require('./auth');
@@ -12,7 +12,7 @@ const volleyball = require('volleyball');
 // parsing middleware
 const bodyParser = require('body-parser');
 const app = express();
-app.use(cors())
+app.use(cors())  //here
 
 // static middleware
 app.use(express.static(path.join(__dirname, '../public')));

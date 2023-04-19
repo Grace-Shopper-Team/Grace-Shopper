@@ -28,7 +28,10 @@ const Cart = () => {
     {
       cartState.cartItems.map(cart => (
         <div>
-          <h4>Name: {cart.coffee.name}, quantity: {cart.quantity}, price: {cart.coffee.price}</h4>
+          <h4>Name: {cart.coffee.name}, 
+          quantity: {cart.quantity}, 
+          price: {cart.coffee.price}
+          </h4>
           <button onClick={() => removeItemFromCart(cart.cartId, cart.productId)}>Remove</button>
         </div>
       ))
