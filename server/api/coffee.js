@@ -11,6 +11,16 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const getSingleCoffee = await Coffee.findByPk(req.params.id);
+    res.send(getSingleCoffee);
+  } catch (error) {
+    console.error('error getting single coffee', error);
+    next(error);
+  }
+});
+
 router.post('/', async (req, res, next) => {});
 
 router.put('/:aId', async (req, res, next) => {});
