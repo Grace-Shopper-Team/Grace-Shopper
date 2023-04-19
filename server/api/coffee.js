@@ -4,14 +4,13 @@ const Cart= require ('../db/models/Cart')
 const Coffee= require('../db/models/Coffee')
 
 router.get('/:id', async (req, res, next) => {
-    try {
-const singleProduct = await Coffee.findOne({
-    where: {id: req.params.id},
-});
-res.send(singleProduct);
-    }catch (error) {
-        next (error)
-    }
+  try {
+    const getSingleCoffee = await Coffee.findByPk(req.params.id);
+    res.send(getSingleCoffee);
+  } catch (error) {
+    console.error('error getting single coffee', error);
+    next(error);
+  }
 });
 
 router.post('/cart', async (req, res, next) => {
