@@ -11,12 +11,12 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    fetchAllCartItems: (state, action) => {
+    // fetchAllCartItems: (state, action) => {
      
-    },
-    updateProductName: (state, action) => {
-      state.productName = action.payload
-    }
+    // },
+    // updateProductName: (state, action) => {
+    //   state.productName = action.payload
+    // }
   },
     extraReducers: (builder) => {
         builder.addCase(fetchAllCartAction.fulfilled, (state, action) => {

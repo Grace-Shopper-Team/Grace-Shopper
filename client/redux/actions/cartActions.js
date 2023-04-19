@@ -5,7 +5,7 @@ export const fetchAllCartAction = createAsyncThunk(
   'cartProducts/fetchAllCartAction',
   async (id) => {
     try {
-      const response = await axios.get(`/api/cart/${id}`);
+      const response = await axios.get(`/api/cart/cartItems/${id}`);
       console.log(response);
       return response.data;
     } catch (error) {
@@ -30,12 +30,13 @@ export const deleteCartItemAction = createAsyncThunk(
 
 export const addProductToCart = createAsyncThunk(
   'coffee/addProductToCart',
-  async ({ productId, quantity, cartId }, { rejectWithValue }) => {
+  async ({ productId, quantity, userId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/api/cart/', {
-        cartId,
+        
         productId,
         quantity,
+        userId
       });
       return data;
     } catch (error) {

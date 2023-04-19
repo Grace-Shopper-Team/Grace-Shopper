@@ -13,18 +13,27 @@ const Cart = () => {
   const cartState = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+ 
+
   useEffect(() => {
     dispatch(fetchAllCartAction(1));
-    setTimeout(() => {
-      //update function here
-      dispatch(updateProductName('Very Nice Coffee'));
-      console.log(cartState);
-    }, 5000);
+    // setTimeout(() => {
+    //   //update function here
+    //   dispatch(updateProductName('Very Nice Coffee'));
+    //   console.log(cartState);
+    // }, 5000);
   }, []);
+
+  
 
   function removeItemFromCart(cartId, productId) {
     dispatch(deleteCartItemAction({ cartId, productId }));
   }
+
+  // function startEditingQuantity(quantity) {
+  //   setEditedQuantity(quantity);
+  // }
+  
 
   return (
     <div>
@@ -41,6 +50,17 @@ const Cart = () => {
             onClick={() => removeItemFromCart(cart.cartId, cart.productId)}>
             Remove
           </button>
+          {/*<button onClick={checkout}>Checkout</button>
+           <label htmlFor='quantity'>Quantity:</label>
+              <input
+                type='number'
+                id='quantity'
+                name='quantity'
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                min='1'
+                max='10'
+              /> */}
         </div>
       ))}
     </div>

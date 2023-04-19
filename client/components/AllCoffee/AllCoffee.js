@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCoffeeAsync } from '../../redux/actions/allCoffeeActions';
 import { allCoffeeSelector } from '../../redux/reducers/allCoffeeReducer';
+import {addProductToCart}  from '../../redux/actions/cartActions';
+
 
 const AllCoffee = () => {
   const [selectedOption, setSelectedOption] = useState('default');
@@ -42,8 +44,8 @@ const AllCoffee = () => {
     setSelectedOption(event.target.value);
   };
 
-  const handleAddCartItem = (coffee) => {
-    // dispatch(AddCartItem(coffee))
+  const handleAddCartItem = (productId, quantity, userId) => {
+    dispatch(addProductToCart({productId, quantity ,userId}))
     // add erikas code
   };
 
@@ -77,7 +79,7 @@ const AllCoffee = () => {
               <p>{coffee.name}</p>
               <p>Origin: {coffee.origin}</p>
               <p>Price: ${coffee.price}</p>
-              <button onClick={() => handleAddCartItem(coffee)}>
+              <button onClick={() => handleAddCartItem(coffee.id,1,1)}>
                 Add to Cart
               </button>
             </div>
