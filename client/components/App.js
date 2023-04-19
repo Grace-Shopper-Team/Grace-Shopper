@@ -1,7 +1,6 @@
 import React from 'react';
 import Home from '../components/Home';
 import { Routes, Route } from 'react-router';
-import AllCoffee from './AllCoffee/AllCoffee';
 import { Login, Signup } from './AuthForm';
 import NavBar from './NavBar';
 
@@ -12,7 +11,8 @@ export const App = () => {
       <Routes>
         <Route path='/home' element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
+        {/* <Route path='/register' element={<Register />} />
+        <Route path='/profile/:userId' element={<Profile/>}/> */}
       </Routes>
     </div>
   );

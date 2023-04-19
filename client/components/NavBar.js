@@ -15,8 +15,14 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/home'>
           Home
         </Link>
-        <Link className='nav-bar-links' to='/account'>
-          Account
+        <Link className='nav-bar-links' to='/login'>
+          Log In
+        </Link>
+        <Link className='nav-bar-links' to='/register'>
+          Register
+        </Link>
+        <Link className='nav-bar-links' to='/profile'>
+          My Profile
         </Link>
         <Link className='nav-bar-links' to='/cart'>
           🛒

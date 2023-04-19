@@ -25,7 +25,7 @@ body {
 .logo-name {
   display: flex;
   justify-content: space-between;
-  width: 10%;
+  width: 12%;
 }
 
 #logo-img {
@@ -41,8 +41,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 10%;
+  width: 20%;
   margin-right: 20px;
+}
+
+.nav-bar-links {
+  text-decoration: none;
+  color: black;
 }
 
 /* Home Page/All Products */
