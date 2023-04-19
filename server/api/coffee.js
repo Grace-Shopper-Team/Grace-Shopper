@@ -61,7 +61,7 @@ router.post('/cart', async (req, res, next) => {
       });
     }
 
-    res.json({ message: 'Product added to cart.' });
+    res.json(shoppingCartItem);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });

@@ -22,8 +22,6 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = (productId) => {
-    console.log('inside handleaddtocart in component', productId);
-    console.log('inside handleaddtocart in component', quantity);
     dispatch(addProductToCart({ productId, quantity }));
   };
 

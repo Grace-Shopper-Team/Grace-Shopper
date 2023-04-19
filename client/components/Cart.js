@@ -10,7 +10,8 @@ import {
 } from '../redux/actions/cartActions';
 
 const Cart = () => {
-  const cartState = useSelector((state) => state.cart);
+  const cartState = useSelector((state) => state.cart.cartItems);
+  console.log('value of cartstate', cartState);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const Cart = () => {
       dispatch(updateProductName('Very Nice Coffee'));
       console.log(cartState);
     }, 5000);
-  }, []);
+  }, [dispatch]);
 
   function removeItemFromCart(cartId, productId) {
     dispatch(deleteCartItemAction({ cartId, productId }));
@@ -31,7 +32,7 @@ const Cart = () => {
       <div>Cart Page</div>
 
       <h1>Cart Items</h1>
-      {cartState.cartItems.map((cart) => (
+      {cartState.map((cart) => (
         <div key={cart.id}>
           <h4>
             Name: {cart.coffee.name}, quantity: {cart.quantity}, price:{' '}
