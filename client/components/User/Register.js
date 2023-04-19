@@ -23,18 +23,20 @@ const RegisterForm = (props) => {
   const pwdValidation = (e) => {
     if (e.target.name === 'password') {
       setPassword(e.target.value);
-      if (password.length < 8) {
+      if (e.target.value.length < 8) {
         setPwdError("Password must be at least 8 characters.");
-      } else if (password.search(/[a-z]/) < 0) {
+      } else if (e.target.value.search(/[a-z]/) < 0) {
         setPwdError("Password must contain at least one lowercase character.");
-      } else if (password.search(/[0-9]/) < 0) {
+      } else if (e.target.value.search(/[0-9]/) < 0) {
         setPwdError("Password must contain at least one number.");
-      } else if (password.search(/[A-Z]/) < 0) {
+      } else if (e.target.value.search(/[A-Z]/) < 0) {
         setPwdError("Password must contain at least one uppercase character.");
-      } else if (password.search(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) < 0) {
+      } else if (e.target.value.search(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) < 0) {
         setPwdError("Password must contain at least one special character.");
+      } else if (e.target.value !== confirmPass){
+        setPwdError("Passwords do not match.");
       } else {
-        setPwdError('')
+          setPwdError('')
       }
     } else if (e.target.name === 'confirmPass') {
       setConfirmPass(e.target.value);
@@ -194,7 +196,6 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
-
 
 const states = [
   'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
