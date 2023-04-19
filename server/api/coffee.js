@@ -1,11 +1,8 @@
 const router = require('express').Router();
 const Coffee = require('../db/models/Coffee');
-<<<<<<< HEAD
 const Cart = require('../db/models/Cart');
 const CartItem = require('../db/models/CartItem');
 const User = require('../db/models/User');
-=======
->>>>>>> 62881b6b1ec7f2e48fe8502b4f1c94e89d959109
 
 router.get('/', async (req, res, next) => {
   try {
@@ -27,7 +24,6 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
 router.post('/cart', async (req, res, next) => {
   try {
     const user = await User.findByPk(1);
@@ -71,12 +67,5 @@ router.post('/cart', async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
-=======
-router.post('/', async (req, res, next) => {});
-
-router.put('/:aId', async (req, res, next) => {});
-
-router.delete('/:aId', async (req, res, next) => {});
->>>>>>> 62881b6b1ec7f2e48fe8502b4f1c94e89d959109
 
 module.exports = router;

@@ -15,7 +15,6 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/home'>
           Home
         </Link>
-<<<<<<< HEAD
         <Link className='nav-bar-links' to='/login'>
           Log In
         </Link>
@@ -24,10 +23,6 @@ const NavBar = () => {
         </Link>
         <Link className='nav-bar-links' to='/profile'>
           My Profile
-=======
-        <Link className='nav-bar-links' to='/account'>
-          Account
->>>>>>> 62881b6b1ec7f2e48fe8502b4f1c94e89d959109
         </Link>
         <Link className='nav-bar-links' to='/cart'>
           🛒

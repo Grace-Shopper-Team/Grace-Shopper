@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 const db = require('./server/db/db');
 const Coffee = require('./server/db/models/Coffee');
 const Cart = require('./server/db/models/Cart');
 const CartItem = require('./server/db/models/CartItem');
 const User = require('./server/db/models/User');
-=======
-const { User, Cart, CartItem, Coffee } = require('./models');
-const db = require('./server/db/db');
->>>>>>> 62881b6b1ec7f2e48fe8502b4f1c94e89d959109
 
 const coffeeData = [
   {

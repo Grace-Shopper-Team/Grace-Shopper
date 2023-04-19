@@ -15,7 +15,6 @@ const AllCoffee = () => {
     dispatch(fetchAllCoffeeAsync());
   }, [dispatch]);
 
-<<<<<<< HEAD
   // sorting
   const sortedCoffee = coffees.slice().sort((a, b) => {
     if (selectedOption === 'default') return a.id - b.id;
@@ -32,18 +31,6 @@ const AllCoffee = () => {
   );
 
   // pagination
-=======
-  const sortedCoffee = coffees.slice().sort((a, b) => {
-    if (selectedOption === 'default') return a.id - b.id;
-    if (selectedOption === 'price') return a.price - b.price;
-    if (selectedOption === 'name') return a.name.localeCompare(b.name);
-  });
-
-  const filteredCoffee = sortedCoffee.filter((coffee) =>
-    coffee.name.toLowerCase().includes(search.toLowerCase())
-  );
-
->>>>>>> 62881b6b1ec7f2e48fe8502b4f1c94e89d959109
   const indexOfLastCoffee = currentPage * coffeesPerPage;
   const indexOfFirstCoffee = indexOfLastCoffee - coffeesPerPage;
   const currentCoffees = filteredCoffee.slice(
@@ -71,15 +58,10 @@ const AllCoffee = () => {
           <span>Sort By: </span>
           <select value={selectedOption} onChange={handleSort}>
             <option value='default'>Default</option>
-<<<<<<< HEAD
             <option value='lowprice'>Price Lowest to Highest</option>
             <option value='highprice'>Price Highest to Lowest</option>
             <option value='name-az'>Name A-Z</option>
             <option value='name-za'>Name Z-A</option>
-=======
-            <option value='price'>Price</option>
-            <option value='name'>Name</option>
->>>>>>> 62881b6b1ec7f2e48fe8502b4f1c94e89d959109
           </select>
         </div>
         <div className='search'>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import AllCoffee from './AllCoffee/AllCoffee';
 import { Routes, Route, NavLink, useParams } from 'react-router-dom';
@@ -14,12 +13,6 @@ const Home = () => {
   //   dispatch(fetchAllCartAction(2));
   // }, [dispatch, 2]);
 
-=======
-import React from 'react';
-import AllCoffee from './AllCoffee/AllCoffee';
-
-const Home = () => {
->>>>>>> 62881b6b1ec7f2e48fe8502b4f1c94e89d959109
   return (
     <div>
       <AllCoffee />
