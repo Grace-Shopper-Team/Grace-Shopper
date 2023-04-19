@@ -46,8 +46,6 @@ const RegisterForm = (props) => {
     }
   }
   
-
-
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -139,6 +137,28 @@ const mapRegister = (state) => {
   };
 };
 
+// const mapDispatch = (dispatch) => {
+//   return {
+//     handleSubmit(evt) {
+//       evt.preventDefault();
+//       const formName = evt.target.name;
+//       const username = evt.target.username.value;
+//       const password = evt.target.password.value;
+//       dispatch(authenticate(username, password, formName))
+//         .then(() => {
+//           const token = localStorage.getItem('token');
+//           const decodedToken = jwt_decode(token);
+//           console.log("token", decodedToken)
+//           const userID = decodedToken.id;
+//           window.location = `/profile/${userID}`;
+//         })
+//         .catch((error) => {
+//           console.error(error);
+//         });
+//     },
+//   };
+// };
+
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
@@ -146,20 +166,35 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName))
-        .then(() => {
-          const token = localStorage.getItem('token');
-          const decodedToken = jwt_decode(token);
-          console.log("token", decodedToken)
-          const userID = decodedToken.id;
-          window.location = `/profile/${userID}`;
+
+      // check if the username already exists in the database
+      fetch(`/api/users?username=${username}`)
+        .then((response) => {
+          if (response.ok) {
+            // if username is available, dispatch the authenticate action
+            return dispatch(authenticate(username, password, formName))
+              .then(() => {
+                const token = localStorage.getItem('token');
+                const decodedToken = jwt_decode(token);
+                console.log("token", decodedToken)
+                const userID = decodedToken.id;
+                window.location = `/profile/${userID}`;
+              })
+              .catch((err) => console.error(err));
+          } else {
+            // if username is already taken, display an error message
+            throw new Error('Username is already taken. Please select a different username.');
+          }
         })
-        .catch((error) => {
-          console.error(error);
+        .catch((err) => {
+          console.error(err);
+          // display the error message
+          alert(err.message);
         });
     },
   };
 };
+
 
 const states = [
   'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
