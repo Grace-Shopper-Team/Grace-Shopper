@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const User = require('../db/models/User');
+// const { authenticate } = require('../auth');
 
-router.get('/users/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     if (!user) {
@@ -13,4 +14,5 @@ router.get('/users/:id', async (req, res, next) => {
     next(err);
   }
 });
+
 module.exports = router;
