@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { fetchSingleProduct , addProductToCart} from '../../redux/actions/singleProductActions'
 
+
+
  const SingleProduct = () => {
     const { id: productId } = useParams();
     const dispatch = useDispatch();
@@ -25,7 +27,7 @@ const handleAddToCart = (productId) => {
 return (
   <div className='product-container'>
     <div className='back-btn'>
-      <Link to={'/allcoffee'}>back</Link>
+      <Link id='back-btn' to={'/coffee'}> ⇦ Back</Link>
     </div>
     {singleProduct ? (
       <>
