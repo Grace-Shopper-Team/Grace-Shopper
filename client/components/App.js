@@ -13,7 +13,7 @@ export const App = () => {
     <div id='app-container'>
       <NavBar />
       <Routes>
-        <Route path='/coffee' element={<Home />} />
+        <Route path='/home' element={<Home />} />
         <Route path='/coffee/:id' element={<SingleProduct />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
