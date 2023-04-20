@@ -20,6 +20,7 @@ export const App = () => {
         <Route path='/profile/:userID' element={<Profile />} />
         <Route path='/cart' element={<Cart />} />
       </Routes>
+    
     </div>
   );
 };
