@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchAllCartItems,
@@ -10,19 +10,25 @@ import {
 } from '../redux/actions/cartActions';
 
 const Cart = () => {
-  const cartState = useSelector((state) => state.cart);
+  const [loading, setLoading] = useState(true);
+  const cartState = useSelector((state) => state.cart.cartItems);
+  console.log('value of cartstate', cartState);
   const dispatch = useDispatch();
 
  
 
   useEffect(() => {
-    dispatch(fetchAllCartAction(1));
-    // setTimeout(() => {
-    //   //update function here
-    //   dispatch(updateProductName('Very Nice Coffee'));
-    //   console.log(cartState);
-    // }, 5000);
-  }, []);
+    dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
+  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllCartAction(1));
+  //   // setTimeout(() => {
+  //   //   //update function here
+  //   //   dispatch(updateProductName('Very Nice Coffee'));
+  //   //   console.log(cartState);
+  //   // }, 5000);
+  // }, [dispatch]);
+
 
   
 
@@ -40,31 +46,23 @@ const Cart = () => {
       <div>Cart Page</div>
 
       <h1>Cart Items</h1>
-      {cartState.cartItems.map((cart) => (
-        <div key={cart.id}>
-          <h4>
-            Name: {cart.coffee.name}, quantity: {cart.quantity}, price:{' '}
-            {cart.coffee.price}
-          </h4>
-          <button
-            onClick={() => removeItemFromCart(cart.cartId, cart.productId)}>
-            Remove
-          </button>
-          {/*<button onClick={checkout}>Checkout</button>
-           <label htmlFor='quantity'>Quantity:</label>
-              <input
-                type='number'
-                id='quantity'
-                name='quantity'
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                min='1'
-                max='10'
-              /> */}
-        </div>
-      ))}
+      {!loading &&
+        cartState.map((cart) => (
+          <div key={cart.id}>
+            <h4>
+              Name: {cart.coffee.name}, quantity: {cart.quantity}, price:{' '}
+              {cart.coffee.price}
+            </h4>
+            <button
+              onClick={() => removeItemFromCart(cart.cartId, cart.productId)}>
+              Remove
+            </button>
+          </div>
+        ))}
+
     </div>
   );
 };
 
 export default Cart;
+

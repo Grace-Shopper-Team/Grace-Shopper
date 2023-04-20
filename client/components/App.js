@@ -7,9 +7,8 @@ import { Register } from './User/Register';
 import { Profile } from './User/Profile';
 import Cart from './Cart';
 import NavBar from './NavBar';
-
-// still need to add permissions
 import AllUsers from './User/AllUsers';
+
 
 export const App = () => {
   return (
@@ -24,6 +23,7 @@ export const App = () => {
         <Route path='/cart' element={<Cart />} />
         <Route path='/users/admin' element={<AllUsers />} />
       </Routes>
+    
     </div>
   );
 };

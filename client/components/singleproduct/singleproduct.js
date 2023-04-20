@@ -5,6 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 import {
   fetchSingleProduct,
   addProductToCart,
+  deleteProduct,
 } from '../../redux/actions/singleProductActions';
 
 const SingleProduct = () => {
@@ -22,16 +23,20 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = (productId) => {
-    dispatch(
-      addProductToCart({ productId: singleProduct.id, quantity, cartId })
-    );
+    dispatch(addProductToCart({ productId, quantity }));
   };
+  const handleDelete = (productId) => {
+    dispatch(deleteProduct(productId));
+  };
+
+//   const isAdmin = user && user.isAdmin;
+const isAdmin= true
+
 
   return (
     <div className='product-container'>
       <div className='back-btn'>
         <Link id='back-btn' to={'/home'}>
-          {' '}
           ⇦ Back
         </Link>
       </div>
@@ -46,7 +51,11 @@ const SingleProduct = () => {
           <p>{singleProduct.price}</p>
           <p>{singleProduct.description}</p>
           <div>
-            <form onSubmit={() => handleAddToCart(productId)}>
+            <form id='spform'
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleAddToCart(singleProduct.id);
+              }}>
               <label htmlFor='quantity'>Quantity:</label>
               <input
                 type='number'
@@ -58,11 +67,20 @@ const SingleProduct = () => {
                 max='10'
               />
 
-              <button id='add-cart' type='submit'>
+              <button className='spstyle' type='submit'>
                 Add To Cart
               </button>
-            </form>{' '}
+            </form>
           </div>
+          {isAdmin && (
+            <>
+            <div className='styles.admin-buttons'>
+              <button className='spstyle' onClick={() => handleDelete(singleProduct.id)}>
+                Delete
+              </button>
+              <button className='spstyle' onClick={() => console.log('edit')}>Edit</button>
+            </div> </>
+          )}
         </>
       ) : (
         <p>No data available</p>
