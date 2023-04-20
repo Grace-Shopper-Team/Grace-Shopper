@@ -7,11 +7,8 @@ import { Register } from './User/Register';
 import { Profile } from './User/Profile';
 import Cart from './Cart';
 import NavBar from './NavBar';
-<<<<<<< HEAD
-=======
 import AllUsers from './User/AllUsers';
 
->>>>>>> main
 
 export const App = () => {
   return (

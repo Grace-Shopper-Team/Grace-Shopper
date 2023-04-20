@@ -28,11 +28,6 @@ export const addProductToCart = createAsyncThunk(
     } catch (error) {
       console.error(error);
       return rejectWithValue('Unable to add product to cart');
-<<<<<<< HEAD
-    }
-  }
-);
-=======
     }
   }
 );
@@ -47,4 +42,3 @@ export const deleteProduct = createAsyncThunk(
       }
     }
   );
->>>>>>> main
