@@ -1,68 +1,59 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetchAllCartItems,
-  updateProductName,
-} from '../redux/reducers/cartSlice';
-import {
   deleteCartItemAction,
   fetchAllCartAction,
+  //updateCartItemAction
 } from '../redux/actions/cartActions';
+import { selectCart } from '../redux/reducers/cartSlice';
+import Checkout from './checkout';
 
 const Cart = () => {
-  const cartState = useSelector((state) => state.cart);
+  const cartState = useSelector(selectCart);
   const dispatch = useDispatch();
-
- 
 
   useEffect(() => {
     dispatch(fetchAllCartAction(1));
-    // setTimeout(() => {
-    //   //update function here
-    //   dispatch(updateProductName('Very Nice Coffee'));
-    //   console.log(cartState);
-    // }, 5000);
   }, []);
-
-  
 
   function removeItemFromCart(cartId, productId) {
     dispatch(deleteCartItemAction({ cartId, productId }));
   }
 
-  // function startEditingQuantity(quantity) {
-  //   setEditedQuantity(quantity);
-  // }
-  
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(updateCartItemAction({ cartId, productId })); // cartId product id
+  }; 
 
   return (
-    <div>
-      <div>Cart Page</div>
+    <div class="Shopping-Cart">
+      <h1>Shopping Cart</h1>
 
-      <h1>Cart Items</h1>
+      <h2>Cart Items</h2>
       {cartState.cartItems.map((cart) => (
         <div key={cart.id}>
           <h4>
             Name: {cart.coffee.name}, quantity: {cart.quantity}, price:{' '}
             {cart.coffee.price}
           </h4>
+{/*         I need To Fix the edit Input */}   
+            <label id="Edit-Cart" onSubmit={handleSubmit}>
+            Quantity:
+            <input
+            name="number"
+            value={cart.quantity}
+            onChange={(e) =>
+              (cart.cartId, cart.productId, e.target.value)
+            }
+            />
+          </label> 
           <button
             onClick={() => removeItemFromCart(cart.cartId, cart.productId)}>
             Remove
           </button>
-          {/*<button onClick={checkout}>Checkout</button>
-           <label htmlFor='quantity'>Quantity:</label>
-              <input
-                type='number'
-                id='quantity'
-                name='quantity'
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                min='1'
-                max='10'
-              /> */}
         </div>
       ))}
+    <Checkout cartState={cartState}/>
     </div>
   );
 };

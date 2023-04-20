@@ -22,10 +22,6 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
-  
-
-  
-
 router.put('/:bId', async (req, res, next) => {});
 
 router.delete('/:bId', async (req, res, next) => {});

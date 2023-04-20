@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+//Action for Cart products
 export const fetchAllCartAction = createAsyncThunk(
   'cartProducts/fetchAllCartAction',
   async (id) => {
@@ -14,6 +15,24 @@ export const fetchAllCartAction = createAsyncThunk(
   }
 );
 
+/* //Action for update a product Need To work on it (Not Working)
+export const updateCartItemAction = createAsyncThunk(
+  'cartProducts/updateCartItemAction',
+  async ({ cartId, productId, quantity }) => {
+    try {
+      const response = await axios.put(`/api/cart/${cartId}/${productId}`, {
+        quantity,
+      });
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error('error', error);
+      return rejectWithValue('Unable to update cart item');
+    }
+  }
+); */
+
+//Action for deleting a product
 export const deleteCartItemAction = createAsyncThunk(
   'cartProducts/deleteCartItemAction',
   async (param) => {
@@ -46,14 +65,3 @@ export const addProductToCart = createAsyncThunk(
   }
 );
 
-// export const deleteProductCart = createAsyncThunk(
-//   "deleteProductCart",
-//   async (id) => {
-//     try {
-//       await axios.delete(`/api/cart/${id}`);
-//       return id;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-// );

@@ -18,7 +18,7 @@ export const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/profile/:userID' element={<Profile />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/checkout' element={<Checkout />}/>
+      
       </Routes>
     </div>
   );
