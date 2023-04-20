@@ -41,6 +41,13 @@ const AllCoffee = () => {
     indexOfLastCoffee
   );
 
+  // dummy user
+  const loggedInUser = {
+    id: 1,
+    name: 'John Doe',
+    isAdmin: true,
+  };
+
   const handleSort = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -82,6 +89,14 @@ const AllCoffee = () => {
               <button onClick={() => handleAddToCart(coffee.id)}>
                 Add to Cart
               </button>
+              {loggedInUser.isAdmin ? (
+                <div>
+                  <button>❌</button>
+                  <span>Stock: {coffee.stock}</span>
+                </div>
+              ) : (
+                <span></span>
+              )}
             </div>
           ))
         ) : (
