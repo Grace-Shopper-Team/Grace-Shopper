@@ -15,7 +15,9 @@ export const singleProductSlice = createSlice({
         builder.addCase(addProductToCart.fulfilled, (state, action) => {
             state.cart.push(action.payload); 
         });
+    
     }
 });
+export const cartSelector = (state) => state.singleProduct.cart;
 
 export default singleProductSlice.reducer;

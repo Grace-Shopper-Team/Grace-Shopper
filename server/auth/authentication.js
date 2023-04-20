@@ -48,5 +48,5 @@ User.addHook('beforeSave', hashPassword);
 
 module.exports = {
   User,
-  hashPassword,
+  hashPassword
 };

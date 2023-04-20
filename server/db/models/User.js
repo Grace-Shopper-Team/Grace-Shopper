@@ -24,6 +24,12 @@ const User = db.define('user', {
       isEmail: true,
     },
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+
 });
 
 module.exports = User;
