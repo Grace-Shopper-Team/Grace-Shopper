@@ -10,7 +10,7 @@ import Checkout from './checkout';
 
 const Cart = () => {
   const [loading, setLoading] = useState(true);
-  const cartState = useSelector((state) => state.cart.cartItems);
+  const cartState = useSelector(selectCart);
   console.log('value of cartstate', cartState);
 
   const dispatch = useDispatch();
@@ -29,11 +29,11 @@ const Cart = () => {
   };
 
   return (
-    <div class='Shopping-Cart'>
+    <div className='Shopping-Cart'>
       <h1>Shopping Cart</h1>
 
       <h2>Cart Items</h2>
-      {cartState.cartItems.map((cart) => (
+      {cartState.map((cart) => (
         <div key={cart.id}>
           <h4>
             Name: {cart.coffee.name}, quantity: {cart.quantity}, price:{' '}
@@ -54,7 +54,7 @@ const Cart = () => {
           </button>
         </div>
       ))}
-      <Checkout cartState={cartState} />
+      {/* <Checkout cartState={cartState} /> */}
     </div>
   );
 };

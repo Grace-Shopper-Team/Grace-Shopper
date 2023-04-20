@@ -31,14 +31,3 @@ export const addProductToCart = createAsyncThunk(
     }
   }
 );
-export const deleteProduct = createAsyncThunk(
-    'coffee/deleteProduct',
-    async (productId) => {
-      try {
-        await axios.delete(`/api/coffee/${productId}`);
-        return productId;
-      } catch (error) {
-        console.error('error deleting product', error);
-      }
-    }
-  );

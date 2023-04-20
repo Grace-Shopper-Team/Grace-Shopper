@@ -29,9 +29,8 @@ const SingleProduct = () => {
     dispatch(deleteProduct(productId));
   };
 
-//   const isAdmin = user && user.isAdmin;
-const isAdmin= true
-
+  //   const isAdmin = user && user.isAdmin;
+  const isAdmin = true;
 
   return (
     <div className='product-container'>
@@ -51,7 +50,8 @@ const isAdmin= true
           <p>{singleProduct.price}</p>
           <p>{singleProduct.description}</p>
           <div>
-            <form id='spform'
+            <form
+              id='spform'
               onSubmit={(e) => {
                 e.preventDefault();
                 handleAddToCart(singleProduct.id);
@@ -75,11 +75,6 @@ const isAdmin= true
           {isAdmin && (
             <>
               <div className='styles.admin-buttons'>
-                <button
-                  className='spstyle'
-                  onClick={() => handleDelete(singleProduct.id)}>
-                  Delete
-                </button>
                 <button className='spstyle' onClick={() => console.log('edit')}>
                   Edit
                 </button>
