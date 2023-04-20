@@ -214,11 +214,7 @@ const users = [
     firstName: 'John',
     lastName: 'Doe',
     email: 'user1@example.com',
-<<<<<<< HEAD
-    isAdmin: true,
-=======
-    isAdmin: false
->>>>>>> main
+    isAdmin: false,
   },
   {
     username: 'user2',
@@ -226,10 +222,7 @@ const users = [
     firstName: 'Jane',
     lastName: 'Doe',
     email: 'user2@example.com',
-<<<<<<< HEAD
     isAdmin: false,
-=======
-    isAdmin: false
   },
   {
     username: 'admin1',
@@ -237,8 +230,7 @@ const users = [
     firstName: 'Admin',
     lastName: 'Admin',
     email: 'admin@example.com',
-    isAdmin: true
->>>>>>> main
+    isAdmin: true,
   },
 ];
 
@@ -270,4 +262,3 @@ const seed = async () => {
 };
 
 seed();
-
