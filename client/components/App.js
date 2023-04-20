@@ -8,6 +8,9 @@ import { Profile } from './User/Profile';
 import Cart from './Cart';
 import NavBar from './NavBar';
 
+// still need to add permissions
+import AllUsers from './User/AllUsers';
+
 export const App = () => {
   return (
     <div id='app-container'>
@@ -19,6 +22,7 @@ export const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/profile/:userID' element={<Profile />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/users/admin' element={<AllUsers />} />
       </Routes>
     </div>
   );
