@@ -29,6 +29,10 @@ const User = db.define('user', {
     allowNull: false,
     defaultValue: false,
   },
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 });
 
 module.exports = User;

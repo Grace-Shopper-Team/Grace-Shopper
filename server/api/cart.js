@@ -17,6 +17,68 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/cartItems/:userId', async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    let shoppingCart = await Cart.findOne({
+      where: { userId },
+    });
+    if (!shoppingCart) {
+      // Create a new shopping cart object if none exists for the user
+      res.status(204).json({ error: 'Not founded a cart asociated to this user.' });
+    }
+    // Check if the product already exists in the shopping cart
+    const shoppingCartItems = await CartItem.findAll({
+      where: {
+        cartId: shoppingCart.id,
+      },
+      include: [
+        {
+          model: Coffee,
+          attributes: ['name', 'price', 'imageUrl', 'stock'],
+        },
+      ],
+    });
+    if (shoppingCartItems) {
+      res.json(shoppingCartItems);
+    } else {
+      res.status(204).json({ error: 'there are not products in cart.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+// update quantity inside the Cart (Need to work on the update input)
+/* router.post('/:cartID/:productID', async (req, res, next) => {
+  try {
+    const { cartID, productID } = req.params;
+    const { quantity } = req.body;
+    const cart = await Cart.findByPk(cartID);
+    if (!cart) {
+      return res.status(404).json({ error: 'Cart not found.' });
+    }
+    const cartItem = await CartItem.findOne({
+      where: {
+        cartId: cartID,
+        productId: productID,
+      },
+    });
+    if (!cartItem) {
+      return res.status(404).json({ error: 'Product not found inside the cart.' });
+    }
+    cartItem.quantity = quantity;
+    await cartItem.save();
+    res.json({ message: 'Product quantity updated in cart.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+ */
+
 router.get('/:cartID', async (req, res, next) => {
   try {
     const getAll = await CartItem.findAll({
@@ -58,26 +120,43 @@ router.get('/:cartID/:productID', async (req, res, next) => {
   }
 });
 
-// POST /api/campuses/update
-router.post('/update', async (req, res, next) => {
+
+router.post('/', async (req, res, next) => {
   try {
-    console.log(req.body);
-    const data = {
-      name: req.body.name,
-      address: req.body.address,
-    };
-    await Campus.update(data, {
-      where: {
-        id: req.body.id,
+    const { productId, quantity, userId } = req.body;
+    //const userId = req.session.userId;
+
+    let shoppingCart = await Cart.findOne({
+      where: { userId },
+    });
+    if (!shoppingCart) {
+      shoppingCart = await Cart.create({
+        userId,
+      });
+    }
+    const shoppingCartItem = await CartItem.findOne({
+      where: { 
+        cartId: shoppingCart.id, 
+        productId: productId 
       },
     });
-    //const student = await Student.findByPk(req.body.id)
-    //res.sendStatus(200);
-    res.status(201).send(req.body);
+    if (shoppingCartItem) {
+      shoppingCartItem.quantity += quantity;
+      await shoppingCartItem.save();
+    } else {
+      await CartItem.create({
+        cartId: shoppingCart.id,
+        productId,
+        quantity,
+      });
+    }
+    res.json({ message: 'Product added to cart.' });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error.' });
   }
 });
+
 
 router.delete('/:cartID/:productID', async (req, res, next) => {
   try {

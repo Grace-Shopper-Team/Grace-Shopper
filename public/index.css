@@ -224,7 +224,10 @@ nav ul li {
           visibility: visible;
       }
   } */
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 /* SingleProduct.module.css */
 .product-container {
   display: flex;
@@ -237,7 +240,10 @@ nav ul li {
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   max-width: 600px;
   margin: 0 auto;
+<<<<<<< HEAD
   margin-top: 20px;
+=======
+>>>>>>> main
 }
 
 .back-btn {
@@ -275,6 +281,10 @@ p {
   margin-bottom: 10px;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 input[type='number'] {
   width: 60px;
   margin-right: 10px;
@@ -298,6 +308,18 @@ input[type='number'] {
   gap: 5px; /* Add some gap between the buttons */
 }
 
+<<<<<<< HEAD
 button:hover {
   background-color: gray;
 }
+=======
+
+button:hover {
+  background-color: gray;
+}
+
+
+
+
+
+>>>>>>> main

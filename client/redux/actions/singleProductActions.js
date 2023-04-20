@@ -28,6 +28,23 @@ export const addProductToCart = createAsyncThunk(
     } catch (error) {
       console.error(error);
       return rejectWithValue('Unable to add product to cart');
+<<<<<<< HEAD
     }
   }
 );
+=======
+    }
+  }
+);
+export const deleteProduct = createAsyncThunk(
+    'coffee/deleteProduct',
+    async (productId) => {
+      try {
+        await axios.delete(`/api/coffee/${productId}`);
+        return productId;
+      } catch (error) {
+        console.error('error deleting product', error);
+      }
+    }
+  );
+>>>>>>> main
