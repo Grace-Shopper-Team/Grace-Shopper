@@ -22,11 +22,8 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/login'>
           Log In
         </Link>
-        <Link className='nav-bar-links' to='/register'>
-          Register
-        </Link>
         {/* update this to direct to profile/:userID */}
-        <Link className='nav-bar-links' to='/profile'>
+        <Link className='nav-bar-links' to='/profile/:userId'>
           My Profile
         </Link>
         <Link className='nav-bar-links' to='/cart'>
