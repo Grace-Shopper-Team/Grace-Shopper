@@ -59,25 +59,25 @@ router.get('/:cartID/:productID', async (req, res, next) => {
 });
 
 // POST /api/campuses/update
-router.post('/update', async (req, res, next) => {
-  try {
-    console.log(req.body);
-    const data = {
-      name: req.body.name,
-      address: req.body.address,
-    };
-    await Campus.update(data, {
-      where: {
-        id: req.body.id,
-      },
-    });
-    //const student = await Student.findByPk(req.body.id)
-    //res.sendStatus(200);
-    res.status(201).send(req.body);
-  } catch (error) {
-    next(error);
-  }
-});
+// router.post('/update', async (req, res, next) => {
+//   try {
+//     console.log(req.body);
+//     const data = {
+//       name: req.body.name,
+//       address: req.body.address,
+//     };
+//     await Campus.update(data, {
+//       where: {
+//         id: req.body.id,
+//       },
+//     });
+//     //const student = await Student.findByPk(req.body.id)
+//     //res.sendStatus(200);
+//     res.status(201).send(req.body);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 router.delete('/:cartID/:productID', async (req, res, next) => {
   try {

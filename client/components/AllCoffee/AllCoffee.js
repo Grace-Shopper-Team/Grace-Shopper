@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCoffeeAsync } from '../../redux/actions/allCoffeeActions';
 import { allCoffeeSelector } from '../../redux/reducers/allCoffeeReducer';
+import { addProductToCart } from '../../redux/actions/singleProductActions';
+import { cartSelector } from '../../redux/reducers/singleProductReducer';
+import { Link } from 'react-router-dom';
 
 const AllCoffee = () => {
   const [selectedOption, setSelectedOption] = useState('default');
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const cart = useSelector(cartSelector);
   const coffees = useSelector(allCoffeeSelector);
   const dispatch = useDispatch();
   const coffeesPerPage = 6;
@@ -42,9 +46,8 @@ const AllCoffee = () => {
     setSelectedOption(event.target.value);
   };
 
-  const handleAddCartItem = (coffee) => {
-    // dispatch(AddCartItem(coffee))
-    // add erikas code
+  const handleAddToCart = (productId) => {
+    dispatch(addProductToCart({ productId, quantity: 1 }));
   };
 
   const handlePageChange = (pageNumber) => {
@@ -73,11 +76,13 @@ const AllCoffee = () => {
         {coffees ? (
           currentCoffees.map((coffee) => (
             <div key={coffee.id} className='coffee-container'>
+              <Link to={`/coffee/${coffee.id}`}>
               <img className='coffee-img' src={coffee.imageUrl} />
               <p>{coffee.name}</p>
               <p>Origin: {coffee.origin}</p>
               <p>Price: ${coffee.price}</p>
-              <button onClick={() => handleAddCartItem(coffee)}>
+              </Link>
+              <button onClick={() => handleAddToCart(coffee.id)}>
                 Add to Cart
               </button>
             </div>

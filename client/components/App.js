@@ -6,10 +6,12 @@ import { Login } from './Login';
 import { Register } from './Register';
 import { Profile } from './Profile';
 import Cart from './Cart';
+import NavBar from './NavBar';
 
 export const App = () => {
   return (
     <div id='app-container'>
+      <NavBar />
       <Routes>
         <Route path='/home' element={<Home />} />
         <Route path='/coffee/:id' element={<SingleProduct />} />
