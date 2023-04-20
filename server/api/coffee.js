@@ -40,27 +40,27 @@ router.post('/cart', async (req, res, next) => {
       shoppingCart = await Cart.create({
         userId,
       });
-
-      // Check if the product already exists in the shopping cart
-      const shoppingCartItem = await CartItem.findOne({
-        where: { cartId: shoppingCart.id, productId },
-      });
-
-      if (shoppingCartItem) {
-        // Update the quantity of the product in the shopping cart
-        shoppingCartItem.quantity += quantity;
-        await shoppingCartItem.save();
-      } else {
-        // Create a new shopping cart item with the product and its quantity
-        await CartItem.create({
-          cartId: shoppingCart.id,
-          productId,
-          quantity,
-        });
-      }
-
-      res.json(shoppingCartItem);
     }
+
+    // Check if the product already exists in the shopping cart
+    const shoppingCartItem = await CartItem.findOne({
+      where: { cartId: shoppingCart.id, productId },
+    });
+
+    if (shoppingCartItem) {
+      // Update the quantity of the product in the shopping cart
+      shoppingCartItem.quantity += quantity;
+      await shoppingCartItem.save();
+    } else {
+      // Create a new shopping cart item with the product and its quantity
+      await CartItem.create({
+        cartId: shoppingCart.id,
+        productId,
+        quantity,
+      });
+    }
+
+    res.json(shoppingCartItem);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });

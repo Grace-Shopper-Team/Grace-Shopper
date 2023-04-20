@@ -54,6 +54,7 @@ const AllCoffee = () => {
   };
 
   const handleAddToCart = (productId) => {
+    console.log('inside of handleaddtocart', productId);
     dispatch(addProductToCart({ productId, quantity: 1 }));
   };
 
