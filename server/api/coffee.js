@@ -35,6 +35,8 @@ router.post('/cart', async (req, res, next) => {
       where: { userId },
     });
 
+
+router.put('/:bId', async (req, res, next) => {});
     //******/
     if (!shoppingCart) {
       // Create a new shopping cart object if none exists for the user
@@ -59,7 +61,7 @@ router.post('/cart', async (req, res, next) => {
         quantity,
       });
     }
-
+    
     res.json(shoppingCartItem);
   } catch (error) {
     console.error(error);

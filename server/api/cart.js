@@ -17,17 +17,12 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-
 router.get('/cartItems/:userId', async (req, res, next) => {
   try {
-    //const {userId } = req.body;
     const userId = req.params.userId;
-    //const userId = req.session.userId;
-
     let shoppingCart = await Cart.findOne({
       where: { userId },
     });
- //******/
     if (!shoppingCart) {
       // Create a new shopping cart object if none exists for the user
       res.status(204).json({ error: 'Not founded a cart asociated to this user.' });
@@ -49,13 +44,40 @@ router.get('/cartItems/:userId', async (req, res, next) => {
     } else {
       res.status(204).json({ error: 'there are not products in cart.' });
     }
-   
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
 
+// update quantity inside the Cart (Need to work on the update input)
+/* router.post('/:cartID/:productID', async (req, res, next) => {
+  try {
+    const { cartID, productID } = req.params;
+    const { quantity } = req.body;
+    const cart = await Cart.findByPk(cartID);
+    if (!cart) {
+      return res.status(404).json({ error: 'Cart not found.' });
+    }
+    const cartItem = await CartItem.findOne({
+      where: {
+        cartId: cartID,
+        productId: productID,
+      },
+    });
+    if (!cartItem) {
+      return res.status(404).json({ error: 'Product not found inside the cart.' });
+    }
+    cartItem.quantity = quantity;
+    await cartItem.save();
+    res.json({ message: 'Product quantity updated in cart.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+ */
 
 router.get('/:cartID', async (req, res, next) => {
   try {
@@ -107,14 +129,11 @@ router.post('/', async (req, res, next) => {
     let shoppingCart = await Cart.findOne({
       where: { userId },
     });
- //******/
     if (!shoppingCart) {
-      // Create a new shopping cart object if none exists for the user
       shoppingCart = await Cart.create({
         userId,
       });
     }
-    // Check if the product already exists in the shopping cart
     const shoppingCartItem = await CartItem.findOne({
       where: { 
         cartId: shoppingCart.id, 
@@ -122,11 +141,9 @@ router.post('/', async (req, res, next) => {
       },
     });
     if (shoppingCartItem) {
-      // Update the quantity of the product in the shopping cart
       shoppingCartItem.quantity += quantity;
       await shoppingCartItem.save();
     } else {
-      // Create a new shopping cart item with the product and its quantity
       await CartItem.create({
         cartId: shoppingCart.id,
         productId,
