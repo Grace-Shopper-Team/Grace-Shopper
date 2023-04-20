@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  addProductToCart,
+  fetchAllCartAction,
+  deleteProductCart,
+  deleteCartItemAction,
+} from '../actions/cartActions';
+=======
 import {  createSlice } from '@reduxjs/toolkit'
 import {  addProductToCart, 
           fetchAllCartAction, 
@@ -5,12 +14,17 @@ import {  addProductToCart,
           deleteCartItemAction,
           updateCartItemAction
 } from "../actions/cartActions";
+>>>>>>> main
 
 const initialState = {
   cartItems: [],
   product: null,
   productName: '',
+<<<<<<< HEAD
+};
+=======
 }
+>>>>>>> main
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -45,6 +59,38 @@ const cartSlice = createSlice({
 
   reducers: {
     fetchAllCartItems: (state, action) => {},
+<<<<<<< HEAD
+    updateProductName: (state, action) => {
+      state.productName = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchAllCartAction.fulfilled, (state, action) => {
+      state.cartItems = action.payload;
+    });
+
+    builder.addCase(deleteCartItemAction.fulfilled, (state, action) => {
+      const newCartItemState = state.cartItems.filter(
+        (cart) => cart.productId != action.payload.productId
+      );
+      state.cartItems = newCartItemState;
+    });
+    // builder.addCase(fetchProductCart.fulfilled, (state, action) => {
+    //     state.cart = action.payload;
+    // });
+    builder.addCase(addProductToCart.fulfilled, (state, action) => {
+      state.cartItems.push(action.payload);
+    });
+  },
+});
+
+//export const { todoAdded, todoToggled, todosLoading } = todosSlice.actions
+
+export const { fetchAllCartItems, updateProductName } = cartSlice.actions;
+export default cartSlice.reducer;
+
+//https://redux.js.org/tutorials/fundamentals/part-8-modern-redux
+=======
 
     updateProductName: (state, action) => {
       state.productName = action.payload;
@@ -73,3 +119,4 @@ export const selectCart = (state) => {
 };
 export default cartSlice.reducer
 
+>>>>>>> main

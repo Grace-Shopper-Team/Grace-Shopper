@@ -214,7 +214,11 @@ const users = [
     firstName: 'John',
     lastName: 'Doe',
     email: 'user1@example.com',
+<<<<<<< HEAD
+    isAdmin: true,
+=======
     isAdmin: false
+>>>>>>> main
   },
   {
     username: 'user2',
@@ -222,6 +226,9 @@ const users = [
     firstName: 'Jane',
     lastName: 'Doe',
     email: 'user2@example.com',
+<<<<<<< HEAD
+    isAdmin: false,
+=======
     isAdmin: false
   },
   {
@@ -231,6 +238,7 @@ const users = [
     lastName: 'Admin',
     email: 'admin@example.com',
     isAdmin: true
+>>>>>>> main
   },
 ];
 

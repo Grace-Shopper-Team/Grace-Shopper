@@ -9,6 +9,24 @@ import { selectCart } from '../redux/reducers/cartSlice';
 import Checkout from './checkout';
 
 const Cart = () => {
+<<<<<<< HEAD
+  const [loading, setLoading] = useState(true);
+  const cartState = useSelector((state) => state.cart.cartItems);
+  console.log('value of cartstate', cartState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
+  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllCartAction(1));
+  //   // setTimeout(() => {
+  //   //   //update function here
+  //   //   dispatch(updateProductName('Very Nice Coffee'));
+  //   //   console.log(cartState);
+  //   // }, 5000);
+  // }, [dispatch]);
+=======
 
   const cartState = useSelector(selectCart);
 
@@ -22,6 +40,7 @@ const Cart = () => {
 
     dispatch(fetchAllCartAction(1));
   }, []);
+>>>>>>> main
 
     dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
   }, [dispatch]);
@@ -42,6 +61,8 @@ const Cart = () => {
     <div class="Shopping-Cart">
       <h1>Shopping Cart</h1>
 
+<<<<<<< HEAD
+=======
       <h2>Cart Items</h2>
       {cartState.cartItems.map((cart) => (
         <div key={cart.id}>
@@ -68,6 +89,7 @@ const Cart = () => {
       ))}
     <Checkout cartState={cartState}/>
 
+>>>>>>> main
       <h1>Cart Items</h1>
       {!loading &&
         cartState.map((cart) => (

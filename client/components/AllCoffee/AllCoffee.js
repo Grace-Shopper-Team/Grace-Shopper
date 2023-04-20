@@ -6,7 +6,6 @@ import { addProductToCart } from '../../redux/actions/singleProductActions';
 import { cartSelector } from '../../redux/reducers/singleProductReducer';
 import { Link } from 'react-router-dom';
 
-
 const AllCoffee = () => {
   const [selectedOption, setSelectedOption] = useState('default');
   const [search, setSearch] = useState('');
@@ -43,6 +42,13 @@ const AllCoffee = () => {
     indexOfLastCoffee
   );
 
+  // dummy user
+  const loggedInUser = {
+    id: 1,
+    name: 'John Doe',
+    isAdmin: true,
+  };
+
   const handleSort = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -77,17 +83,23 @@ const AllCoffee = () => {
         {coffees ? (
           currentCoffees.map((coffee) => (
             <div key={coffee.id} className='coffee-container'>
-              <Link to={`/coffee/${coffee.id}`}>
               <img className='coffee-img' src={coffee.imageUrl} />
-              <p>{coffee.name}</p>
+              <Link to={`/coffee/${coffee.id}`}>
+                <p>{coffee.name}</p>
+              </Link>
               <p>Origin: {coffee.origin}</p>
               <p>Price: ${coffee.price}</p>
-
-              </Link>
               <button onClick={() => handleAddToCart(coffee.id)}>
-
                 Add to Cart
               </button>
+              {loggedInUser.isAdmin ? (
+                <div>
+                  <button>❌</button>
+                  <span>Stock: {coffee.stock}</span>
+                </div>
+              ) : (
+                <span></span>
+              )}
             </div>
           ))
         ) : (
