@@ -15,6 +15,8 @@ const Cart = () => {
   console.log('value of cartstate', cartState);
   const dispatch = useDispatch();
 
+ 
+
   useEffect(() => {
     dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
   }, [dispatch]);
@@ -27,9 +29,17 @@ const Cart = () => {
   //   // }, 5000);
   // }, [dispatch]);
 
+
+  
+
   function removeItemFromCart(cartId, productId) {
     dispatch(deleteCartItemAction({ cartId, productId }));
   }
+
+  // function startEditingQuantity(quantity) {
+  //   setEditedQuantity(quantity);
+  // }
+  
 
   return (
     <div>
@@ -49,6 +59,7 @@ const Cart = () => {
             </button>
           </div>
         ))}
+
     </div>
   );
 };

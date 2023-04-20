@@ -16,6 +16,7 @@ const cartSlice = createSlice({
     updateProductName: (state, action) => {
       state.productName = action.payload;
     },
+
   },
     extraReducers: (builder) => {
         builder.addCase(fetchAllCartAction.fulfilled, (state, action) => {

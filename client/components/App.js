@@ -2,11 +2,13 @@ import React from 'react';
 import Home from '../components/Home';
 import { Routes, Route } from 'react-router';
 import SingleProduct from '../components/singleproduct/singleproduct';
-import { Login } from './Login';
-import { Register } from './Register';
-import { Profile } from './Profile';
+import { Login } from './User/Login';
+import { Register } from './User/Register';
+import { Profile } from './User/Profile';
 import Cart from './Cart';
 import NavBar from './NavBar';
+import AllUsers from './User/AllUsers';
+
 
 export const App = () => {
   return (
@@ -19,6 +21,7 @@ export const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/profile/:userID' element={<Profile />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/users/admin' element={<AllUsers />} />
       </Routes>
     
     </div>

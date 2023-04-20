@@ -41,7 +41,6 @@ router.post('/cart', async (req, res, next) => {
       shoppingCart = await Cart.create({
         userId,
       });
-    }
 
     // Check if the product already exists in the shopping cart
     const shoppingCartItem = await CartItem.findOne({

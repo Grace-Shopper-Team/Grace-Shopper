@@ -6,6 +6,7 @@ import { addProductToCart } from '../../redux/actions/singleProductActions';
 import { cartSelector } from '../../redux/reducers/singleProductReducer';
 import { Link } from 'react-router-dom';
 
+
 const AllCoffee = () => {
   const [selectedOption, setSelectedOption] = useState('default');
   const [search, setSearch] = useState('');
@@ -81,8 +82,10 @@ const AllCoffee = () => {
               <p>{coffee.name}</p>
               <p>Origin: {coffee.origin}</p>
               <p>Price: ${coffee.price}</p>
+
               </Link>
               <button onClick={() => handleAddToCart(coffee.id)}>
+
                 Add to Cart
               </button>
             </div>
