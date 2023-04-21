@@ -12,3 +12,26 @@ export const fetchAllUsersAsync = createAsyncThunk(
     }
   }
 );
+
+// export const fetchAllUsersAsync = createAsyncThunk(
+//   'users/fetchAll',
+//   async () => {
+//     console.log("test")
+//     try {
+//       const token = window.localStorage.getItem(TOKEN);
+//       console.log('Headers:', {
+//         authorization: token,
+//         test: 'test'
+//       });
+//       const { data } = await axios.get('/auth/users', {
+//         headers: {
+//           authorization: token,
+//           test: "test"
+//         },
+//       });
+//       return data;
+//     } catch (error) {
+//       console.error('error fetching user data', error);
+//     }
+//   }
+// );

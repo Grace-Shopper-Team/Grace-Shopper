@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const User = require('../db/models/User');
+const { requireToken, isAdmin } = require('./gatekeepingMiddleware');
 
-router.get('/users', async (req, res) => {
-  const users = await User.findAll();
+router.get('/users', requireToken, isAdmin, async (req, res) => {
+  const users = await User.findAll({
+    attributes: ['id', 'username']
+  });
   res.json(users);
 });
 
@@ -30,7 +33,8 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/register', async (req, res, next) => {
   try {
-    const user = await User.create(req.body);
+    const { username, password, firstName, lastName, email, address, city, state, zip } = req.body;
+    const user = await User.create({ username, password, firstName, lastName, email, address, city, state, zip });
     res.send({ token: await user.generateToken() });
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

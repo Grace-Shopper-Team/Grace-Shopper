@@ -29,7 +29,9 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
 
   const handlePasswordChangeSubmit = (event) => {
     event.preventDefault();
+    console.log("pre")
     updateUser({ ...userInfo, password: newPassword });
+    console.log("post")
     setNewPassword('');
     setShowChangePassword(false);
   };
@@ -105,21 +107,21 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
           {showChangePassword && (
            <>
            <div>
-              <label htmlFor='oldPassword'>
+              {/* <label htmlFor='oldPassword'>
                 <small>Old Password</small>
               </label>
-              <input name='oldPassword' type='password' value={userInfo.oldPassword || ''} onChange={handleChange} required />
+              <input name='oldPassword' type='password' value={userInfo.oldPassword || ''} onChange={handleChange} required /> */}
               <label htmlFor='newPassword'>
                 <small>New Password</small>
               </label>
               <input name='newPassword' type='password' value={userInfo.newPassword || ''} onChange={handleChange} required />
-              <label htmlFor='confirmNewPassword'>
+              {/* <label htmlFor='confirmNewPassword'>
                 <small>Confirm New Password</small>
               </label>
-              <input name='confirmNewPassword' type='password' value={userInfo.confirmNewPassword || ''} onChange={handleChange} required />
+              <input name='confirmNewPassword' type='password' value={userInfo.confirmNewPassword || ''} onChange={handleChange} required /> */}
             </div>
             <div>
-               <button type='submit' onClick={handlePasswordChangeSubmit}>Update Password</button>
+               <button type='button' onClick={handlePasswordChangeSubmit}>Update Password</button>
                <button type='button' onClick={handlePasswordChangeCancel}>Cancel</button>
             </div>
             </>
