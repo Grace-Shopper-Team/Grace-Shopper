@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import {
@@ -9,7 +8,9 @@ import {
   updateProduct,
   //   toggleFavoriteProduct
 } from '../../redux/actions/singleProductActions';
-//import { isAdmin } from '../../../server/auth/gatekeepingMiddleware';
+
+import { fetchSingleUserAsync } from '../../redux/actions/allUserActions';
+import jwt_decode from 'jwt-decode';
 
 const SingleProduct = () => {
   const { id: productId } = useParams();
@@ -19,8 +20,8 @@ const SingleProduct = () => {
   const singleProduct = useSelector(
     (state) => state.singleProduct.singleProduct
   );
-  const user = useSelector((state) => state.user);
-  //   const favorites = useSelector((state) => state.singleProduct.favorites);
+
+  // const favorites = useSelector((state) => state.singleProduct.favorites);
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
@@ -51,13 +52,24 @@ const SingleProduct = () => {
   //     dispatch(toggleFavoriteProduct(productId));
   //   };
 
-  //    user && user.isAdmin;
- const isAdmin = false;
-  // const adminGate = () => {
-  //   if(user.isAdmin === true){
-  //     isAdmin = true;
-  //   }
-  // }
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkIsAdmin = async () => {
+      const token = localStorage.getItem('token');
+      const decodedToken = jwt_decode(token);
+      const userID = decodedToken.id;
+      const data = await dispatch(fetchSingleUserAsync(userID));
+      console.log(data.payload.isAdmin)
+      if(data.payload.isAdmin){
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    };
+    checkIsAdmin();
+  }, [dispatch]);
 
   return (
     <div className='product-container'>
