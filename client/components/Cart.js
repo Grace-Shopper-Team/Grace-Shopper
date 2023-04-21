@@ -33,27 +33,35 @@ const Cart = () => {
       <h1>Shopping Cart</h1>
 
       <h2>Cart Items</h2>
-      {cartState.map((cart) => (
-        <div key={cart.id}>
-          <h4>
-            Name: {cart.coffee.name}, quantity: {cart.quantity}, price:{' '}
-            {cart.coffee.price}
-          </h4>
-          {/*         I need To Fix the edit Input */}
-          <label id='Edit-Cart' onSubmit={handleSubmit}>
-            Quantity:
-            <input
-              name='number'
-              value={cart.quantity}
-              onChange={(e) => (cart.cartId, cart.productId, e.target.value)}
-            />
-          </label>
-          <button
-            onClick={() => removeItemFromCart(cart.cartId, cart.productId)}>
-            Remove
-          </button>
-        </div>
-      ))}
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        cartState.map((cartItem, index) => (
+          <div key={`${index}-${cartItem.productId}`}>
+            <h4>
+              Name: {cartItem.coffee.name}, quantity: {cartItem.quantity},
+              price: {cartItem.coffee.price}
+            </h4>
+            {/*         I need To Fix the edit Input */}
+            <label id='Edit-Cart' onSubmit={handleSubmit}>
+              Quantity:
+              <input
+                name='number'
+                value={cartItem.quantity}
+                onChange={(e) => (
+                  cartItem.cartId, cartItem.productId, e.target.value
+                )}
+              />
+            </label>
+            <button
+              onClick={() =>
+                removeItemFromCart(cartItem.cartId, cartItem.productId)
+              }>
+              Remove
+            </button>
+          </div>
+        ))
+      )}
       {/* <Checkout cartState={cartState} /> */}
     </div>
   );

@@ -60,7 +60,12 @@ router.post('/cart', async (req, res, next) => {
       });
     }
 
-    res.json(shoppingCartItem);
+    const updatedCartItem = await CartItem.findOne({
+      where: { cartId: shoppingCart.id, productId },
+      include: { model: Coffee },
+    });
+
+    res.json(updatedCartItem);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });

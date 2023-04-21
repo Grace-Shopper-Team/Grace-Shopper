@@ -25,7 +25,9 @@ router.get('/cartItems/:userId', async (req, res, next) => {
     });
     if (!shoppingCart) {
       // Create a new shopping cart object if none exists for the user
-      res.status(204).json({ error: 'Not founded a cart asociated to this user.' });
+      return res
+        .status(204)
+        .json({ error: 'Not founded a cart asociated to this user.' });
     }
     // Check if the product already exists in the shopping cart
     const shoppingCartItems = await CartItem.findAll({
@@ -120,7 +122,6 @@ router.get('/:cartID/:productID', async (req, res, next) => {
   }
 });
 
-
 router.post('/', async (req, res, next) => {
   try {
     const { productId, quantity, userId } = req.body;
@@ -135,9 +136,9 @@ router.post('/', async (req, res, next) => {
       });
     }
     const shoppingCartItem = await CartItem.findOne({
-      where: { 
-        cartId: shoppingCart.id, 
-        productId: productId 
+      where: {
+        cartId: shoppingCart.id,
+        productId: productId,
       },
     });
     if (shoppingCartItem) {
@@ -156,7 +157,6 @@ router.post('/', async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
-
 
 router.delete('/:cartID/:productID', async (req, res, next) => {
   try {
