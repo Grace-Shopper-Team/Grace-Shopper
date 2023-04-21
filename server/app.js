@@ -20,7 +20,12 @@ const app = express();
 // };
 
 // app.use(cors(corsOptions));
+<<<<<<< HEAD
 // app.use(cors()); //here
+=======
+
+app.use(cors()); //here
+>>>>>>> first commit new branch
 
 // static middleware
 app.use(express.static(path.join(__dirname, '../public')));
