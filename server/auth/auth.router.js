@@ -45,4 +45,30 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
+router.put('/users/:id', requireToken, matchUserId, async (req, res, next) => {
+  try {
+    const { username, password, firstName, lastName, email, address, city, state, zip } = req.body;
+    const user = await User.findByPk(req.params.id);
+    if (!user) {
+      res.status(404).send('User not found');
+    } else {
+      user.username = username;
+      user.password = password;
+      user.firstName = firstName;
+      user.lastName = lastName;
+      user.email = email;
+      user.address = address;
+      user.city = city;
+      user.state = state;
+      user.zip = zip;
+      await user.save();
+      res.send(user);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+
 module.exports = router;

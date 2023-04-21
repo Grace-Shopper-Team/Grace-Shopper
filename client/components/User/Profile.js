@@ -7,7 +7,6 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
   const { userID } = useParams();
   const [userInfo, setUserInfo] = useState({});
   const [showChangePassword, setShowChangePassword] = useState(false);
-  const [newPassword, setNewPassword] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -24,18 +23,11 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setShowChangePassword(false);
     updateUser(userInfo);
   };
 
-  const handlePasswordChangeSubmit = (event) => {
-    event.preventDefault();
-    updateUser({ ...userInfo, password: newPassword });
-    setNewPassword('');
-    setShowChangePassword(false);
-  };
-
   const handlePasswordChangeCancel = () => {
-    setNewPassword('');
     setShowChangePassword(false);
   };
   
@@ -98,29 +90,22 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
             </label>
             <input name='username' type='text' value={userInfo.username || ''} onChange={handleChange} required />
           </div>
+          {!showChangePassword && (
           <div>
             <button type='button' onClick={() => setShowChangePassword(true)}>Change Password</button>
           </div>
+          )}
           {showChangePassword && (
            <>
            <div>
-              {/* <label htmlFor='oldPassword'>
-                <small>Old Password</small>
-              </label>
-              <input name='oldPassword' type='password' value={userInfo.oldPassword || ''} onChange={handleChange} required /> */}
-              <label htmlFor='newPassword'>
+              <label htmlFor='password'>
                 <small>New Password</small>
               </label>
-              <input name='newPassword' type='password' value={userInfo.newPassword || ''} onChange={handleChange} required />
-              {/* <label htmlFor='confirmNewPassword'>
-                <small>Confirm New Password</small>
-              </label>
-              <input name='confirmNewPassword' type='password' value={userInfo.confirmNewPassword || ''} onChange={handleChange} required /> */}
+              <input name='password' type='password' value={userInfo.password || ''} onChange={handleChange} required />
             </div>
-            <div>
-               <button type='button' onClick={handlePasswordChangeSubmit}>Update Password</button>
+            <span>
                <button type='button' onClick={handlePasswordChangeCancel}>Cancel</button>
-            </div>
+            </span>
             </>
           )}
           <div>
