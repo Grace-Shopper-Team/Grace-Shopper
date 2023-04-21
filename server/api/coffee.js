@@ -29,7 +29,7 @@ router.delete('/:id', async (req, res, next) => {
     const coffeeToDelete = await Coffee.findByPk(req.params.id);
     await CartItem.destroy({ where: { productId: req.params.id } });
     await coffeeToDelete.destroy();
-    res.send(`coffee with id ${coffeeToDelete.id} has been deleted`);
+    res.send(coffeeToDelete);
   } catch (error) {
     console.error('error deleting coffee from database', error);
     next(error);

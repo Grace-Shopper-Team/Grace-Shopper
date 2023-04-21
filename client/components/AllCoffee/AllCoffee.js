@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllCoffeeAsync } from '../../redux/actions/allCoffeeActions';
+import {
+  fetchAllCoffeeAsync,
+  deleteCoffeeAsync,
+} from '../../redux/actions/allCoffeeActions';
 import { allCoffeeSelector } from '../../redux/reducers/allCoffeeReducer';
 import { addProductToCart } from '../../redux/actions/singleProductActions';
 import { cartSelector } from '../../redux/reducers/singleProductReducer';
@@ -54,12 +57,15 @@ const AllCoffee = () => {
   };
 
   const handleAddToCart = (productId) => {
-    console.log('inside of handleaddtocart', productId);
     dispatch(addProductToCart({ productId, quantity: 1 }));
   };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteCoffeeAsync(id));
   };
 
   return (
@@ -95,7 +101,7 @@ const AllCoffee = () => {
               </button>
               {loggedInUser.isAdmin ? (
                 <div>
-                  <button>❌</button>
+                  <button onClick={() => handleDelete(coffee.id)}>❌</button>
                   <span>Stock: {coffee.stock}</span>
                 </div>
               ) : (

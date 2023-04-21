@@ -12,3 +12,15 @@ export const fetchAllCoffeeAsync = createAsyncThunk(
     }
   }
 );
+
+export const deleteCoffeeAsync = createAsyncThunk(
+  'coffee/deleteOne',
+  async (id) => {
+    try {
+      const response = await axios.delete(`/api/coffee/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('error deleting coffee with id', error);
+    }
+  }
+);
