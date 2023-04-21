@@ -30,7 +30,7 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
   const handlePasswordChangeCancel = () => {
     setShowChangePassword(false);
   };
-  
+
     return (
       <div>
         <h1>Profile</h1>

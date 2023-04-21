@@ -1,20 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 const NavBar = () => {
   const [userId, setUserId] = useState(null);
-  const navigate = useNavigate();
+  const [token, setToken] = useState(null);
 
-  useEffect(() => {
+  const checkToken = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwt_decode(token);
       setUserId(decodedToken.id);
+      setToken(token);
     } else {
-      navigate('/login');
+      setUserId(null);
+      setToken(null);
     }
-  }, [navigate]);
+    return token;
+  }
+
+  useEffect(() => {
+    checkToken();
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'token' && !event.newValue) {
+        setUserId(null);
+        setToken(null);
+      }
+    });
+    return () => {
+      window.removeEventListener('storage');
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUserId(null);
+    setToken(null);
+  };
 
   return (
     <div className='nav-container'>
@@ -36,8 +58,11 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/login'>
           Log In
         </Link>
-        <Link className='nav-bar-links' to={`/profile/${userId}`}>
+        <Link className='nav-bar-links' to={token ? `/profile/${userId}` : '/login'}>
           My Profile
+        </Link>
+        <Link className='nav-bar-links' to='/logout' onClick={handleLogout}>
+          Logout
         </Link>
         <Link className='nav-bar-links' to='/cart'>
           🛒
