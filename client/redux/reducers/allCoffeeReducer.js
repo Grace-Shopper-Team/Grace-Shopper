@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   fetchAllCoffeeAsync,
   deleteCoffeeAsync,
+  addCoffeeToStockAsync,
 } from '../actions/allCoffeeActions';
 
 export const allCoffeeSlice = createSlice({
@@ -15,7 +16,9 @@ export const allCoffeeSlice = createSlice({
       .addCase(fetchAllCoffeeAsync.fulfilled, (state, action) => {
         state.allCoffee = action.payload;
       })
-
+      .addCase(addCoffeeToStockAsync.fulfilled, (state, action) => {
+        state.allCoffee.push(action.payload);
+      })
       .addCase(deleteCoffeeAsync.fulfilled, (state, action) => {
         const deletedCoffeeId = action.payload.id;
         const index = state.allCoffee.findIndex(

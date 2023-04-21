@@ -14,12 +14,37 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.post('/', async (req, res, next) => {
+  try {
+    const newCoffee = req.body;
+    const addNewCoffee = await Coffee.create(newCoffee);
+    res.send(addNewCoffee);
+  } catch (error) {
+    console.error('error adding coffee to shop stock', error);
+    next(error);
+  }
+});
+
 router.get('/:id', async (req, res, next) => {
   try {
     const getSingleCoffee = await Coffee.findByPk(req.params.id);
     res.send(getSingleCoffee);
   } catch (error) {
     console.error('error getting single coffee', error);
+    next(error);
+  }
+});
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deleteThisCoffee = await Coffee.findByPk(req.params.id);
+    await CartItem.destroy({
+      where: { productId: req.params.id },
+    });
+    await deleteThisCoffee.destroy();
+    res.send(deleteThisCoffee);
+  } catch (error) {
+    console.error('error deleting coffee', error);
     next(error);
   }
 });

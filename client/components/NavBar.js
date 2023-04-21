@@ -55,6 +55,9 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/home'>
           Home
         </Link>
+        <Link className='nav-bar-links' to='/admindashboard'>
+          Admin
+        </Link>
         <Link className='nav-bar-links' to='/login'>
           Log In
         </Link>

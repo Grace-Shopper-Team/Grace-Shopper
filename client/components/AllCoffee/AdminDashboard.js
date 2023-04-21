@@ -7,6 +7,7 @@ import AllCoffee from './AllCoffee';
 import { fetchAllCoffeeAsync } from '../../redux/actions/allCoffeeActions';
 import { allCoffeeSelector } from '../../redux/reducers/allCoffeeReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import AddCoffeeForm from './AddCoffeeForm';
 
 const AdminDashboard = () => {
   const coffees = useSelector(allCoffeeSelector);
@@ -27,6 +28,7 @@ const AdminDashboard = () => {
           )}
         </ul>
       </div>
+      <AddCoffeeForm />
     </div>
   );
 };

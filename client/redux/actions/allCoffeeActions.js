@@ -24,3 +24,23 @@ export const deleteCoffeeAsync = createAsyncThunk(
     }
   }
 );
+
+export const addCoffeeToStockAsync = createAsyncThunk(
+  'coffee/addOne',
+  async ({ name, price, description, imageUrl, roast, origin, stock }) => {
+    try {
+      const response = await axios.post('/api/coffee', {
+        name,
+        price,
+        description,
+        imageUrl,
+        roast,
+        origin,
+        stock,
+      });
+      return response.data;
+    } catch (error) {
+      console.error('error adding coffee to shop stock', error);
+    }
+  }
+);
