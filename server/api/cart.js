@@ -25,7 +25,7 @@ router.get('/cartItems/:userId', async (req, res, next) => {
     });
     if (!shoppingCart) {
       // Create a new shopping cart object if none exists for the user
-      return res
+      res
         .status(204)
         .json({ error: 'Not founded a cart asociated to this user.' });
     }
@@ -53,7 +53,7 @@ router.get('/cartItems/:userId', async (req, res, next) => {
 });
 
 // update quantity inside the Cart (Need to work on the update input)
-/* router.post('/:cartID/:productID', async (req, res, next) => {
+router.put('/:cartID/:productID', async (req, res, next) => {
   try {
     const { cartID, productID } = req.params;
     const { quantity } = req.body;
@@ -66,20 +66,26 @@ router.get('/cartItems/:userId', async (req, res, next) => {
         cartId: cartID,
         productId: productID,
       },
+      include: [
+        {
+          model: Coffee,
+          attributes: ['name', 'price', 'imageUrl', 'stock'],
+        },
+      ],
     });
     if (!cartItem) {
-      return res.status(404).json({ error: 'Product not found inside the cart.' });
+      return res
+        .status(404)
+        .json({ error: 'Product not found inside the cart.' });
     }
     cartItem.quantity = quantity;
-    await cartItem.save();
-    res.json({ message: 'Product quantity updated in cart.' });
+    const data = await cartItem.save();
+    res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
-
- */
 
 router.get('/:cartID', async (req, res, next) => {
   try {
@@ -126,7 +132,7 @@ router.post('/', async (req, res, next) => {
   try {
     const { productId, quantity, userId } = req.body;
     //const userId = req.session.userId;
-
+    console.log('userId addCart ===', req.body);
     let shoppingCart = await Cart.findOne({
       where: { userId },
     });
@@ -140,18 +146,25 @@ router.post('/', async (req, res, next) => {
         cartId: shoppingCart.id,
         productId: productId,
       },
+      include: [
+        {
+          model: Coffee,
+          attributes: ['name', 'price', 'imageUrl', 'stock'],
+        },
+      ],
     });
+    let data = {};
     if (shoppingCartItem) {
       shoppingCartItem.quantity += quantity;
-      await shoppingCartItem.save();
+      data = await shoppingCartItem.save();
     } else {
-      await CartItem.create({
+      data = await CartItem.create({
         cartId: shoppingCart.id,
         productId,
         quantity,
       });
     }
-    res.json({ message: 'Product added to cart.' });
+    res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });

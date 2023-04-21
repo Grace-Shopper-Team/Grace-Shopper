@@ -24,18 +24,6 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const coffeeToDelete = await Coffee.findByPk(req.params.id);
-    await CartItem.destroy({ where: { productId: req.params.id } });
-    await coffeeToDelete.destroy();
-    res.send(coffeeToDelete);
-  } catch (error) {
-    console.error('error deleting coffee from database', error);
-    next(error);
-  }
-});
-
 router.post('/cart', async (req, res, next) => {
   try {
     const user = await User.findByPk(1);
@@ -81,6 +69,22 @@ router.post('/cart', async (req, res, next) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const product = await Coffee.findByPk(req.params.id);
+
+    if (!product) {
+      res.status(404).json({ error: 'Product not found' });
+    } else {
+      const updatedProduct = await product.update(req.body);
+      res.json(updatedProduct);
+    }
+  } catch (error) {
+    console.error('Error updating product', error);
+    next(error);
   }
 });
 

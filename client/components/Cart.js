@@ -11,10 +11,8 @@ import Checkout from './checkout';
 const Cart = () => {
   const [loading, setLoading] = useState(true);
   const cartState = useSelector(selectCart);
-  //do not have const dispatch =  useDispatch ();
-  console.log('value of cartstate', cartState);
-
   const dispatch = useDispatch();
+  console.log('value of cartstate', cartState);
 
   useEffect(() => {
     dispatch(fetchAllCartAction(1)).then(() => setLoading(false));

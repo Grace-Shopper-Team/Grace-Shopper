@@ -49,7 +49,7 @@ const AllCoffee = () => {
   const loggedInUser = {
     id: 1,
     name: 'John Doe',
-    isAdmin: false,
+    isAdmin: true,
   };
 
   const handleSort = (event) => {

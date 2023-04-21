@@ -19,15 +19,57 @@ export const addProductToCart = createAsyncThunk(
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
       console.log('inside of thunk', productId, quantity);
-      const { data } = await axios.post('/api/coffee/cart', {
+      const response = await axios.post('/api/coffee/cart', {
         productId,
         quantity,
       });
-      console.log(data);
+      console.log('API response:', response);
+
+      const { data } = response;
+      console.log('API response data:', data);
+
       return data;
     } catch (error) {
       console.error(error);
       return rejectWithValue('Unable to add product to cart');
+    }
+  }
+);
+
+//   export const toggleFavoriteProduct = createAsyncThunk(
+//     'singleProduct/toggleFavoriteProduct',
+//     async (productId, { getState }) => {
+//       console.log('Product favorited:', productId);
+//       try {
+//         const state = getState();
+//         const favorites = state.singleProduct.favorites;
+
+//         const isFavorite = favorites.includes(productId);
+
+//         const updatedFavorites = isFavorite
+//           ? favorites.filter((id) => id !== productId)
+//           : [...favorites, productId];
+
+//         const response = await fetch(`/api/coffee/${productId}`);
+//         const product = await response.json();
+
+//         return { updatedFavorites, product };
+//       } catch (error) {
+//         console.error(error);
+//         throw error;
+//       }
+//     }
+//   );
+
+export const updateProduct = createAsyncThunk(
+  'singleProduct/updateProduct',
+  async (product, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`/api/coffee/${product.id}`, product);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue('Unable to update product');
     }
   }
 );

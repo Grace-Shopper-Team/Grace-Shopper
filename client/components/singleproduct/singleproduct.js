@@ -6,31 +6,52 @@ import {
   fetchSingleProduct,
   addProductToCart,
   deleteProduct,
+  updateProduct,
+  //   toggleFavoriteProduct
 } from '../../redux/actions/singleProductActions';
 
 const SingleProduct = () => {
   const { id: productId } = useParams();
+
   const dispatch = useDispatch();
 
   const singleProduct = useSelector(
     (state) => state.singleProduct.singleProduct
   );
+  const user = useSelector((state) => state.user);
+  //   const favorites = useSelector((state) => state.singleProduct.favorites);
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
   }, [dispatch, productId]);
 
   const [quantity, setQuantity] = useState(1);
+  const [itemAdded, setItemAdded] = useState(false);
 
   const handleAddToCart = (productId) => {
     dispatch(addProductToCart({ productId, quantity }));
+    setItemAdded(true);
+    setTimeout(() => {
+      setItemAdded(false);
+    }, 2000);
   };
-  const handleDelete = (productId) => {
-    dispatch(deleteProduct(productId));
-  };
+  const [editMode, setEditMode] = useState(false);
+  const [editedProduct, setEditedProduct] = useState({});
 
-  //   const isAdmin = user && user.isAdmin;
+  const handleEditProduct = () => {
+    if (editMode) {
+      dispatch(updateProduct(editedProduct)).then(() => setEditMode(false));
+    } else {
+      setEditedProduct(singleProduct);
+      setEditMode(true);
+    }
+  };
+  //   const handleFavoriteClick = (productId) => {
+  //     dispatch(toggleFavoriteProduct(productId));
+  //   };
+
   const isAdmin = true;
+  //    user && user.isAdmin;
 
   return (
     <div className='product-container'>
@@ -41,6 +62,10 @@ const SingleProduct = () => {
       </div>
       {singleProduct ? (
         <>
+          {/* <button className='spstyle' onClick={() => handleFavoriteClick(singleProduct.id)}>
+    {favorites.includes(singleProduct.id) ? 'Unfavorite' : 'Favorite'}
+  </button> */}
+
           <img
             className='singleproduct-img'
             src={singleProduct.imageUrl}
@@ -72,20 +97,65 @@ const SingleProduct = () => {
               </button>
             </form>
           </div>
+          {itemAdded && <p className='item-added-msg'>Item added to cart!</p>}
           {isAdmin && (
             <>
               <div className='styles.admin-buttons'>
-                <button className='spstyle' onClick={() => console.log('edit')}>
-                  Edit
+                <button className='spstyle' onClick={handleEditProduct}>
+                  {editMode ? 'Save' : 'Edit'}
                 </button>
-              </div>{' '}
+              </div>
+              {editMode && (
+                <div>
+                  <form
+                    className='admin-form'
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleEditProduct();
+                    }}>
+                    <label htmlFor='name'>Name:</label>
+                    <input
+                      type='text'
+                      id='name'
+                      name='name'
+                      value={editedProduct.name}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          name: e.target.value,
+                        })
+                      }
+                    />
+                    <label htmlFor='price'>Price:</label>
+                    <input
+                      type='number'
+                      id='price'
+                      name='price'
+                      value={editedProduct.price}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          price: parseFloat(e.target.value),
+                        })
+                      }
+                    />
+                    <label htmlFor='description'>Description:</label>
+                    <textarea
+                      id='description'
+                      name='description'
+                      value={editedProduct.description}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          description: e.target.value,
+                        })
+                      }
+                    />
+                    <button type='submit'>Save</button>
+                  </form>
+                </div>
+              )}
             </>
-            // <div className='styles.admin-buttons'>
-            //   <button className='spstyle' onClick={() => handleDelete(singleProduct.id)}>
-            //     Delete
-            //   </button>
-            //   <button className='spstyle' onClick={() => console.log('edit')}>Edit</button>
-            // </div> </>
           )}
         </>
       ) : (
