@@ -11,8 +11,10 @@ import Checkout from './checkout';
 const Cart = () => {
   const [loading, setLoading] = useState(true);
   const cartState = useSelector(selectCart);
-  const dispatch = useDispatch();
+  //do not have const dispatch =  useDispatch ();
   console.log('value of cartstate', cartState);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
@@ -27,31 +29,39 @@ const Cart = () => {
     dispatch(updateCartItemAction({ cartId, productId })); // cartId product id
   };
 
+  const handleInputChange = (cartId, productId, quantity) => {
+    quantity && dispatch(updateCartItemAction({ cartId, productId, quantity }));
+  };
+
   return (
-    <div className='Shopping-Cart'>
-      <h1>Shopping Cart</h1>
-      <h2>Cart Items</h2>
+    <div className='cart'>
+      <h1 className='Shopping-Cart'>Shopping Cart</h1>
+
       {loading ? (
-        <p>Loading...</p>
+        <p>loading...</p>
       ) : (
         cartState.map((cartItem, index) => (
-          <div key={`${index}-${cartItem.productId}`}>
-            <h4>
-              Name: {cartItem.coffee.name}, quantity: {cartItem.quantity},
-              price: {cartItem.coffee.price}
-            </h4>
-            {/*         I need To Fix the edit Input */}
+          <div key={`${index}-${cartItem.productid}`} className='Items'>
+            <h4> {cartItem.coffee.name}</h4>
+            {/*             <p>quantity: {cartItem.quantity}</p> */}
+            <p>price: {cartItem.coffee.price}</p>
             <label id='Edit-Cart' onSubmit={handleSubmit}>
               Quantity:
               <input
                 name='number'
-                value={cartItem.quantity}
-                onChange={(e) => (
-                  cartItem.cartId, cartItem.productId, e.target.value
-                )}
+                defaultValue={cartItem.quantity}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  handleInputChange(
+                    cartItem.cartId,
+                    cartItem.productId,
+                    e.target.value
+                  );
+                }}
               />
             </label>
             <button
+              className='button'
               onClick={() =>
                 removeItemFromCart(cartItem.cartId, cartItem.productId)
               }>
@@ -60,7 +70,7 @@ const Cart = () => {
           </div>
         ))
       )}
-      {/* <Checkout cartState={cartState} /> */}
+      <Checkout cartState={cartState} />
     </div>
   );
 };

@@ -49,7 +49,7 @@ const AllCoffee = () => {
   const loggedInUser = {
     id: 1,
     name: 'John Doe',
-    isAdmin: true,
+    isAdmin: false,
   };
 
   const handleSort = (event) => {
@@ -57,7 +57,9 @@ const AllCoffee = () => {
   };
 
   const handleAddToCart = (productId) => {
-    dispatch(addProductToCart({ productId, quantity: 1 }));
+    dispatch(
+      addProductToCart({ productId, quantity: 1, userId: loggedInUser.id })
+    );
   };
 
   const handlePageChange = (pageNumber) => {

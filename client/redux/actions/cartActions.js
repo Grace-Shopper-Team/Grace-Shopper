@@ -15,7 +15,7 @@ export const fetchAllCartAction = createAsyncThunk(
   }
 );
 
-/* //Action for update a product Need To work on it (Not Working)
+//Action for update a product Need To work on it (Not Working)
 export const updateCartItemAction = createAsyncThunk(
   'cartProducts/updateCartItemAction',
   async ({ cartId, productId, quantity }) => {
@@ -30,7 +30,7 @@ export const updateCartItemAction = createAsyncThunk(
       return rejectWithValue('Unable to update cart item');
     }
   }
-); */
+);
 
 //Action for deleting a product
 export const deleteCartItemAction = createAsyncThunk(
@@ -51,12 +51,13 @@ export const addProductToCart = createAsyncThunk(
   'coffee/addProductToCart',
   async ({ productId, quantity, userId }, { rejectWithValue }) => {
     try {
+      console.log('addProductToCart ===', productId, quantity, userId);
       const { data } = await axios.post('/api/cart/', {
-        
         productId,
         quantity,
-        userId
+        userId,
       });
+      console.log('add data check ===', data);
       return data;
     } catch (error) {
       console.error(error);
@@ -64,4 +65,3 @@ export const addProductToCart = createAsyncThunk(
     }
   }
 );
-
