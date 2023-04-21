@@ -27,7 +27,7 @@ const LoginForm = (props) => {
         <div>
           <p>New user?<a href='/register'>Register here.</a></p>
         </div>
-        {/* {error && error.response && <div> {error.response.data} </div>} */}
+        {error && error.response && <div> {error.response.data} </div>}
       </form>
     </div>
   );

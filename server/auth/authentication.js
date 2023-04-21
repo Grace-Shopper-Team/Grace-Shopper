@@ -10,14 +10,13 @@ User.prototype.correctPassword = function (candidatePwd) {
 };
 
 User.prototype.generateToken = function () {
-  console.log("generate")
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
 User.authenticate = async function ({ username, password }) {
-  console.log("authenticate")
   const user = await this.findOne({ where: { username } });
-  if (!user || !(await user.correctPassword(password))) {
+  const userPwd = await user.correctPassword(password);
+  if (!user || !(userPwd)) {
     const error = Error('Incorrect username/password');
     error.status = 401;
     throw error;
@@ -27,8 +26,8 @@ User.authenticate = async function ({ username, password }) {
 
 User.findByToken = async function (token) {
   try {
-    const { id } = await jwt.verify(token, process.env.JWT);
-    const user = User.findByPk(id);
+    const { id } = jwt.verify(token, process.env.JWT);
+    const user = await User.findByPk(id);
     if (!user) {
       throw 'nooo';
     }

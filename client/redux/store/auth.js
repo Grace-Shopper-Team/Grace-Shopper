@@ -33,13 +33,10 @@ export const me = () => async (dispatch) => {
 export const authenticateLogin =
   (username, password, method) => async (dispatch) => {
     try {
-      console.log('Trying to authenticate');
       const res = await axios.post(`/auth/${method}`, { username, password });
-      console.log('Response from server:', res.data);
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
     } catch (authError) {
-      console.error('Error authenticating:', authError);
       return dispatch(setAuth({ error: authError }));
     }
 };

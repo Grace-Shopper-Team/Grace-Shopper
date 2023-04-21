@@ -9,7 +9,7 @@ router.get('/users', requireToken, isAdmin, async (req, res) => {
   res.json(users);
 });
 
-router.get('/users/:id', async (req, res, next) => {
+router.get('/users/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     if (!user) {
