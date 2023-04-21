@@ -305,5 +305,10 @@ button:hover {
   border: 15px;
   border-color: black;
   font-size: 13px;
-  background-color: #282828;
+  background-color: #c2bfbf;
+}
+
+/* ADMIN Dashboard */
+.admin-dash-container {
+  width: 50%;
 }

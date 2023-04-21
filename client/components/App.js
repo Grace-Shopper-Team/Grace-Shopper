@@ -8,6 +8,7 @@ import { Profile } from './User/Profile';
 import Cart from './Cart';
 import NavBar from './NavBar';
 import AllUsers from './User/AllUsers';
+import AdminDashboard from './AllCoffee/AdminDashboard';
 
 export const App = () => {
   return (
@@ -21,6 +22,7 @@ export const App = () => {
         <Route path='/profile/:userID' element={<Profile />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/users/admin' element={<AllUsers />} />
+        <Route path='/admindashboard' element={<AdminDashboard />} />
       </Routes>
     </div>
   );
