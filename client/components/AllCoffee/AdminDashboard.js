@@ -20,15 +20,9 @@ const AdminDashboard = () => {
   return (
     <div className='admin-dash-container'>
       <div className='admin-all-coffee'>
-        <ul>
-          {coffees ? (
-            coffees.map((coffee) => <li key={coffee.id}>{coffee.name}</li>)
-          ) : (
-            <p>No Data Available</p>
-          )}
-        </ul>
+        <AllCoffee isAdmin={true} />
+        <AddCoffeeForm />
       </div>
-      <AddCoffeeForm />
     </div>
   );
 };
