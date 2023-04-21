@@ -1,7 +1,7 @@
 // app
 const express = require('express');
 const path = require('path');
-const cors = require('cors'); //change
+// const cors = require('cors'); //change
 
 // authentication
 const { authRouter } = require('./auth');
@@ -20,8 +20,7 @@ const app = express();
 // };
 
 // app.use(cors(corsOptions));
-
-//app.use(cors()); //here
+// app.use(cors()); //here
 
 // static middleware
 app.use(express.static(path.join(__dirname, '../public')));

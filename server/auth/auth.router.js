@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const User = require('../db/models/User');
-const { requireToken, isAdmin } = require('./gatekeepingMiddleware');
+const { requireToken, isAdmin, matchUserId } = require('./gatekeepingMiddleware');
 
 router.get('/users', requireToken, isAdmin, async (req, res) => {
   const users = await User.findAll({
@@ -9,7 +9,7 @@ router.get('/users', requireToken, isAdmin, async (req, res) => {
   res.json(users);
 });
 
-router.get('/users/:id', requireToken, isAdmin, async (req, res, next) => {
+router.get('/users/:id', requireToken, matchUserId, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     if (!user) {

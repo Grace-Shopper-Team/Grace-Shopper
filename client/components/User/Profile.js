@@ -29,9 +29,7 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
 
   const handlePasswordChangeSubmit = (event) => {
     event.preventDefault();
-    console.log("pre")
     updateUser({ ...userInfo, password: newPassword });
-    console.log("post")
     setNewPassword('');
     setShowChangePassword(false);
   };
@@ -41,7 +39,6 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
     setShowChangePassword(false);
   };
   
-  console.log(userInfo); 
     return (
       <div>
         <h1>Profile</h1>

@@ -9,6 +9,7 @@ import {
   updateProduct,
   //   toggleFavoriteProduct
 } from '../../redux/actions/singleProductActions';
+//import { isAdmin } from '../../../server/auth/gatekeepingMiddleware';
 
 const SingleProduct = () => {
   const { id: productId } = useParams();
@@ -50,8 +51,13 @@ const SingleProduct = () => {
   //     dispatch(toggleFavoriteProduct(productId));
   //   };
 
-  const isAdmin = true;
   //    user && user.isAdmin;
+ const isAdmin = false;
+  // const adminGate = () => {
+  //   if(user.isAdmin === true){
+  //     isAdmin = true;
+  //   }
+  // }
 
   return (
     <div className='product-container'>

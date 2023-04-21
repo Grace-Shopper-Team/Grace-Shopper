@@ -1,5 +1,5 @@
 import axios from 'axios';
-import history from 'history';
+// import history from 'history';
 
 const TOKEN = 'token';
 
@@ -61,7 +61,7 @@ export const authenticate =
         },
       });
       dispatch(setUser(res.data));
-      history.push(`/users/${userInfo.id}`);
+      // history.push(`/users/${userInfo.id}`);
     } catch (err) {
       console.error(err);
     }

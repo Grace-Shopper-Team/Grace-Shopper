@@ -19,4 +19,19 @@ const isAdmin = async (req, res, next) => {
     }
 }
 
-module.exports = { requireToken, isAdmin }
+const matchUserId = async (req, res, next) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) {
+            res.status(404).send('User not found');
+        } else if (user.id !== req.user.id) {
+            res.status(403).send('Unauthorized to view this page');
+        } else {
+            next();
+        }
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { requireToken, isAdmin, matchUserId }
