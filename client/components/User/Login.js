@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authenticate } from '../../redux/store/auth';
+import { authenticateLogin, logout } from '../../redux/store/auth';
 import jwt_decode from 'jwt-decode';
 
 const LoginForm = (props) => {
@@ -45,14 +45,14 @@ const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
+      logout();
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName))
+      dispatch(authenticateLogin(username, password, formName))
         .then(() => {
           const token = localStorage.getItem('token');
           const decodedToken = jwt_decode(token);
-          console.log("token", decodedToken)
           const userID = decodedToken.id;
           window.location = `/profile/${userID}`;
         })

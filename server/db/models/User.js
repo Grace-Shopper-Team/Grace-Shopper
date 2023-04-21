@@ -42,6 +42,10 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  zip: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  }
 });
 
 module.exports = User;

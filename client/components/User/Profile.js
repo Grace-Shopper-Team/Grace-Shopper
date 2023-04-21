@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { updateUser, fetchUser } from '../../redux/store/auth';
 
-const ProfilePage = ({ user, updateUser, fetchUser }) => {
+const ProfilePage = ({ updateUser, fetchUser }) => {
   const { userID } = useParams();
   const [userInfo, setUserInfo] = useState({});
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [newPassword, setNewPassword] = useState('');
 
   useEffect(() => {
-    fetchUser(userID);
-  }, [fetchUser, userID]);
-
-  useEffect(() => {
-    setUserInfo(user);
-  }, [user]);
+    const fetchUserData = async () => {
+      const user = await fetchUser(userID);
+      setUserInfo(user);
+    };
+    fetchUserData();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,6 +39,7 @@ const ProfilePage = ({ user, updateUser, fetchUser }) => {
     setShowChangePassword(false);
   };
   
+  console.log(userInfo); 
     return (
       <div>
         <h1>Profile</h1>
@@ -47,13 +48,13 @@ const ProfilePage = ({ user, updateUser, fetchUser }) => {
             <label htmlFor='firstname'>
               <small>First Name</small>
             </label>
-            <input name='firstname' type='text' value={userInfo.firstname || ''} onChange={handleChange} required />
+            <input name='firstname' type='text' value={userInfo.firstName || ''} onChange={handleChange} required />
           </div>
           <div>
             <label htmlFor='lastname'>
               <small>Last Name</small>
             </label>
-            <input name='lastname' type='text' value={userInfo.lastname || ''} onChange={handleChange} required />
+            <input name='lastname' type='text' value={userInfo.lastName || ''} onChange={handleChange} required />
           </div>
           <div>
             <label htmlFor='email'>

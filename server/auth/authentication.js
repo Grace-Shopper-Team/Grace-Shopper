@@ -10,10 +10,12 @@ User.prototype.correctPassword = function (candidatePwd) {
 };
 
 User.prototype.generateToken = function () {
+  console.log("generate")
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
 User.authenticate = async function ({ username, password }) {
+  console.log("authenticate")
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
     const error = Error('Incorrect username/password');

@@ -21,7 +21,8 @@ router.get('/users/:id', async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
   try {
-    res.send({ token: await User.authenticate(req.body) });
+    const token = await User.authenticate(req.body);
+    res.send({ token });
   } catch (err) {
     next(err);
   }

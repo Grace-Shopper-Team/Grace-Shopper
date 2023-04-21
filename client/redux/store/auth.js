@@ -30,10 +30,24 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const authenticate =
+export const authenticateLogin =
   (username, password, method) => async (dispatch) => {
     try {
+      console.log('Trying to authenticate');
       const res = await axios.post(`/auth/${method}`, { username, password });
+      console.log('Response from server:', res.data);
+      window.localStorage.setItem(TOKEN, res.data.token);
+      dispatch(me());
+    } catch (authError) {
+      console.error('Error authenticating:', authError);
+      return dispatch(setAuth({ error: authError }));
+    }
+};
+
+export const authenticate =
+  (userInfo, method) => async (dispatch) => {
+    try {
+      const res = await axios.post(`/auth/${method}`, userInfo);
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
     } catch (authError) {
@@ -44,7 +58,7 @@ export const authenticate =
   export const updateUser = (userInfo) => async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
-      const res = await axios.put(`/api/users/${userInfo.id}`, userInfo, {
+      const res = await axios.put(`/auth/users/${userInfo.id}`, userInfo, {
         headers: {
           authorization: token,
         },
@@ -59,12 +73,13 @@ export const authenticate =
   export const fetchUser = (userID) => async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
-      const res = await axios.get(`/api/users/${userID}`, {
+      const res = await axios.get(`/auth/users/${userID}`, {
         headers: {
           authorization: token,
         },
       });
       dispatch(setUser(res.data));
+      return res.data;
     } catch (err) {
       console.error(err);
     }
@@ -72,7 +87,7 @@ export const authenticate =
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
-  history.push('/login');
+  //history.push('/login');
   return {
     type: SET_AUTH,
     auth: {},

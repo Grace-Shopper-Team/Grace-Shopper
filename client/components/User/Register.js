@@ -166,12 +166,34 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      dispatch(authenticate(username, password, formName))
+      const firstName = evt.target.firstname.value;
+      const lastName = evt.target.lastname.value;
+      const email = evt.target.email.value;
+      const address = evt.target.address.value;
+      const city = evt.target.city.value;
+      const state = evt.target.state.value;
+      const zip = evt.target.zip.value;
+
+      const userInfo = {
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        address,
+        city,
+        state,
+        zip
+      };
+      
+      dispatch(authenticate(userInfo, formName))
         .then(() => {
           const token = localStorage.getItem('token');
+          console.log("token", token)
           const decodedToken = jwt_decode(token);
           console.log('token', decodedToken);
           const userID = decodedToken.id;
+          console.log("userID", userID)
           window.location = `/profile/${userID}`;
         })
         .catch((error) => {
