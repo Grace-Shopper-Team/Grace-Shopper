@@ -1,7 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const NavBar = () => {
+  const [userId, setUserId] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      setUserId(decodedToken.id);
+    } else {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <div className='nav-container'>
       <div className='logo-name'>
@@ -22,8 +36,7 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/login'>
           Log In
         </Link>
-        {/* update this to direct to profile/:userID */}
-        <Link className='nav-bar-links' to='/profile/:userId'>
+        <Link className='nav-bar-links' to={`/profile/${userId}`}>
           My Profile
         </Link>
         <Link className='nav-bar-links' to='/cart'>
