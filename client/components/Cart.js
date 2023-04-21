@@ -11,9 +11,8 @@ import Checkout from './checkout';
 const Cart = () => {
   const [loading, setLoading] = useState(true);
   const cartState = useSelector(selectCart);
-  console.log('value of cartstate', cartState);
-
   const dispatch = useDispatch();
+  console.log('value of cartstate', cartState);
 
   useEffect(() => {
     dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
@@ -31,7 +30,6 @@ const Cart = () => {
   return (
     <div className='Shopping-Cart'>
       <h1>Shopping Cart</h1>
-
       <h2>Cart Items</h2>
       {loading ? (
         <p>Loading...</p>

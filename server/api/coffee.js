@@ -24,6 +24,18 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const coffeeToDelete = await Coffee.findByPk(req.params.id);
+    await CartItem.destroy({ where: { productId: req.params.id } });
+    await coffeeToDelete.destroy();
+    res.send(`coffee with id ${coffeeToDelete.id} has been deleted`);
+  } catch (error) {
+    console.error('error deleting coffee from database', error);
+    next(error);
+  }
+});
+
 router.post('/cart', async (req, res, next) => {
   try {
     const user = await User.findByPk(1);
@@ -71,7 +83,5 @@ router.post('/cart', async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
-
-// router.put('/:bId', async (req, res, next) => {});
 
 module.exports = router;
