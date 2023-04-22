@@ -3,6 +3,7 @@ const Coffee = require('./server/db/models/Coffee');
 const Cart = require('./server/db/models/Cart');
 const CartItem = require('./server/db/models/CartItem');
 const User = require('./server/db/models/User');
+const bcrypt = require('bcrypt');
 
 const coffeeData = [
   {
@@ -233,6 +234,17 @@ const users = [
     isAdmin: true,
   },
 ];
+
+users.forEach(user => {
+  const saltRounds = 10;
+  bcrypt.hash(user.password, saltRounds, function(err, hash) {
+    if (err) {
+      console.error(err);
+    } else {
+      user.password = hash;
+    }
+  });
+});
 
 const carts = [{ userId: 1 }, { userId: 2 }];
 
