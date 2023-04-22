@@ -4,7 +4,7 @@
 //     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 //     return !email.match(emailRegex) ? 'Please enter a valid email address.' : '';
 // }
-  
+
 // export const pwdValidation = (password, confirmPass) => {
 //     if (password.length < 8) {
 //         return "Password must be at least 8 characters.";

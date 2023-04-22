@@ -235,9 +235,15 @@ const users = [
   },
 ];
 
+<<<<<<< HEAD
 users.forEach(user => {
   const saltRounds = 10;
   bcrypt.hash(user.password, saltRounds, function(err, hash) {
+=======
+users.forEach((user) => {
+  const saltRounds = 10;
+  bcrypt.hash(user.password, saltRounds, function (err, hash) {
+>>>>>>> combined auth logic with current updates
     if (err) {
       console.error(err);
     } else {

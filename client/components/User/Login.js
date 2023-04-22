@@ -25,7 +25,9 @@ const LoginForm = (props) => {
           <button type='submit'>{displayName}</button>
         </div>
         <div>
-          <p>New user?<a href='/register'>Register here.</a></p>
+          <p>
+            New user?<a href='/register'>Register here.</a>
+          </p>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -62,6 +64,5 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
-
 
 export const Login = connect(mapLogin, mapDispatch)(LoginForm);

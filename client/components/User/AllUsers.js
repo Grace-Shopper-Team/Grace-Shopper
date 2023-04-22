@@ -17,12 +17,12 @@ const AllUsers = () => {
         {users ? (
           users.map((user) => (
             <div key={user.id} className='user-container'>
-                <p>id: {user.id}</p>
-                <p>username: {user.username}</p>
-                <p>firstName: {user.firstName}</p>
-                <p>lastName: {user.lastName}</p>
-                <p>email: {user.email}</p>
-                <p>isAdmin: ${user.isAdmin}</p>
+              <p>id: {user.id}</p>
+              <p>username: {user.username}</p>
+              <p>firstName: {user.firstName}</p>
+              <p>lastName: {user.lastName}</p>
+              <p>email: {user.email}</p>
+              <p>isAdmin: ${user.isAdmin}</p>
             </div>
           ))
         ) : (

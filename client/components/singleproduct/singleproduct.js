@@ -52,7 +52,10 @@ const SingleProduct = () => {
   //     dispatch(toggleFavoriteProduct(productId));
   //   };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> combined auth logic with current updates
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -61,8 +64,13 @@ const SingleProduct = () => {
       const decodedToken = jwt_decode(token);
       const userID = decodedToken.id;
       const data = await dispatch(fetchSingleUserAsync(userID));
+<<<<<<< HEAD
       console.log(data.payload.isAdmin)
       if(data.payload.isAdmin){
+=======
+      console.log(data.payload.isAdmin);
+      if (data.payload.isAdmin) {
+>>>>>>> combined auth logic with current updates
         setIsAdmin(true);
       } else {
         setIsAdmin(false);

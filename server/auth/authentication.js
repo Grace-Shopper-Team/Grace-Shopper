@@ -16,7 +16,7 @@ User.prototype.generateToken = function () {
 User.authenticate = async function ({ username, password }) {
   const user = await this.findOne({ where: { username } });
   const userPwd = await user.correctPassword(password);
-  if (!user || !(userPwd)) {
+  if (!user || !userPwd) {
     const error = Error('Incorrect username/password');
     error.status = 401;
     throw error;
@@ -39,7 +39,6 @@ User.findByToken = async function (token) {
   }
 };
 
-
 const hashPassword = async (user) => {
   if (user.changed('password')) {
     user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
@@ -50,5 +49,5 @@ User.addHook('beforeSave', hashPassword);
 
 module.exports = {
   User,
-  hashPassword
+  hashPassword,
 };

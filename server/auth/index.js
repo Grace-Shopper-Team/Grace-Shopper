@@ -6,5 +6,5 @@ module.exports = {
   authRouter,
   User,
   authenticate,
-  hashPassword
+  hashPassword,
 };
