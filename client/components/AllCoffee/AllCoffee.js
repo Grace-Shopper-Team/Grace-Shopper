@@ -9,7 +9,7 @@ import { addProductToCart } from '../../redux/actions/singleProductActions';
 import { cartSelector } from '../../redux/reducers/singleProductReducer';
 import { Link } from 'react-router-dom';
 
-const AllCoffee = ({ isAdmin = false }) => {
+const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
   const [selectedOption, setSelectedOption] = useState('default');
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,9 +50,7 @@ const AllCoffee = ({ isAdmin = false }) => {
   };
 
   const handleAddToCart = (productId) => {
-    dispatch(
-      addProductToCart({ productId, quantity: 1, userId: loggedInUser.id })
-    );
+    dispatch(addProductToCart({ productId, quantity: 1 }));
   };
 
   const handlePageChange = (pageNumber) => {
@@ -98,6 +96,9 @@ const AllCoffee = ({ isAdmin = false }) => {
                 <div>
                   <button onClick={() => handleDelete(coffee.id)}>❌</button>
                   <span>Stock: {coffee.stock}</span>
+                  <button onClick={() => setSelectedCoffee(coffee)}>
+                    Edit
+                  </button>
                 </div>
               )}
             </div>

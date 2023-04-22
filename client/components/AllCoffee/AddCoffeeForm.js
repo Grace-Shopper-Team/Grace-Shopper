@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addCoffeeToStockAsync } from '../../redux/actions/allCoffeeActions';
+import { updateProduct } from '../../redux/actions/singleProductActions';
 
-const AddCoffeeForm = () => {
+const AddCoffeeForm = ({ selectedCoffee, onSubmit }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState('');
@@ -11,6 +12,18 @@ const AddCoffeeForm = () => {
   const [origin, setOrigin] = useState('');
   const [stock, setStock] = useState(0);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (selectedCoffee) {
+      setName(selectedCoffee.name);
+      setPrice(selectedCoffee.price);
+      setDescription(selectedCoffee.description);
+      setImageUrl(selectedCoffee.imageUrl);
+      setRoast(selectedCoffee.roast);
+      setOrigin(selectedCoffee.origin);
+      setStock(selectedCoffee.stock);
+    }
+  }, [selectedCoffee]);
 
   const resetForm = () => {
     setName('');
@@ -22,26 +35,45 @@ const AddCoffeeForm = () => {
     setStock(0);
   };
 
-  const handleAddCoffeeToStock = (e) => {
+  const handleAddOrUpdateCoffee = (e) => {
     e.preventDefault();
-    dispatch(
-      addCoffeeToStockAsync({
-        name,
-        price,
-        description,
-        imageUrl,
-        roast,
-        origin,
-        stock,
-      })
-    );
-    resetForm();
+    if (selectedCoffee) {
+      dispatch(
+        updateProduct({
+          id: selectedCoffee.id,
+          name,
+          price,
+          description,
+          imageUrl,
+          roast,
+          origin,
+          stock,
+        })
+      );
+      resetForm();
+    } else {
+      dispatch(
+        addCoffeeToStockAsync({
+          name,
+          price,
+          description,
+          imageUrl,
+          roast,
+          origin,
+          stock,
+        })
+      );
+      resetForm();
+    }
+    onSubmit();
   };
 
   return (
     <div className='add-coffee-container'>
-      <form className='form' onSubmit={handleAddCoffeeToStock}>
-        <span className='title'>Add Coffee to Shop Stock</span>
+      <form className='form' onSubmit={handleAddOrUpdateCoffee}>
+        <span className='title'>
+          {selectedCoffee ? 'Edit Coffee' : 'Add Coffee to Shop Stock'}
+        </span>
         <label className='label'>Name: </label>
         <input
           required
@@ -92,7 +124,7 @@ const AddCoffeeForm = () => {
           onChange={(e) => setStock(e.target.value)}
         />
         <button type='submit' className='submit'>
-          Add Coffee
+          {selectedCoffee ? 'Update Coffee' : 'Add Coffee'}
         </button>
       </form>
     </div>

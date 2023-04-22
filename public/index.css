@@ -310,12 +310,18 @@ button:hover {
 
 /* ADMIN Dashboard */
 .admin-dash-container {
-  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+.coffee-container-admin {
+  width: 60%;
 }
 
 /* Add Coffee Form */
 .form {
-  max-width: 320px;
+  max-width: 420px;
   width: 100%;
   background-color: #fff;
   padding: 20px;
