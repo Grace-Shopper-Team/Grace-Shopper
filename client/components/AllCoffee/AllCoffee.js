@@ -38,13 +38,13 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
   );
 
   // pagination
+  const totalPages = Math.ceil(filteredCoffee.length / coffeesPerPage);
   const indexOfLastCoffee = currentPage * coffeesPerPage;
   const indexOfFirstCoffee = indexOfLastCoffee - coffeesPerPage;
   const currentCoffees = filteredCoffee.slice(
     indexOfFirstCoffee,
     indexOfLastCoffee
   );
-  const totalPages = Math.ceil(filteredCoffee.length / coffeesPerPage);
 
   const handleSort = (event) => {
     setSelectedOption(event.target.value);
@@ -62,6 +62,11 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
     dispatch(deleteCoffeeAsync(id));
   };
 
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    setCurrentPage(1);
+  };
+
   return (
     <>
       <div className='sort-search-container'>
@@ -77,7 +82,7 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
         </div>
         <div className='search'>
           <span>Search for Coffee: </span>
-          <input value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input value={search} onChange={handleSearchChange} />
         </div>
       </div>
       <div className='container'>
@@ -114,10 +119,12 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
           disabled={currentPage === 1}>
           Previous
         </button>
-        <span>Page {currentPage}</span>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
-          disabled={indexOfLastCoffee >= filteredCoffee.length}>
+          disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
