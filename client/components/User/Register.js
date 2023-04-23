@@ -46,14 +46,6 @@ const RegisterForm = (props) => {
       }
     }
   };
-
-  const handleEmailChange = (e) => {
-    formValidation(e);
-  };
-  
-  const handlePasswordChange = (e) => {
-    formValidation(e);
-  };
   
   return (
     <div>
@@ -78,7 +70,7 @@ const RegisterForm = (props) => {
             <input
               name='email'
               type='text'
-              onChange={handleEmailChange}
+              onChange={formValidation}
               required
             />
             <span style={{ color: 'red' }}>{emailError}</span>
@@ -130,7 +122,7 @@ const RegisterForm = (props) => {
           <input
             name='password'
             type='password'
-            onChange={handlePasswordChange}
+            onChange={formValidation}
             required
           />
           <span style={{ color: 'red' }}>{pwdError}</span>
@@ -142,7 +134,7 @@ const RegisterForm = (props) => {
           <input
             name='confirmPass'
             type='password'
-            onChange={handlePasswordChange}
+            onChange={formValidation}
             required
           />
         </div>
