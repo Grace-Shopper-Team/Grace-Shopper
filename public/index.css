@@ -378,3 +378,16 @@ button:hover {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
+
+/* user table */
+.user-container {
+  border: 1px solid;
+  margin: 15px;
+}
+
+.registered-users-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

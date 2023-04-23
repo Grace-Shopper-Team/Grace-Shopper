@@ -44,6 +44,7 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
     indexOfFirstCoffee,
     indexOfLastCoffee
   );
+  const totalPages = Math.ceil(filteredCoffee.length / coffeesPerPage);
 
   const handleSort = (event) => {
     setSelectedOption(event.target.value);
