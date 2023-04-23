@@ -6,11 +6,11 @@ import {
   addProductToCart,
   deleteProduct,
   updateProduct,
-  //   toggleFavoriteProduct
+    toggleFavoriteProduct
 } from '../../redux/actions/singleProductActions';
-
 import { fetchSingleUserAsync } from '../../redux/actions/allUserActions';
 import jwt_decode from 'jwt-decode';
+
 
 const SingleProduct = () => {
   const { id: productId } = useParams();
@@ -20,8 +20,7 @@ const SingleProduct = () => {
   const singleProduct = useSelector(
     (state) => state.singleProduct.singleProduct
   );
-
-  // const favorites = useSelector((state) => state.singleProduct.favorites);
+    const favorites = useSelector((state) => state.singleProduct.favorites);
 
   useEffect(() => {
     dispatch(fetchSingleProduct(productId));
@@ -48,15 +47,13 @@ const SingleProduct = () => {
       setEditMode(true);
     }
   };
-  //   const handleFavoriteClick = (productId) => {
-  //     dispatch(toggleFavoriteProduct(productId));
-  //   };
+  const handleFavoriteClick = (productId) => {
+        dispatch(toggleFavoriteProduct(productId));
+      };
+  
 
-<<<<<<< HEAD
-
-=======
->>>>>>> combined auth logic with current updates
   const [isAdmin, setIsAdmin] = useState(false);
+
 
   useEffect(() => {
     const checkIsAdmin = async () => {
@@ -64,13 +61,8 @@ const SingleProduct = () => {
       const decodedToken = jwt_decode(token);
       const userID = decodedToken.id;
       const data = await dispatch(fetchSingleUserAsync(userID));
-<<<<<<< HEAD
-      console.log(data.payload.isAdmin)
-      if(data.payload.isAdmin){
-=======
       console.log(data.payload.isAdmin);
       if (data.payload.isAdmin) {
->>>>>>> combined auth logic with current updates
         setIsAdmin(true);
       } else {
         setIsAdmin(false);
@@ -78,22 +70,29 @@ const SingleProduct = () => {
     };
     checkIsAdmin();
   }, [dispatch]);
-
   return (
-    <div className='product-container'>
-      <div className='back-btn'>
-        <Link id='back-btn' to={'/home'}>
+    <div className="product-container">
+      <div className="back-btn">
+        <Link id="back-btn" to={"/home"}>
           ⇦ Back
         </Link>
       </div>
       {singleProduct ? (
         <>
-          {/* <button className='spstyle' onClick={() => handleFavoriteClick(singleProduct.id)}>
-    {favorites.includes(singleProduct.id) ? 'Unfavorite' : 'Favorite'}
-  </button> */}
-
+          <div className="heart-container">
+            <span id='heart'
+              role="img"
+              aria-label={
+                favorites.includes(singleProduct.id) ? "favorited" : "not favorited"
+              }
+              onClick={() => handleFavoriteClick(singleProduct.id)}
+              style={{ cursor: "pointer" }}
+            >
+              {favorites.includes(singleProduct.id) ? "❤️" : "♡"}
+            </span>
+          </div>
           <img
-            className='singleproduct-img'
+            className="singleproduct-img"
             src={singleProduct.imageUrl}
             alt={singleProduct.name}
           />
@@ -102,48 +101,52 @@ const SingleProduct = () => {
           <p>{singleProduct.description}</p>
           <div>
             <form
-              id='spform'
+              id="spform"
               onSubmit={(e) => {
                 e.preventDefault();
                 handleAddToCart(singleProduct.id);
-              }}>
-              <label htmlFor='quantity'>Quantity:</label>
+              }}
+            >
+              <label htmlFor="quantity">Quantity:</label>
               <input
-                type='number'
-                id='quantity'
-                name='quantity'
+                type="number"
+                id="quantity"
+                name="quantity"
                 value={quantity}
                 onChange={(e) => setQuantity(Number(e.target.value))}
-                min='1'
-                max='10'
+                min="1"
+                max="10"
               />
-
-              <button className='spstyle' type='submit'>
+  
+              <button className="spstyle" type="submit">
                 Add To Cart
               </button>
             </form>
           </div>
-          {itemAdded && <p className='item-added-msg'>Item added to cart!</p>}
+          {itemAdded && (
+            <p className="item-added-msg">Item added to cart!</p>
+          )}
           {isAdmin && (
             <>
-              <div className='styles.admin-buttons'>
-                <button className='spstyle' onClick={handleEditProduct}>
-                  {editMode ? 'Save' : 'Edit'}
+              <div className="admin-buttons">
+                <button className="spstyle" onClick={handleEditProduct}>
+                  {editMode ? "Save" : "Edit"}
                 </button>
               </div>
               {editMode && (
                 <div>
                   <form
-                    className='admin-form'
+                    className="admin-form"
                     onSubmit={(e) => {
                       e.preventDefault();
                       handleEditProduct();
-                    }}>
-                    <label htmlFor='name'>Name:</label>
+                    }}
+                  >
+                    <label htmlFor="name">Name:</label>
                     <input
-                      type='text'
-                      id='name'
-                      name='name'
+                      type="text"
+                      id="name"
+                      name="name"
                       value={editedProduct.name}
                       onChange={(e) =>
                         setEditedProduct({
@@ -152,11 +155,11 @@ const SingleProduct = () => {
                         })
                       }
                     />
-                    <label htmlFor='price'>Price:</label>
+                    <label htmlFor="price">Price:</label>
                     <input
-                      type='number'
-                      id='price'
-                      name='price'
+                      type="number"
+                      id="price"
+                      name="price"
                       value={editedProduct.price}
                       onChange={(e) =>
                         setEditedProduct({
@@ -165,10 +168,10 @@ const SingleProduct = () => {
                         })
                       }
                     />
-                    <label htmlFor='description'>Description:</label>
+                    <label htmlFor="description">Description:</label>
                     <textarea
-                      id='description'
-                      name='description'
+                      id="description"
+                      name="description"
                       value={editedProduct.description}
                       onChange={(e) =>
                         setEditedProduct({
@@ -177,7 +180,7 @@ const SingleProduct = () => {
                         })
                       }
                     />
-                    <button type='submit'>Save</button>
+                    <button type="submit">Save</button>
                   </form>
                 </div>
               )}
@@ -189,6 +192,7 @@ const SingleProduct = () => {
       )}
     </div>
   );
-};
+  
+      };  
 
 export default SingleProduct;

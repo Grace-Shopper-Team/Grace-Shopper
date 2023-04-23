@@ -27,21 +27,18 @@ const cartSlice = createSlice({
       );
       state.cartItems = newCartItemState;
     });
-    //Case for updatedCartItems. (I need to work on the update input)
     builder.addCase(updateCartItemAction.fulfilled, (state, action) => {
       const { productId, quantity } = action.payload;
-      console.log('state.cartItems ===', state.cartItems);
       const updatedProductIdx = state.cartItems
         .map(function (e) {
           return e.productId;
         })
-        .indexOf(productId);
-
-      if (updatedProductIdx !== -1) {
+        .indexOf(action.payload.productId);
+      if (updatedProductIdx != -1) {
         state.cartItems[updatedProductIdx].productId = productId;
         state.cartItems[updatedProductIdx].quantity = quantity;
       }
-    });
+    })
     builder.addCase(addProductToCart.fulfilled, (state, action) => {
       console.log('state.addCart ===', state, action);
       state.cartItems.push(action.payload);

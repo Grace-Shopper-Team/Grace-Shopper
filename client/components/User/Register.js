@@ -196,11 +196,11 @@ const mapDispatch = (dispatch) => {
       dispatch(authenticate(userInfo, formName))
         .then(() => {
           const token = localStorage.getItem('token');
-          console.log('token', token);
+          console.log('token', token)
           const decodedToken = jwt_decode(token);
           console.log('token', decodedToken);
           const userID = decodedToken.id;
-          console.log('userID', userID);
+          console.log('userID', userID)
           window.location = `/profile/${userID}`;
         })
         .catch((error) => {

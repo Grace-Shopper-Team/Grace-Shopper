@@ -17,11 +17,10 @@ const NavBar = () => {
       setToken(null);
     }
     return token;
-<<<<<<< HEAD
-  }
-=======
+
+
   };
->>>>>>> combined auth logic with current updates
+
 
   useEffect(() => {
     checkToken();
@@ -41,7 +40,6 @@ const NavBar = () => {
     setUserId(null);
     setToken(null);
   };
-
   return (
     <div className='nav-container'>
       <div className='logo-name'>
@@ -65,13 +63,7 @@ const NavBar = () => {
         <Link className='nav-bar-links' to='/login'>
           Log In
         </Link>
-<<<<<<< HEAD
         <Link className='nav-bar-links' to={token ? `/profile/${userId}` : '/login'}>
-=======
-        <Link
-          className='nav-bar-links'
-          to={token ? `/profile/${userId}` : '/login'}>
->>>>>>> combined auth logic with current updates
           My Profile
         </Link>
         <Link className='nav-bar-links' to='/logout' onClick={handleLogout}>

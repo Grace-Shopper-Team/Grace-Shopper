@@ -31,7 +31,6 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
     setShowChangePassword(false);
   };
 
-<<<<<<< HEAD
     return (
       <div>
         <h1>Profile</h1>
@@ -92,118 +91,9 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
             <input name='username' type='text' value={userInfo.username || ''} onChange={handleChange} required />
           </div>
           {!showChangePassword && (
-=======
-  return (
-    <div>
-      <h1>Profile</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='firstname'>
-            <small>First Name</small>
-          </label>
-          <input
-            name='firstname'
-            type='text'
-            value={userInfo.firstName || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='lastname'>
-            <small>Last Name</small>
-          </label>
-          <input
-            name='lastname'
-            type='text'
-            value={userInfo.lastName || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='email'>
-            <small>Email</small>
-          </label>
-          <input
-            name='email'
-            type='text'
-            value={userInfo.email || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor='address'>
-            <small>Address</small>
-          </label>
-          <input
-            name='address'
-            type='text'
-            value={userInfo.address || ''}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor='city'>
-            <small>City</small>
-          </label>
-          <input
-            name='city'
-            type='text'
-            value={userInfo.city || ''}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor='state'>
-            <small>State</small>
-          </label>
-          <select
-            name='state'
-            value={userInfo.state || ''}
-            onChange={handleChange}>
-            <option value='' disabled>
-              Select a State
-            </option>
-            {states.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor='zip'>
-            <small>Zipcode</small>
-          </label>
-          <input
-            name='zip'
-            type='number'
-            value={userInfo.zip || ''}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor='username'>
-            <small>Username</small>
-          </label>
-          <input
-            name='username'
-            type='text'
-            value={userInfo.username || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {!showChangePassword && (
->>>>>>> combined auth logic with current updates
           <div>
-            <button type='button' onClick={() => setShowChangePassword(true)}>
-              Change Password
-            </button>
+            <button type='button' onClick={() => setShowChangePassword(true)}>Change Password</button>
           </div>
-<<<<<<< HEAD
           )}
           {showChangePassword && (
            <>
@@ -234,98 +124,18 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
     updateUser,
     fetchUser,
   };
-=======
-        )}
-        {showChangePassword && (
-          <>
-            <div>
-              <label htmlFor='password'>
-                <small>New Password</small>
-              </label>
-              <input
-                name='password'
-                type='password'
-                value={userInfo.password || ''}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <span>
-              <button type='button' onClick={handlePasswordChangeCancel}>
-                Cancel
-              </button>
-            </span>
-          </>
-        )}
-        <div>
-          <button type='submit'>Update Profile</button>
-        </div>
-      </form>
-    </div>
-  );
-};
-
-const mapProfile = (state) => ({
-  user: state.auth.user,
-});
-
-const mapDispatch = {
-  updateUser,
-  fetchUser,
-};
->>>>>>> combined auth logic with current updates
 
 const states = [
-  'Alabama',
-  'Alaska',
-  'Arizona',
-  'Arkansas',
-  'California',
-  'Colorado',
-  'Connecticut',
-  'Delaware',
-  'Florida',
-  'Georgia',
-  'Hawaii',
-  'Idaho',
-  'Illinois',
-  'Indiana',
-  'Iowa',
-  'Kansas',
-  'Kentucky',
-  'Louisiana',
-  'Maine',
-  'Maryland',
-  'Massachusetts',
-  'Michigan',
-  'Minnesota',
-  'Mississippi',
-  'Missouri',
-  'Montana',
-  'Nebraska',
-  'Nevada',
-  'New Hampshire',
-  'New Jersey',
-  'New Mexico',
-  'New York',
-  'North Carolina',
-  'North Dakota',
-  'Ohio',
-  'Oklahoma',
-  'Oregon',
-  'Pennsylvania',
-  'Rhode Island',
-  'South Carolina',
-  'South Dakota',
-  'Tennessee',
-  'Texas',
-  'Utah',
-  'Vermont',
-  'Virginia',
-  'Washington',
-  'West Virginia',
-  'Wisconsin',
-  'Wyoming',
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
+  'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
+  'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+  'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
+  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+  'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma',
+  'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota',
+  'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia',
+  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
 ];
-
+  
 export const Profile = connect(mapProfile, mapDispatch)(ProfilePage);

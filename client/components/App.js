@@ -23,6 +23,7 @@ export const App = () => {
         <Route path='/cart' element={<Cart />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/admindashboard' element={<AdminDashboard />} />
+        <Route path='/cart/coffee/:id' element={<SingleProduct />}/>
       </Routes>
     </div>
   );

@@ -1,4 +1,4 @@
-const { User, Cart, CartItem, Coffee } = require('./models');
+const { User, Cart, CartItem, Coffee,} = require('./models');
 
 Cart.belongsTo(User);
 User.hasOne(Cart);
@@ -7,10 +7,13 @@ Cart.hasMany(CartItem);
 CartItem.belongsTo(Coffee, {
   foreignKey: 'productId',
 });
+// User.belongsToMany(Coffee, { through: Favorite });
+// Coffee.belongsToMany(User, { through: Favorite });
 
 module.exports = {
   Cart,
   User,
   CartItem,
   Coffee,
+//   Favorite
 };

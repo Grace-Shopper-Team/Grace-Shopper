@@ -1,18 +1,10 @@
 const router = require('express').Router();
 const User = require('../db/models/User');
-<<<<<<< HEAD
 const { requireToken, isAdmin, matchUserId } = require('./gatekeepingMiddleware');
-=======
-const {
-  requireToken,
-  isAdmin,
-  matchUserId,
-} = require('./gatekeepingMiddleware');
->>>>>>> combined auth logic with current updates
 
 router.get('/users', requireToken, isAdmin, async (req, res) => {
   const users = await User.findAll({
-    attributes: ['id', 'username'],
+    attributes: ['id', 'username']
   });
   res.json(users);
 });
@@ -41,28 +33,8 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/register', async (req, res, next) => {
   try {
-    const {
-      username,
-      password,
-      firstName,
-      lastName,
-      email,
-      address,
-      city,
-      state,
-      zip,
-    } = req.body;
-    const user = await User.create({
-      username,
-      password,
-      firstName,
-      lastName,
-      email,
-      address,
-      city,
-      state,
-      zip,
-    });
+    const { username, password, firstName, lastName, email, address, city, state, zip } = req.body;
+    const user = await User.create({ username, password, firstName, lastName, email, address, city, state, zip });
     res.send({ token: await user.generateToken() });
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
@@ -75,21 +47,7 @@ router.post('/register', async (req, res, next) => {
 
 router.put('/users/:id', requireToken, matchUserId, async (req, res, next) => {
   try {
-<<<<<<< HEAD
     const { username, password, firstName, lastName, email, address, city, state, zip } = req.body;
-=======
-    const {
-      username,
-      password,
-      firstName,
-      lastName,
-      email,
-      address,
-      city,
-      state,
-      zip,
-    } = req.body;
->>>>>>> combined auth logic with current updates
     const user = await User.findByPk(req.params.id);
     if (!user) {
       res.status(404).send('User not found');
@@ -111,9 +69,6 @@ router.put('/users/:id', requireToken, matchUserId, async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> combined auth logic with current updates
 module.exports = router;

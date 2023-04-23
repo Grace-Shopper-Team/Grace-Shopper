@@ -3,7 +3,7 @@ import {
   addProductToCart,
   fetchSingleProduct,
   updateProduct,
-  //   toggleFavoriteProduct,
+    toggleFavoriteProduct,
 } from '../actions/singleProductActions';
 
 export const singleProductSlice = createSlice({
@@ -11,7 +11,7 @@ export const singleProductSlice = createSlice({
   initialState: {
     singleProduct: null,
     cart: [],
-    // favorites: [],
+    favorites: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -22,14 +22,10 @@ export const singleProductSlice = createSlice({
       console.log(action);
       state.cart.push(action.payload);
     });
-    // builder.addCase(toggleFavoriteProduct.fulfilled, (state, action) => {
-    //   const index = state.favorites.indexOf(action.payload);
-    //   if (index === -1) {
-    //     state.favorites.push(action.payload);
-    //   } else {
-    //     state.favorites.splice(index, 1);
-    //   }
-    // });
+    builder.addCase(toggleFavoriteProduct.fulfilled, (state, action) => {
+        state.favorites = action.payload.updatedFavorites;
+      });
+      
     builder.addCase(updateProduct.fulfilled, (state, action) => {
       state.singleProduct = action.payload;
     });

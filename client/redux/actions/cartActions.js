@@ -32,6 +32,7 @@ export const updateCartItemAction = createAsyncThunk(
   }
 );
 
+
 //Action for deleting a product
 export const deleteCartItemAction = createAsyncThunk(
   'cartProducts/deleteCartItemAction',

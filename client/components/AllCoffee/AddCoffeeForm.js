@@ -38,39 +38,39 @@ const AddCoffeeForm = ({ selectedCoffee, onSubmit }) => {
   const handleAddOrUpdateCoffee = (e) => {
     e.preventDefault();
     if (selectedCoffee) {
-      dispatch(
-        updateProduct({
-          id: selectedCoffee.id,
-          name,
-          price,
-          description,
-          imageUrl,
-          roast,
-          origin,
-          stock,
-        })
-      );
-      resetForm();
-    } else {
-      dispatch(
-        addCoffeeToStockAsync({
-          name,
-          price,
-          description,
-          imageUrl,
-          roast,
-          origin,
-          stock,
-        })
-      );
-      resetForm();
-    }
-    onSubmit();
-  };
+        dispatch(
+          updateProduct({
+            id: selectedCoffee.id,
+            name,
+            price,
+            description,
+            imageUrl,
+            roast,
+            origin,
+            stock,
+          })
+        );
+        resetForm();
+      } else {
+        dispatch(
+          addCoffeeToStockAsync({
+            name,
+            price,
+            description,
+            imageUrl,
+            roast,
+            origin,
+            stock,
+          })
+        );
+        resetForm();
+      }
+      onSubmit();
+    };
 
   return (
     <div className='add-coffee-container'>
-      <form className='form' onSubmit={handleAddOrUpdateCoffee}>
+     <form className='form' onSubmit={handleAddOrUpdateCoffee}>
         <span className='title'>
           {selectedCoffee ? 'Edit Coffee' : 'Add Coffee to Shop Stock'}
         </span>
@@ -124,7 +124,7 @@ const AddCoffeeForm = ({ selectedCoffee, onSubmit }) => {
           onChange={(e) => setStock(e.target.value)}
         />
         <button type='submit' className='submit'>
-          {selectedCoffee ? 'Update Coffee' : 'Add Coffee'}
+        {selectedCoffee ? 'Update Coffee' : 'Add Coffee'}
         </button>
       </form>
     </div>

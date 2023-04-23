@@ -35,31 +35,33 @@ export const addProductToCart = createAsyncThunk(
     }
   }
 );
+  
 
-//   export const toggleFavoriteProduct = createAsyncThunk(
-//     'singleProduct/toggleFavoriteProduct',
-//     async (productId, { getState }) => {
-//       console.log('Product favorited:', productId);
-//       try {
-//         const state = getState();
-//         const favorites = state.singleProduct.favorites;
+  export const toggleFavoriteProduct = createAsyncThunk(
+    'singleProduct/toggleFavoriteProduct',
+    async (productId, { getState }) => {
+      console.log('Product favorited:', productId);
+      try {
+        const state = getState();
+        const favorites = state.singleProduct.favorites;
+  
+        const isFavorite = favorites.includes(productId);
+  
+        const updatedFavorites = isFavorite
+          ? favorites.filter((id) => id !== productId)
+          : [...favorites, productId];
+  
+        const response = await fetch(`/api/coffee/${productId}`);
+        const product = await response.json();
+  
+        return { updatedFavorites, product };
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
+  );
 
-//         const isFavorite = favorites.includes(productId);
-
-//         const updatedFavorites = isFavorite
-//           ? favorites.filter((id) => id !== productId)
-//           : [...favorites, productId];
-
-//         const response = await fetch(`/api/coffee/${productId}`);
-//         const product = await response.json();
-
-//         return { updatedFavorites, product };
-//       } catch (error) {
-//         console.error(error);
-//         throw error;
-//       }
-//     }
-//   );
 
 export const updateProduct = createAsyncThunk(
   'singleProduct/updateProduct',
