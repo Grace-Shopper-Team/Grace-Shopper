@@ -23,8 +23,8 @@ export const updateCartItemAction = createAsyncThunk(
       const response = await axios.put(`/api/cart/${cartId}/${productId}`, {
         quantity,
       });
-      console.log(response);
-      return response.data;
+      console.log('response data', response);
+      return { productId, quantity };
     } catch (error) {
       console.error('error', error);
       return rejectWithValue('Unable to update cart item');

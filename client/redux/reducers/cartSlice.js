@@ -35,8 +35,9 @@ const cartSlice = createSlice({
         .map(function (e) {
           return e.productId;
         })
-        .indexOf(action.payload.productId);
-      if (updatedProductIdx) {
+        .indexOf(productId);
+
+      if (updatedProductIdx !== -1) {
         state.cartItems[updatedProductIdx].productId = productId;
         state.cartItems[updatedProductIdx].quantity = quantity;
       }

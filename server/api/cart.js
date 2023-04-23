@@ -80,6 +80,7 @@ router.put('/:cartID/:productID', async (req, res, next) => {
     }
     cartItem.quantity = quantity;
     const data = await cartItem.save();
+
     res.json(data);
   } catch (error) {
     console.error(error);
