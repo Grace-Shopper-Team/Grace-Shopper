@@ -10,19 +10,17 @@ const RegisterForm = (props) => {
   const [password, setPassword] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
 
-  const emailValidation = (e) => {
+  const formValidation = (e) => {
     const email = e.target.value;
     const emailRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (!email.match(emailRegex)) {
+    if (e.target.name === 'email') {
+      if (!email.match(emailRegex)) {
       setEmailError('Please enter a valid email address.');
-    } else {
-      setEmailError('');
-    }
-  };
-
-  const pwdValidation = (e) => {
-    if (e.target.name === 'password') {
+      } else {
+        setEmailError('');
+      }
+    } else if (e.target.name === 'password') {
       setPassword(e.target.value);
       if (e.target.value.length < 8) {
         setPwdError('Password must be at least 8 characters.');
@@ -32,9 +30,7 @@ const RegisterForm = (props) => {
         setPwdError('Password must contain at least one number.');
       } else if (e.target.value.search(/[A-Z]/) < 0) {
         setPwdError('Password must contain at least one uppercase character.');
-      } else if (
-        e.target.value.search(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) < 0
-      ) {
+      } else if (e.target.value.search(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/) < 0) {
         setPwdError('Password must contain at least one special character.');
       } else if (e.target.value !== confirmPass) {
         setPwdError('Passwords do not match.');
@@ -51,9 +47,17 @@ const RegisterForm = (props) => {
     }
   };
 
+  const handleEmailChange = (e) => {
+    formValidation(e);
+  };
+  
+  const handlePasswordChange = (e) => {
+    formValidation(e);
+  };
+  
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={(e) => handleSubmit(e, emailError, pwdError)} name={name}>
         <>
           <div>
             <label htmlFor='firstname'>
@@ -74,7 +78,7 @@ const RegisterForm = (props) => {
             <input
               name='email'
               type='text'
-              onChange={emailValidation}
+              onChange={handleEmailChange}
               required
             />
             <span style={{ color: 'red' }}>{emailError}</span>
@@ -126,7 +130,7 @@ const RegisterForm = (props) => {
           <input
             name='password'
             type='password'
-            onChange={pwdValidation}
+            onChange={handlePasswordChange}
             required
           />
           <span style={{ color: 'red' }}>{pwdError}</span>
@@ -138,7 +142,7 @@ const RegisterForm = (props) => {
           <input
             name='confirmPass'
             type='password'
-            onChange={pwdValidation}
+            onChange={handlePasswordChange}
             required
           />
         </div>
@@ -161,18 +165,22 @@ const mapRegister = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault();
-      const formName = evt.target.name;
-      const username = evt.target.username.value;
-      const password = evt.target.password.value;
-      const firstName = evt.target.firstname.value;
-      const lastName = evt.target.lastname.value;
-      const email = evt.target.email.value;
-      const address = evt.target.address.value;
-      const city = evt.target.city.value;
-      const state = evt.target.state.value;
-      const zip = evt.target.zip.value;
+    handleSubmit(e, emailError, pwdError) {
+      e.preventDefault();
+      if (emailError || pwdError) {
+        alert(emailError || pwdError);
+        return;
+      }
+      const formName = e.target.name;
+      const username = e.target.username.value;
+      const password = e.target.password.value;
+      const firstName = e.target.firstname.value;
+      const lastName = e.target.lastname.value;
+      const email = e.target.email.value;
+      const address = e.target.address.value;
+      const city = e.target.city.value;
+      const state = e.target.state.value;
+      const zip = e.target.zip.value;
 
       const userInfo = {
         username,
@@ -203,13 +211,14 @@ const mapDispatch = (dispatch) => {
   };
 };
 
+
 // const mapDispatch = (dispatch) => {
 //   return {
-//     handleSubmit(evt) {
-//       evt.preventDefault();
-//       const formName = evt.target.name;
-//       const username = evt.target.username.value;
-//       const password = evt.target.password.value;
+//     handleSubmit(e) {
+//       e.preventDefault();
+//       const formName = e.target.name;
+//       const username = e.target.username.value;
+//       const password = e.target.password.value;
 
 //       // check if the username already exists in the database
 //       fetch(`/api/users?username=${username}`)
