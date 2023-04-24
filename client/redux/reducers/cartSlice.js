@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addProductToCart,
   fetchAllCartAction,
-  deleteProductCart,
+  //deleteProductCart,
   deleteCartItemAction,
   updateCartItemAction,
 } from '../actions/cartActions';
@@ -33,8 +33,8 @@ const cartSlice = createSlice({
         .map(function (e) {
           return e.productId;
         })
-        .indexOf(action.payload.productId);
-      if (updatedProductIdx != -1) {
+        .indexOf(productId);
+      if (updatedProductIdx !== -1) {
         state.cartItems[updatedProductIdx].productId = productId;
         state.cartItems[updatedProductIdx].quantity = quantity;
       }

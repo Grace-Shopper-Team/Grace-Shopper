@@ -9,6 +9,7 @@ import Cart from './Cart';
 import NavBar from './NavBar';
 import { Logout } from './User/Logout';
 import AdminDashboard from './AllCoffee/AdminDashboard';
+import GuessForm from './GuessForm';
 
 export const App = () => {
   return (
@@ -24,6 +25,7 @@ export const App = () => {
         <Route path='/logout' element={<Logout />} />
         <Route path='/admindashboard' element={<AdminDashboard />} />
         <Route path='/cart/coffee/:id' element={<SingleProduct />}/>
+        <Route path='/GuessForm' element={<GuessForm />} />
       </Routes>
     </div>
   );

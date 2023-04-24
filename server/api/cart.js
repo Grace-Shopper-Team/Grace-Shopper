@@ -1,23 +1,24 @@
-const router = require('express').Router();
-const Cart = require('../db/models/Cart');
-const CartItem = require('../db/models/CartItem');
-const Coffee = require('../db/models/Coffee');
+const router = require("express").Router();
+const Cart = require("../db/models/Cart");
+const CartItem = require("../db/models/CartItem");
+const Coffee = require("../db/models/Coffee");
+const stripe = require("stripe")("sk_test_51N06kKL5OKQc1cZTVGNrpPhuQwycZnP1Cvtl6PVqSAh9ETMDZXh3GobuAsAs0qUFDp9haM24xnXW5n61PjiRgHom00kKpNQJbl");
 
 CartItem.belongsTo(Coffee, {
-  foreignKey: 'productId',
+  foreignKey: "productId",
 });
 
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const getAll = await Cart.findAll();
     res.send(getAll);
   } catch (error) {
-    console.error('error getting all product in cart', error);
+    console.error("error getting all product in cart", error);
     next(error);
   }
 });
 
-router.get('/cartItems/:userId', async (req, res, next) => {
+router.get("/cartItems/:userId", async (req, res, next) => {
   try {
     const userId = req.params.userId;
     let shoppingCart = await Cart.findOne({
@@ -27,7 +28,7 @@ router.get('/cartItems/:userId', async (req, res, next) => {
       // Create a new shopping cart object if none exists for the user
       res
         .status(204)
-        .json({ error: 'Not founded a cart asociated to this user.' });
+        .json({ error: "Not founded a cart asociated to this user." });
     }
     // Check if the product already exists in the shopping cart
     const shoppingCartItems = await CartItem.findAll({
@@ -37,29 +38,29 @@ router.get('/cartItems/:userId', async (req, res, next) => {
       include: [
         {
           model: Coffee,
-          attributes: ['name', 'price', 'imageUrl', 'stock'],
+          attributes: ["name", "price", "imageUrl", "stock"],
         },
       ],
     });
     if (shoppingCartItems) {
       res.json(shoppingCartItems);
     } else {
-      res.status(204).json({ error: 'there are not products in cart.' });
+      res.status(204).json({ error: "there are not products in cart." });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error.' });
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
 // update quantity inside the Cart (Need to work on the update input)
-router.put('/:cartID/:productID', async (req, res, next) => {
+router.put("/:cartID/:productID", async (req, res, next) => {
   try {
     const { cartID, productID } = req.params;
     const { quantity } = req.body;
     const cart = await Cart.findByPk(cartID);
     if (!cart) {
-      return res.status(404).json({ error: 'Cart not found.' });
+      return res.status(404).json({ error: "Cart not found." });
     }
     const cartItem = await CartItem.findOne({
       where: {
@@ -69,14 +70,14 @@ router.put('/:cartID/:productID', async (req, res, next) => {
       include: [
         {
           model: Coffee,
-          attributes: ['name', 'price', 'imageUrl', 'stock'],
+          attributes: ["name", "price", "imageUrl", "stock"],
         },
       ],
     });
     if (!cartItem) {
       return res
         .status(404)
-        .json({ error: 'Product not found inside the cart.' });
+        .json({ error: "Product not found inside the cart." });
     }
     cartItem.quantity = quantity;
     const data = await cartItem.save();
@@ -84,11 +85,11 @@ router.put('/:cartID/:productID', async (req, res, next) => {
     res.json(data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error.' });
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
-router.get('/:cartID', async (req, res, next) => {
+router.get("/:cartID", async (req, res, next) => {
   try {
     const getAll = await CartItem.findAll({
       where: {
@@ -97,18 +98,18 @@ router.get('/:cartID', async (req, res, next) => {
       include: [
         {
           model: Coffee,
-          attributes: ['name', 'price', 'imageUrl', 'stock'],
+          attributes: ["name", "price", "imageUrl", "stock"],
         },
       ],
     });
     res.json(getAll);
   } catch (error) {
-    console.error('error getting all product in cart', error);
+    console.error("error getting all product in cart", error);
     next(error);
   }
 });
 
-router.get('/:cartID/:productID', async (req, res, next) => {
+router.get("/:cartID/:productID", async (req, res, next) => {
   try {
     const getSingle = await CartItem.findOne({
       where: {
@@ -118,22 +119,22 @@ router.get('/:cartID/:productID', async (req, res, next) => {
       include: [
         {
           model: Coffee,
-          attributes: ['name', 'price'],
+          attributes: ["name", "price"],
         },
       ],
     });
     res.json(getSingle);
   } catch (error) {
-    console.error('error getting single Cart', error);
+    console.error("error getting single Cart", error);
     next(error);
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     const { productId, quantity, userId } = req.body;
     //const userId = req.session.userId;
-    console.log('userId addCart ===', req.body);
+    console.log("userId addCart ===", req.body);
     let shoppingCart = await Cart.findOne({
       where: { userId },
     });
@@ -150,7 +151,7 @@ router.post('/', async (req, res, next) => {
       include: [
         {
           model: Coffee,
-          attributes: ['name', 'price', 'imageUrl', 'stock'],
+          attributes: ["name", "price", "imageUrl", "stock"],
         },
       ],
     });
@@ -168,11 +169,11 @@ router.post('/', async (req, res, next) => {
     res.json(data);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error.' });
+    res.status(500).json({ error: "Internal server error." });
   }
 });
 
-router.delete('/:cartID/:productID', async (req, res, next) => {
+router.delete("/:cartID/:productID", async (req, res, next) => {
   try {
     await CartItem.destroy({
       where: {
@@ -184,6 +185,20 @@ router.delete('/:cartID/:productID', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+// router.get('/guessForm', async (req, res, next) => {
+
+// })
+
+router.post("/stripe", async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: [{ price: 'price_1N06nLL5OKQc1cZTxYFo9msk' , quantity: '1' }],
+    mode:"payment",
+    success_url: "http://localhost:3000/home"
+  });
+  res.redirect(303, session.url)
+  
 });
 
 module.exports = router;

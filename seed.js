@@ -109,6 +109,7 @@ const coffeeData = [
   },
   {
     name: 'Colombian Supremo',
+    stripe:'price_1N06nLL5OKQc1cZTxYFo9msk',
     price: 12.99,
     description:
       'Smooth and balanced with a medium body. A medium roast coffee with notes of chocolate and nuts.',

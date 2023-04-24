@@ -62,16 +62,18 @@ const Cart = () => {
             <label id='Edit-Cart' onSubmit={handleSubmit}>
               Quantity:
               <input
-                name='number'
+                type='number'
+                name='quantity'
                 defaultValue={cartItem.quantity}
                 onChange={(e) => {
-                  console.log(e.target.value);
                   handleInputChange(
                     cartItem.cartId,
                     cartItem.productId,
                     e.target.value
                   );
                 }}
+                min='1'
+                max='10'
               />
             </label>
             <button
