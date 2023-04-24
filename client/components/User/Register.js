@@ -46,6 +46,13 @@ const RegisterForm = (props) => {
       }
     }
   };
+
+  const emailExists = async (email) => {
+    const query = `SELECT COUNT(*) AS count FROM users WHERE email = '${email}'`;
+    const result = await pool.query(query);
+    return result.rows[0].count > 0;
+  };
+  
   
   return (
     <div>
@@ -202,43 +209,6 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
-
-
-// const mapDispatch = (dispatch) => {
-//   return {
-//     handleSubmit(e) {
-//       e.preventDefault();
-//       const formName = e.target.name;
-//       const username = e.target.username.value;
-//       const password = e.target.password.value;
-
-//       // check if the username already exists in the database
-//       fetch(`/api/users?username=${username}`)
-//         .then((response) => {
-//           if (response.ok) {
-//             // if username is available, dispatch the authenticate action
-//             return dispatch(authenticate(username, password, formName))
-//               .then(() => {
-//                 const token = localStorage.getItem('token');
-//                 const decodedToken = jwt_decode(token);
-//                 console.log("token", decodedToken)
-//                 const userID = decodedToken.id;
-//                 window.location = `/profile/${userID}`;
-//               })
-//               .catch((err) => console.error(err));
-//           } else {
-//             // if username is already taken, display an error message
-//             throw new Error('Username is already taken. Please select a different username.');
-//           }
-//         })
-//         .catch((err) => {
-//           console.error(err);
-//           // display the error message
-//           alert(err.message);
-//         });
-//     },
-//   };
-// };
 
 const states = [
   'Alabama',
