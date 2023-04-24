@@ -17,10 +17,7 @@ const NavBar = () => {
       setToken(null);
     }
     return token;
-
-
   };
-
 
   useEffect(() => {
     checkToken();
@@ -53,26 +50,39 @@ const NavBar = () => {
           Our Coffee Shop
         </Link>
       </div>
-      <div className='all-links'>
-        <Link className='nav-bar-links' to='/home'>
-          Home
-        </Link>
-        <Link className='nav-bar-links' to='/admindashboard'>
-          Admin
-        </Link>
-        <Link className='nav-bar-links' to='/login'>
-          Log In
-        </Link>
-        <Link className='nav-bar-links' to={token ? `/profile/${userId}` : '/login'}>
-          My Profile
-        </Link>
-        <Link className='nav-bar-links' to='/logout' onClick={handleLogout}>
-          Logout
-        </Link>
-        <Link className='nav-bar-links' to='/cart'>
-          🛒
-        </Link>
-      </div>
+      {userId && token ? (
+        <div className='all-links'>
+          <Link className='nav-bar-links' to='/home'>
+            Home
+          </Link>
+          <Link className='nav-bar-links' to='/admindashboard'>
+            Admin
+          </Link>
+          {/* <Link className='nav-bar-links' to='/login'>
+            Log In
+          </Link> */}
+          <Link
+            className='nav-bar-links'
+            to={token ? `/profile/${userId}` : '/login'}>
+            My Profile
+          </Link>
+          <Link className='nav-bar-links' to='/logout' onClick={handleLogout}>
+            Logout
+          </Link>
+        </div>
+      ) : (
+        <div className='all-links'>
+          <Link className='nav-bar-links' to='/home'>
+            Home
+          </Link>
+          <Link className='nav-bar-links' to='/login'>
+            Log In
+          </Link>
+          <Link className='nav-bar-links' to='/cart'>
+            🛒
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
