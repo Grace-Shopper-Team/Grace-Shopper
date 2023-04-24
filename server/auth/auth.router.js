@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const User = require('../db/models/User');
-<<<<<<< HEAD
 const CartItem = require('../db/models/CartItem');
 const Cart = require('../db/models/Cart');
 const Order = require('../db/models/Order');
@@ -12,10 +11,6 @@ const {
   isAdmin,
   matchUserId,
 } = require('./gatekeepingMiddleware');
-=======
-const { requireToken, isAdmin, matchUserId } = require('./gatekeepingMiddleware');
-const { Op } = require('sequelize');
->>>>>>> ad489c0 (/validate working in postman)
 
 router.get('/users', requireToken, isAdmin, async (req, res) => {
   const users = await User.findAll();
