@@ -8,6 +8,7 @@ import { allCoffeeSelector } from '../../redux/reducers/allCoffeeReducer';
 import { addProductToCart } from '../../redux/actions/singleProductActions';
 import { cartSelector } from '../../redux/reducers/singleProductReducer';
 import { Link } from 'react-router-dom';
+import SortingAndSearching from './SortingAndSearchBar';
 
 const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
   const [selectedOption, setSelectedOption] = useState('default');
@@ -69,7 +70,7 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
 
   return (
     <>
-      <div className='sort-search-container'>
+      {/* <div className='sort-search-container'>
         <div className='sort'>
           <span>Sort By: </span>
           <select value={selectedOption} onChange={handleSort}>
@@ -84,7 +85,13 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
           <span>Search for Coffee: </span>
           <input value={search} onChange={handleSearchChange} />
         </div>
-      </div>
+      </div> */}
+      <SortingAndSearching
+        selectedOption={selectedOption}
+        handleSort={handleSort}
+        search={search}
+        handleSearchChange={handleSearchChange}
+      />
       <div className='container'>
         {coffees ? (
           currentCoffees.map((coffee) => (
