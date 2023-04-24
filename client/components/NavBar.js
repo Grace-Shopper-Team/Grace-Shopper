@@ -5,16 +5,20 @@ import jwt_decode from 'jwt-decode';
 const NavBar = () => {
   const [userId, setUserId] = useState(null);
   const [token, setToken] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const checkToken = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwt_decode(token);
+      console.log(decodedToken);
       setUserId(decodedToken.id);
       setToken(token);
+      setIsAdmin(decodedToken.isAdmin);
     } else {
       setUserId(null);
       setToken(null);
+      setIsAdmin(false);
     }
     return token;
   };
@@ -37,6 +41,7 @@ const NavBar = () => {
     setUserId(null);
     setToken(null);
   };
+
   return (
     <div className='nav-container'>
       <div className='logo-name'>
@@ -55,12 +60,12 @@ const NavBar = () => {
           <Link className='nav-bar-links' to='/home'>
             Home
           </Link>
-          <Link className='nav-bar-links' to='/admindashboard'>
-            Admin
-          </Link>
-          {/* <Link className='nav-bar-links' to='/login'>
-            Log In
-          </Link> */}
+          {isAdmin && (
+            <Link className='nav-bar-links' to='/admindashboard'>
+              Admin
+            </Link>
+          )}
+
           <Link
             className='nav-bar-links'
             to={token ? `/profile/${userId}` : '/login'}>
@@ -68,6 +73,9 @@ const NavBar = () => {
           </Link>
           <Link className='nav-bar-links' to='/logout' onClick={handleLogout}>
             Logout
+          </Link>
+          <Link className='nav-bar-links' to='/cart'>
+            🛒
           </Link>
         </div>
       ) : (
