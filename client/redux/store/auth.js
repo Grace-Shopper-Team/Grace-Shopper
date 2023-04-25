@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { addProductToCart } from '../actions/singleProductActions';
 // import history from 'history';
 
 const TOKEN = 'token';
@@ -29,12 +30,14 @@ export const me = () => async (dispatch) => {
     return dispatch(setAuth(res.data));
   }
 };
-
+//Nataly add something Here 
 export const authenticateLogin =
   (username, password, method) => async (dispatch) => {
+    //alert('Is This one')
     try {
       const res = await axios.post(`/auth/${method}`, { username, password });
       window.localStorage.setItem(TOKEN, res.data.token);
+      
       dispatch(me());
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));

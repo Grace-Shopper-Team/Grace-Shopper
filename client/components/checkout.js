@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { fetchAllCartAction } from '../redux/actions/cartActions';
 import { selectCart } from '../redux/reducers/cartSlice';
 import CheckOutlogIn from './Store/CheckOutlogIn'
-import { useAtom } from 'jotai';
+// import { useAtom } from 'jotai';
 //import GuessForm from './GuessForm';
 
 const Checkout = (props) => {
@@ -18,14 +18,13 @@ const Checkout = (props) => {
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
   const [showModal, setShowModal] = useState(false); // state for modal visibility
-  const [CheckOutlog, setCheckoutlog ] = useAtom(CheckOutlogIn);
+
   useEffect(() => {
-    setCheckoutlog(props.cartState)
     //dispatch(fetchAllCartAction(1));
     //Calculate subtotal
     console.log('cartStateFunc ===', cartStateFunc);
     const newSubtotal = cartStateFunc.reduce(
-      (acc, cart) => acc + cart.quantity * cart.coffee?.price,
+      (acc, cart) => acc + cart?.quantity * cart?.coffee?.price,
       0
     );
     setSubtotal(newSubtotal);
@@ -42,6 +41,7 @@ const Checkout = (props) => {
 
 //Guess Checkout
   const handleGuessCheckout = () => {
+    localStorage.setItem('cartProducts', JSON.stringify(cartState.cartState))
     navegate('/GuessForm')
     console.log("Guest checkout clicked");
   };

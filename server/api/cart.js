@@ -11,6 +11,7 @@ CartItem.belongsTo(Coffee, {
 router.get("/", async (req, res, next) => {
   try {
     const getAll = await Cart.findAll();
+    console.log(getAll);
     res.send(getAll);
   } catch (error) {
     console.error("error getting all product in cart", error);
@@ -38,7 +39,7 @@ router.get("/cartItems/:userId", async (req, res, next) => {
       include: [
         {
           model: Coffee,
-          attributes: ["name", "price", "imageUrl", "stock"],
+          attributes: ["name", "price", "imageUrl", "stock", "stripe"],
         },
       ],
     });
@@ -192,12 +193,24 @@ router.delete("/:cartID/:productID", async (req, res, next) => {
 // })
 
 router.post("/stripe", async (req, res) => {
+  const products = req.body
+  if(products.lenght < 1) {
+    return res.redirect(303, "http://localhost:3000/home");
+  } else {
+    let productsToPay = products.map(product=>{
+      return {price: product.coffee.stripe , quantity: product.quantity}
+    });
+    console.log(productsToPay);
+
   const session = await stripe.checkout.sessions.create({
-    line_items: [{ price: 'price_1N06nLL5OKQc1cZTxYFo9msk' , quantity: '1' }],
+    line_items: productsToPay,
     mode:"payment",
-    success_url: "http://localhost:3000/home"
+    success_url: "http://localhost:3000/home",
+    //error_url: "http://localhost:3000/home"
   });
-  res.redirect(303, session.url)
+  //res.redirect(303, session.url);
+  res.status(200).json({ url: session.url });
+  }
   
 });
 

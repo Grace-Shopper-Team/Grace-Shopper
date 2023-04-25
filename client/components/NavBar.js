@@ -37,6 +37,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('cartItems')
     setUserId(null);
     setToken(null);
   };

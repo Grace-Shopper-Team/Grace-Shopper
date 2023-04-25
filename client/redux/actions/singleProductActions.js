@@ -13,25 +13,38 @@ export const fetchSingleProduct = createAsyncThunk(
     }
   }
 );
+// Nataly Move something here 
+const authAddProductCart = async (productId, quantity) => {
+  try {
+    console.log('inside of thunk', productId, quantity);
+    const response = await axios.post('/api/coffee/cart', {
+      productId,
+      quantity,
+    });
+    console.log('API response:', response);
+    const { data } = response;
+    console.log('API response data:', data);
 
+    return data;
+  } catch (error) {
+    console.error(error);
+    return rejectWithValue('Unable to add product to cart');
+  }
+}
 export const addProductToCart = createAsyncThunk(
   'coffee/addProductToCart',
-  async ({ productId, quantity }, { rejectWithValue }) => {
-    try {
-      console.log('inside of thunk', productId, quantity);
-      const response = await axios.post('/api/coffee/cart', {
-        productId,
-        quantity,
-      });
-      console.log('API response:', response);
-
-      const { data } = response;
-      console.log('API response data:', data);
-
-      return data;
-    } catch (error) {
-      console.error(error);
-      return rejectWithValue('Unable to add product to cart');
+  async (product , { rejectWithValue }) => {
+    console.log("hellooooooo", product)
+    const {productId, quantity} = product;
+    const token = localStorage.getItem('token');
+    if(token){
+      authAddProductCart(productId, quantity);
+    } else {
+      const cartItem = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      product.price = parseFloat(product.price)
+      cartItem.push(product)
+      console.log("helllooooooo", cartItem)
+      localStorage.setItem('cartItems', JSON.stringify(cartItem));
     }
   }
 );

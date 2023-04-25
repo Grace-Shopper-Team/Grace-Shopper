@@ -8,6 +8,7 @@ const User = require('../db/models/User');
 router.get('/', async (req, res, next) => {
   try {
     const getAllCoffee = await Coffee.findAll();
+    console.log(getAllCoffee);
     res.send(getAllCoffee);
   } catch (error) {
     console.error('error getting all coffee', error);

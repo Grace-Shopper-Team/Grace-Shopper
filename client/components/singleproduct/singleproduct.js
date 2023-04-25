@@ -11,10 +11,8 @@ import {
 import { fetchSingleUserAsync } from '../../redux/actions/allUserActions';
 import jwt_decode from 'jwt-decode';
 
-
 const SingleProduct = () => {
   const { id: productId } = useParams();
-
   const dispatch = useDispatch();
 
   const singleProduct = useSelector(
@@ -29,8 +27,8 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const [itemAdded, setItemAdded] = useState(false);
 
-  const handleAddToCart = (productId) => {
-    dispatch(addProductToCart({ productId, quantity }));
+  const handleAddToCart = (product) => {
+    dispatch(addProductToCart({...product, quantity}));
     setItemAdded(true);
     setTimeout(() => {
       setItemAdded(false);
@@ -51,10 +49,7 @@ const SingleProduct = () => {
         dispatch(toggleFavoriteProduct(productId));
       };
   
-
   const [isAdmin, setIsAdmin] = useState(false);
-
-
   useEffect(() => {
     const checkIsAdmin = async () => {
       const token = localStorage.getItem('token');
@@ -104,7 +99,7 @@ const SingleProduct = () => {
               id="spform"
               onSubmit={(e) => {
                 e.preventDefault();
-                handleAddToCart(singleProduct.id);
+                handleAddToCart(singleProduct);
               }}
             >
               <label htmlFor="quantity">Quantity:</label>

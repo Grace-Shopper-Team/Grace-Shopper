@@ -50,9 +50,9 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
   const handleSort = (event) => {
     setSelectedOption(event.target.value);
   };
-
-  const handleAddToCart = (productId) => {
-    dispatch(addProductToCart({ productId, quantity: 1 }));
+// NAtaly change this line
+  const handleAddToCart = (product) => {
+    dispatch(addProductToCart({ ...product, quantity: 1 }));
   };
 
   const handlePageChange = (pageNumber) => {
@@ -102,7 +102,7 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
               </Link>
               <p>Origin: {coffee.origin}</p>
               <p>Price: ${coffee.price}</p>
-              <button onClick={() => handleAddToCart(coffee.id)}>
+              <button onClick={() => handleAddToCart(coffee)}>
                 Add to Cart
               </button>
               {isAdmin && (
