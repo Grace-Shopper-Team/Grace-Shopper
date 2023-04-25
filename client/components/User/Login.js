@@ -25,8 +25,11 @@ const LoginForm = (props) => {
           <button type='submit'>{displayName}</button>
         </div>
         <div>
-        <p>
-            New user?<a href='/register'>Register here.</a>
+          <p>
+            New user? <a href='/register'>Register here.</a>
+          </p>
+          <p>
+            <a href='/forgot'>Forgot username or password?</a>
           </p>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
@@ -60,8 +63,10 @@ const mapDispatch = (dispatch) => {
         })
         .catch((error) => {
           console.error(error);
+          alert('Invalid username or password. Please try again.');
         });
     },
   };
 };
+
 export const Login = connect(mapLogin, mapDispatch)(LoginForm);
