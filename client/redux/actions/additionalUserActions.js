@@ -6,7 +6,11 @@ export const deleteSingleUserAsync = createAsyncThunk(
   'users/deleteOne',
   async (id) => {
     try {
-      const response = await axios.delete(`/api/user/${id}`);
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: { authorization: `${token} ` },
+      };
+      const response = await axios.delete(`/auth/users/${id}`, config);
       return response.data;
     } catch (error) {
       console.error('error deleting user', error);

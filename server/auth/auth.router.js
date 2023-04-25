@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const User = require('../db/models/User');
+const CartItem = require('../db/models/CartItem');
+const Cart = require('../db/models/Cart');
 const {
   requireToken,
   isAdmin,
@@ -108,7 +110,7 @@ router.put('/users/:id', requireToken, matchUserId, async (req, res, next) => {
 router.put(
   '/users/:id/admin',
   requireToken,
-  matchUserId,
+  isAdmin,
   async (req, res, next) => {
     try {
       if (!req.user.isAdmin) {
@@ -128,5 +130,22 @@ router.put(
     }
   }
 );
+
+router.delete('/users/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const deleteThisUser = await User.findByPk(req.params.id);
+    await CartItem.destroy({
+      where: { cartId: req.params.id },
+    });
+    await Cart.destroy({
+      where: { userId: req.params.id },
+    });
+    await deleteThisUser.destroy();
+    res.send(deleteThisUser);
+  } catch (error) {
+    console.error('error deleting user', error);
+    next(error);
+  }
+});
 
 module.exports = router;

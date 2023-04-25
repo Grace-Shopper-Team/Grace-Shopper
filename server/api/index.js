@@ -5,7 +5,6 @@ const authRouter = require('../auth/auth.router');
 router.use('/coffee', coffeeRouter);
 router.use('/users', authRouter);
 router.use('/cart', require('./cart'));
-router.use('/user', require('./user'));
 
 // error handling for non existent routes
 router.use(async (req, res, next) => {
