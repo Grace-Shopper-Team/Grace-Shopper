@@ -1,15 +1,24 @@
 // TODO 3. add Registered Users table with deletebtn
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AllCoffee from './AllCoffee';
 import AddCoffeeForm from './AddCoffeeForm';
 import AllUsers from '../User/AllUsers';
+import { useNavigate } from 'react-router-dom';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ isAdmin }) => {
   const [selectedCoffee, setSelectedCoffee] = useState(null);
+  console.log('in admin dash', isAdmin);
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     setSelectedCoffee(null);
   };
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate('/home');
+    }
+  }, [isAdmin, navigate]);
 
   return (
     <>
