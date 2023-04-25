@@ -105,4 +105,28 @@ router.put('/users/:id', requireToken, matchUserId, async (req, res, next) => {
   }
 });
 
+router.put(
+  '/users/:id/admin',
+  requireToken,
+  matchUserId,
+  async (req, res, next) => {
+    try {
+      if (!req.user.isAdmin) {
+        return res.status(403).send('Unauthorized to perform this action');
+      }
+      const { isAdmin } = req.body;
+      const user = await User.findByPk(req.params.id);
+      if (!user) {
+        res.status(404).send('User not found');
+      } else {
+        user.isAdmin = isAdmin;
+        await user.save();
+        res.send(user);
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 module.exports = router;

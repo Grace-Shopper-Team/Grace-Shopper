@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllUsersAsync } from '../../redux/actions/allUserActions';
 import { selectUsers } from '../../redux/reducers/allUserReducer';
-import { deleteSingleUserAsync } from '../../redux/actions/additionalUserActions.js';
+import {
+  deleteSingleUserAsync,
+  makeUserAdminAsync,
+  removeUserAdminAsync,
+} from '../../redux/actions/additionalUserActions.js';
 
 const AllUsers = () => {
   const users = useSelector(selectUsers);
@@ -14,6 +18,14 @@ const AllUsers = () => {
 
   const handleDeleteUser = (id) => {
     dispatch(deleteSingleUserAsync(id));
+  };
+
+  const handleMakeAdmin = (id) => {
+    dispatch(makeUserAdminAsync(id));
+  };
+
+  const handleRemoveAdmin = (id) => {
+    dispatch(removeUserAdminAsync(id));
   };
 
   return (
@@ -29,6 +41,15 @@ const AllUsers = () => {
               <p>email: {user.email}</p>
               <p>isAdmin: ${user.isAdmin}</p>
               <button onClick={() => handleDeleteUser(user.id)}>❌</button>
+              {!user.isAdmin ? (
+                <button onClick={() => handleMakeAdmin(user.id)}>
+                  Make Admin ➕
+                </button>
+              ) : (
+                <button onClick={() => handleRemoveAdmin(user.id)}>
+                  Remove Admin ➖
+                </button>
+              )}
             </div>
           ))
         ) : (

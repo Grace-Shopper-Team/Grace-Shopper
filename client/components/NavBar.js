@@ -57,7 +57,6 @@ const NavBar = ({ isAdmin, userId }) => {
               Admin
             </Link>
           )}
-
           <Link
             className='nav-bar-links'
             to={token ? `/profile/${userId}` : '/login'}>

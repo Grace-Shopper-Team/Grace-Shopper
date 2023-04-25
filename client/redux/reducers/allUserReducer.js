@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchAllUsersAsync } from '../actions/allUserActions';
-import { deleteSingleUserAsync } from '../actions/additionalUserActions.js';
+import {
+  deleteSingleUserAsync,
+  makeUserAdminAsync,
+  removeUserAdminAsync,
+} from '../actions/additionalUserActions.js';
 
 export const allUsersSlice = createSlice({
   name: 'users',
@@ -15,6 +19,26 @@ export const allUsersSlice = createSlice({
       const index = state.users.findIndex((user) => user.id === deletedUserId);
       if (index !== -1) {
         state.users.splice(index, 1);
+      }
+    });
+    builder.addCase(makeUserAdminAsync.fulfilled, (state, action) => {
+      const newAdmin = action.payload;
+      const userIndex = state.users.findIndex(
+        (user) => user.id === newAdmin.id
+      );
+
+      if (userIndex !== -1) {
+        state.users[userIndex].isAdmin = true;
+      }
+    });
+    builder.addCase(removeUserAdminAsync.fulfilled, (state, action) => {
+      const oldAdmin = action.payload;
+      const userIndex = state.users.findIndex(
+        (user) => user.id === oldAdmin.id
+      );
+
+      if (userIndex !== -1) {
+        state.users[userIndex].isAdmin = false;
       }
     });
   },
