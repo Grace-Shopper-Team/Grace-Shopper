@@ -62,15 +62,15 @@ const Checkout = (props) => {
       <h3>Subtotal: ${subtotal.toFixed(2)}</h3>
       <h3>Tax (10%): ${tax.toFixed(2)}</h3>
       <h2>Total: ${total.toFixed(2)}</h2>
-      <button onClick={() => setShowModal(true)}>Checkout</button>
-      {showModal && (
+      <button onClick={handleGuessCheckout}>Checkout</button>
+      {/* {showModal && (
         <div className='modal'>
           <h2>Checkout Options</h2>
           <button onClick={handleGuessCheckout}>Guest Checkout</button>
           <button onClick={handleSignIn}>Sign In</button>
           <button onClick={() => setShowModal(false)}>Close</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

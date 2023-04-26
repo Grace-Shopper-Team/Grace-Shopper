@@ -191,7 +191,8 @@ router.delete('/:cartID/:productID', async (req, res, next) => {
 
 router.post('/stripe', async (req, res) => {
   const products = req.body;
-  if (products.lenght < 1) {
+  console.log('products: ', products);
+  if (products.length < 1) {
     return res.redirect(303, 'http://localhost:3000/home');
   } else {
     let productsToPay = products.map((product) => {

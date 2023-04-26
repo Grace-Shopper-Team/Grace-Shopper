@@ -1,9 +1,45 @@
 import { Action } from 'history';
 import React, { useEffect, useState } from 'react';
+import jwt_decode from 'jwt-decode';
+import { fetchUser } from '../redux/store/auth';
+import { useDispatch } from 'react-redux';
 
 const GuessForm = (props) => {
   const products = JSON.parse(localStorage.getItem('cartProducts'));
+  const [userInfo, setUserInfo] = useState({});
+  const [userId, setUserId] = useState(null);
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
+  const dispatch = useDispatch();
   console.log(products);
+
+  useEffect(() => {
+    const checkToken = () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const decodedToken = jwt_decode(token);
+        setUserId(decodedToken.id);
+      } else {
+        setUserId(null);
+      }
+      setIsTokenChecked(true);
+    };
+
+    checkToken();
+  }, []);
+
+  useEffect(() => {
+    if (!isTokenChecked) {
+      return;
+    }
+    console.log(userId, 'userId');
+    const fetchUserData = async () => {
+      if (userId) {
+        const user = await dispatch(fetchUser(userId));
+        setUserInfo(user);
+      }
+    };
+    fetchUserData();
+  }, [userId, isTokenChecked]);
 
   const pay = async (form) => {
     form.preventDefault();
@@ -16,6 +52,11 @@ const GuessForm = (props) => {
       body: JSON.stringify(products),
     }).then(async (data) => data.json());
     window.location.href = data.url;
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserInfo({ ...userInfo, [name]: value });
   };
 
   const clearCart = () => localStorage.removeItem('cartProducts');
@@ -32,39 +73,69 @@ const GuessForm = (props) => {
           <label htmlFor='firstname'>
             <small>First Name</small>
           </label>
-          <input name='firstname' type='text' required />
+          <input
+            name='firstname'
+            type='text'
+            value={userInfo.firstName || ''}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <label htmlFor='lastname'>
             <small>Last Name</small>
           </label>
-          <input name='lastname' type='text' required />
+          <input
+            name='lastname'
+            type='text'
+            value={userInfo.lastName || ''}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <label htmlFor='email'>
             <small>Email</small>
           </label>
-          <input name='email' type='text' required />
-          <span style={{ color: 'red' }}></span>
+          <input
+            name='email'
+            type='text'
+            value={userInfo.email || ''}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <label htmlFor='address'>
             <small>Address</small>
           </label>
-          <input name='address' type='text' />
+          <input
+            name='address'
+            type='text'
+            value={userInfo.address || ''}
+            onChange={handleChange}
+          />
         </div>
         <div>
           <label htmlFor='city'>
             <small>City</small>
           </label>
-          <input name='city' type='text' />
+          <input
+            name='city'
+            type='text'
+            value={userInfo.city || ''}
+            onChange={handleChange}
+          />
         </div>
         <div>
           <label htmlFor='state'>
             <small>State</small>
           </label>
-          <select name='state' defaultValue='default'>
-            <option value='default' disabled>
+          <select
+            name='state'
+            value={userInfo.state || ''}
+            onChange={handleChange}>
+            <option value='' disabled>
               Select a State
             </option>
             {states.map((state) => (
@@ -78,9 +149,14 @@ const GuessForm = (props) => {
           <label htmlFor='zip'>
             <small>Zipcode</small>
           </label>
-          <input name='zip' type='number' />
+          <input
+            name='zip'
+            type='number'
+            value={userInfo.zip || ''}
+            onChange={handleChange}
+          />
         </div>
-        <button type='submit'>pay all</button>
+        <button type='submit'>Submit</button>
       </form>
     </div>
   );
