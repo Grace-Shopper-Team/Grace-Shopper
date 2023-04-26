@@ -70,9 +70,7 @@ router.post('/register', async (req, res, next) => {
       res.status(401).send({ error: message });
     } else if (err.name === 'SequelizeUniqueConstraintError') {
       const field = err.errors[0].path;
-      const message = `${field.charAt(0).toUpperCase()}${field.slice(
-        1
-      )} is already in use`;
+      const message = `${field.charAt(0).toUpperCase()}${field.slice(1)} is already in use`;
       res.status(401).send({ error: message });
     } else {
       next(err);
@@ -169,8 +167,8 @@ router.delete('/users/:id', requireToken, isAdmin, async (req, res, next) => {
     res.send(deleteThisUser);
   } catch (error) {
     console.error('error deleting user', error);
-    next(error);
-  }
+    
+  } 
 });
 
 // ! order routes ! //

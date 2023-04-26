@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { authenticateLogin, logout } from '../../redux/store/auth';
 import jwt_decode from 'jwt-decode';
+import { fetchUser } from '../../redux/store/auth';
 
 const LoginForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
@@ -59,7 +60,36 @@ const mapDispatch = (dispatch) => {
           const token = localStorage.getItem('token');
           const decodedToken = jwt_decode(token);
           const userID = decodedToken.id;
-          window.location = `/profile/${userID}`;
+          const endpoint = 'http://localhost:3000/api/cart/stripe';
+
+          const user = fetchUser(userID);
+          const { firstName, lastName, email, address, city, state, zip } = user;
+        
+          const formData = new FormData();
+          formData.append('firstName', firstName);
+          formData.append('lastName', lastName);
+          formData.append('email', email);
+          formData.append('address', address);
+          formData.append('city', city);
+          formData.append('state', state);
+          formData.append('zip', zip);
+
+          if (document.referrer.includes('/cart')) {
+                fetch(endpoint, {
+                  method: 'POST',
+                  body: formData,
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    const { stripeRedirectUrl } = data;
+                    window.location.href = stripeRedirectUrl;
+                  })
+                  .catch(error => {
+                    console.error('Error processing payment:', error);
+                  });
+          } else {
+            window.location = `/profile/${userID}`;
+          }          
         })
         .catch((error) => {
           console.error(error);

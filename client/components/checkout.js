@@ -9,7 +9,7 @@ import CheckOutlogIn from './Store/CheckOutlogIn';
 
 const Checkout = (props) => {
   const cartState = props;
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   console.log('in the checkout component', cartState);
   // const dispatch = useDispatch();
   const cartStateFunc = useSelector(selectCart);

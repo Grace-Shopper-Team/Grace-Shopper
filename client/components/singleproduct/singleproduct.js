@@ -66,6 +66,7 @@ const SingleProduct = () => {
     };
     checkIsAdmin();
   }, [dispatch]);
+  
   return (
     <div className='product-container'>
       <div className='back-btn'>

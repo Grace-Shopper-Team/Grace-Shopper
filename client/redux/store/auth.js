@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import history from 'history';
 
 const TOKEN = 'token';
 
@@ -48,43 +47,45 @@ export const authenticate =
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
     } catch (authError) {
-      return dispatch(setAuth({ error: authError }));
+      if (authError.response) {
+        throw new Error(authError.response.data.error);
+      } else {
+        throw authError;
+      }
     }
 };
 
-  export const updateUser = (userInfo) => async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem(TOKEN);
-      const res = await axios.put(`/auth/users/${userInfo.id}`, userInfo, {
-        headers: {
-          authorization: token,
-        },
-      });
-      dispatch(setUser(res.data));
-      // history.push(`/users/${userInfo.id}`);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  
-  export const fetchUser = (userID) => async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem(TOKEN);
-      const res = await axios.get(`/auth/users/${userID}`, {
-        headers: {
-          authorization: token,
-        },
-      });
-      dispatch(setUser(res.data));
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    }
-  };
+export const updateUser = (userInfo) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.put(`/auth/users/${userInfo.id}`, userInfo, {
+      headers: {
+        authorization: token,
+      },
+    });
+    dispatch(setUser(res.data));
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchUser = (userID) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem(TOKEN);
+    const res = await axios.get(`/auth/users/${userID}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    dispatch(setUser(res.data));
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
-  //history.push('/login');
   return {
     type: SET_AUTH,
     auth: {},

@@ -34,10 +34,21 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setShowChangePassword(false);
-    updateUser(userInfo);
+    updateUser(userInfo)
+      .then(() => {
+        alert('Profile update successful!')
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          alert(error.response.data.error); // display Sequelize error message
+        } else {
+          console.error("error", error);
+          alert('An error occurred. Please try again later.');
+        }
+      });
   };
 
   const handlePasswordChangeCancel = () => {
