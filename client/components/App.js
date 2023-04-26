@@ -9,7 +9,7 @@ import Cart from './Cart';
 import NavBar from './NavBar';
 import { Logout } from './User/Logout';
 import AdminDashboard from './AllCoffee/AdminDashboard';
-import GuessForm from './GuessForm';
+import GuestForm from './GuestForm';
 import jwt_decode from 'jwt-decode';
 import Confirmation from './confirmation';
 
@@ -59,7 +59,7 @@ export const App = () => {
           element={<AdminDashboard isAdmin={isAdmin} />}
         />
         <Route path='/cart/coffee/:id' element={<SingleProduct />} />
-        <Route path='/GuessForm' element={<GuessForm />} />
+        <Route path='/GuestForm' element={<GuestForm />} />
         <Route path='/confirmation' element={<Confirmation />} />
       </Routes>
     </div>

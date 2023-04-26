@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 import { fetchUser } from '../redux/store/auth';
 import { useDispatch } from 'react-redux';
 
-const GuessForm = (props) => {
+const GuestForm = (props) => {
   const products = JSON.parse(localStorage.getItem('cartProducts'));
   const [userInfo, setUserInfo] = useState({});
   const [userId, setUserId] = useState(null);
@@ -215,4 +215,4 @@ const states = [
   'Wyoming',
 ];
 
-export default GuessForm;
+export default GuestForm;

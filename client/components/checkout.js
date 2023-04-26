@@ -5,7 +5,7 @@ import { fetchAllCartAction } from '../redux/actions/cartActions';
 import { selectCart } from '../redux/reducers/cartSlice';
 import CheckOutlogIn from './Store/CheckOutlogIn';
 // import { useAtom } from 'jotai';
-//import GuessForm from './GuessForm';
+//import GuestForm from './GuestForm';
 
 const Checkout = (props) => {
   const cartState = props;
@@ -45,10 +45,10 @@ const Checkout = (props) => {
     }
   }, [cartState]);
 
-  //Guess Checkout
-  const handleGuessCheckout = () => {
+  //Guest Checkout
+  const handleGuestCheckout = () => {
     localStorage.setItem('cartProducts', JSON.stringify(cartState.cartState));
-    navigate('/GuessForm');
+    navigate('/GuestForm');
     console.log('Guest checkout clicked');
   };
 
@@ -62,11 +62,11 @@ const Checkout = (props) => {
       <h3>Subtotal: ${subtotal.toFixed(2)}</h3>
       <h3>Tax (10%): ${tax.toFixed(2)}</h3>
       <h2>Total: ${total.toFixed(2)}</h2>
-      <button onClick={handleGuessCheckout}>Checkout</button>
+      <button onClick={handleGuestCheckout}>Checkout</button>
       {/* {showModal && (
         <div className='modal'>
           <h2>Checkout Options</h2>
-          <button onClick={handleGuessCheckout}>Guest Checkout</button>
+          <button onClick={handleGuestCheckout}>Guest Checkout</button>
           <button onClick={handleSignIn}>Sign In</button>
           <button onClick={() => setShowModal(false)}>Close</button>
         </div>
@@ -74,5 +74,5 @@ const Checkout = (props) => {
     </div>
   );
 };
-// Add checkout Button, and pop out a window with 2 buttons, first one said Guess Checkout and the other one singn in.
+// Add checkout Button, and pop out a window with 2 buttons, first one said Guest Checkout and the other one singn in.
 export default Checkout;
