@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node seed.js && node server ",
+    "start": "node seed.js && nodemon server ",
     "start-dev": "webpack --config webpack.config.js -w & nodemon server",
-    "build": "webpack serve --config webpack.config.js",
+    "build": "webpack --config webpack.config.js ",
     "seed": "node seed.js"
   },
   "author": "",
