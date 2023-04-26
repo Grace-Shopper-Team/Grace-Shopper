@@ -27,8 +27,9 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const [itemAdded, setItemAdded] = useState(false);
 
-  const handleAddToCart = (product) => {
-    dispatch(addProductToCart({ ...product, quantity }));
+  const handleAddToCart = (productId) => {
+    console.log('id:', productId);
+    dispatch(addProductToCart({ productId, quantity }));
     setItemAdded(true);
     setTimeout(() => {
       setItemAdded(false);
@@ -101,7 +102,8 @@ const SingleProduct = () => {
               id='spform'
               onSubmit={(e) => {
                 e.preventDefault();
-                handleAddToCart(singleProduct);
+                console.log(singleProduct);
+                handleAddToCart(singleProduct.id);
               }}>
               <label htmlFor='quantity'>Quantity:</label>
               <input

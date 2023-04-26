@@ -17,6 +17,7 @@ export const deleteCoffeeAsync = createAsyncThunk(
   'coffee/deleteOne',
   async (id) => {
     try {
+      console.log('coffee id:', id);
       const response = await axios.delete(`/api/coffee/${id}`);
       return response.data;
     } catch (error) {

@@ -3,7 +3,7 @@ import {
   addProductToCart,
   fetchSingleProduct,
   updateProduct,
-    toggleFavoriteProduct,
+  toggleFavoriteProduct,
 } from '../actions/singleProductActions';
 
 export const singleProductSlice = createSlice({
@@ -19,13 +19,13 @@ export const singleProductSlice = createSlice({
       state.singleProduct = action.payload;
     });
     builder.addCase(addProductToCart.fulfilled, (state, action) => {
-      console.log(action);
+      console.log(action.payload);
       state.cart.push(action.payload);
     });
     builder.addCase(toggleFavoriteProduct.fulfilled, (state, action) => {
-        state.favorites = action.payload.updatedFavorites;
-      });
-      
+      state.favorites = action.payload.updatedFavorites;
+    });
+
     builder.addCase(updateProduct.fulfilled, (state, action) => {
       state.singleProduct = action.payload;
     });

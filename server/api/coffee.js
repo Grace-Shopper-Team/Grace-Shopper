@@ -3,6 +3,7 @@ const Coffee = require('../db/models/Coffee');
 const Cart = require('../db/models/Cart');
 const CartItem = require('../db/models/CartItem');
 const User = require('../db/models/User');
+const OrderItem = require('../db/models/OrderItem');
 // const Favorite= require ('../db/models/Favorite');
 
 router.get('/', async (req, res, next) => {
@@ -39,9 +40,11 @@ router.get('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const deleteThisCoffee = await Coffee.findByPk(req.params.id);
+    console.log('inside of server route', deleteThisCoffee);
     await CartItem.destroy({
       where: { productId: req.params.id },
     });
+    await OrderItem.destroy({ where: { productId: req.params.id } });
     await deleteThisCoffee.destroy();
     res.send(deleteThisCoffee);
   } catch (error) {
@@ -91,6 +94,7 @@ router.post('/cart', async (req, res, next) => {
       include: { model: Coffee },
     });
 
+    console.log(shoppingCartItem);
     res.json(updatedCartItem);
   } catch (error) {
     console.error(error);
