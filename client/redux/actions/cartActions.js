@@ -3,7 +3,6 @@ import axios from "axios";
 
 const getCartItemsLocal = () => {
   var cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-  //console.log("AAAAAhhhhhh", cartItems);
   cartItems = cartItems.reduce((prev, next) => {
     if (next.id in prev) {
       prev[next.id].quantity += next.quantity;
@@ -14,7 +13,6 @@ const getCartItemsLocal = () => {
     return prev;
   }, {});
   let result = Object.keys(cartItems).map((id) => cartItems[id]);
-  //console.log("AAAAAbbbbbbbbb", result);
 
   const orderItems = [];
 
@@ -53,7 +51,6 @@ export const fetchAllCartAction = createAsyncThunk(
         console.error("error", error);
       }
     } else {
-      //console.log("Heloooooooo");
       return getCartItemsLocal();
     }
   }
@@ -133,3 +130,20 @@ export const addProductToCart = createAsyncThunk(
     }
   }
 );
+
+//Confirmation From Erica 
+export const fetchOrderInfo = (sessionId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/order-info?session_id=${sessionId}`);
+    const data = await response.json();
+    dispatch(setOrderInfo(data));
+  } catch (error) {
+    console.error(error);
+    dispatch(setError('Failed to fetch order info'));
+  }
+};
+export const setOrderInfo = (orderInfo) => ({
+  type: 'SET_ORDER_INFO',
+  payload: orderInfo,
+});
+

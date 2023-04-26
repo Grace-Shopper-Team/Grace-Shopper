@@ -50,7 +50,7 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
   const handleSort = (event) => {
     setSelectedOption(event.target.value);
   };
-// NAtaly change this line
+// Nataly change this line
   const handleAddToCart = (product) => {
     dispatch(addProductToCart({ ...product, quantity: 1 }));
   };

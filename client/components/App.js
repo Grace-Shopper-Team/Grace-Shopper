@@ -10,6 +10,8 @@ import NavBar from './NavBar';
 import { Logout } from './User/Logout';
 import AdminDashboard from './AllCoffee/AdminDashboard';
 import GuessForm from './GuessForm';
+import Confirmation from './confirmation';
+
 
 export const App = () => {
   return (
@@ -26,6 +28,7 @@ export const App = () => {
         <Route path='/admindashboard' element={<AdminDashboard />} />
         <Route path='/cart/coffee/:id' element={<SingleProduct />}/>
         <Route path='/GuessForm' element={<GuessForm />} />
+        <Route path='/confirmation' element={< Confirmation />} />
       </Routes>
     </div>
   );

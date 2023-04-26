@@ -82,7 +82,6 @@ router.put("/:cartID/:productID", async (req, res, next) => {
     }
     cartItem.quantity = quantity;
     const data = await cartItem.save();
-
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -188,10 +187,6 @@ router.delete("/:cartID/:productID", async (req, res, next) => {
   }
 });
 
-// router.get('/guessForm', async (req, res, next) => {
-
-// })
-
 router.post("/stripe", async (req, res) => {
   const products = req.body
   if(products.lenght < 1) {
@@ -205,13 +200,57 @@ router.post("/stripe", async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     line_items: productsToPay,
     mode:"payment",
-    success_url: "http://localhost:3000/home",
+    success_url: "http://localhost:3000/confirmation",
     //error_url: "http://localhost:3000/home"
   });
   //res.redirect(303, session.url);
   res.status(200).json({ url: session.url });
   }
   
+});
+
+// Confirmation From Erica 
+router.post("/stripe", async (req, res) => {
+  const { firstname, lastname, email, address, city, state, zip } = req.body;
+  const order = {
+    firstname,
+    lastname,
+    email,
+    address,
+    city,
+    state,
+    zip,
+  };
+  const orderId = uuid.v4(); // Generate a unique ID for the order
+  orders.set(orderId, order);
+  const session = await stripe.checkout.sessions.create({
+  line_items: [{ price: 'price_1N06nLL5OKQc1cZTxYFo9msk' , quantity: '1' }],
+  mode:"payment",
+  // success_url: "http://localhost:3000/home"
+  success_url: successUrl + "?session_id={CHECKOUT_SESSION_ID}"
+});
+res.redirect(303, session.url)
+}); 
+
+router.get('/order-info', async (req, res) => {
+const orderId = req.query.order_id;
+const order = orders.get(orderId);
+try {
+  const sessionId = req.query.session_id;
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
+  const customer = await stripe.customers.retrieve(session.customer);
+  console.log('session:', session);
+  console.log('customer:', customer);
+  res.json({
+    session: session,
+    customer: customer,
+    order: order,
+  });
+} catch (error) {
+  console.error(error);
+  res.status(500).json({ error: 'Internal server error.' });
+}
+console.log('Response sent for /order-info');
 });
 
 module.exports = router;

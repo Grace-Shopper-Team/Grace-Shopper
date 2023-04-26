@@ -70,7 +70,7 @@ const AddCoffeeForm = ({ selectedCoffee, onSubmit }) => {
 
   return (
     <div className='add-coffee-container'>
-     <form className='form' onSubmit={handleAddOrUpdateCoffee}>
+      <form className='form' onSubmit={handleAddOrUpdateCoffee}>
         <span className='title'>
           {selectedCoffee ? 'Edit Coffee' : 'Add Coffee to Shop Stock'}
         </span>

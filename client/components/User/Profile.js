@@ -108,15 +108,15 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
           </div>
           )}
           {showChangePassword && (
-           <>
-           <div>
+          <>
+            <div>
               <label htmlFor='password'>
                 <small>New Password</small>
               </label>
               <input name='password' type='password' value={userInfo.password || ''} onChange={handleChange} required />
             </div>
             <span>
-               <button type='button' onClick={handlePasswordChangeCancel}>Cancel</button>
+              <button type='button' onClick={handlePasswordChangeCancel}>Cancel</button>
             </span>
             </>
           )}
