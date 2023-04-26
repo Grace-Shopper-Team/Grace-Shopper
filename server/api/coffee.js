@@ -114,20 +114,6 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const deleteThisCoffee = await Coffee.findByPk(req.params.id);
-    await CartItem.destroy({
-      where: { productId: req.params.id },
-    });
-    await deleteThisCoffee.destroy();
-    res.send(deleteThisCoffee);
-  } catch (error) {
-    console.error('error deleting coffee', error);
-    next(error);
-  }
-});
-
 // // Add a coffee to the user's favorites
 // router.post('/favorites', async (req, res, next) => {
 //   try {

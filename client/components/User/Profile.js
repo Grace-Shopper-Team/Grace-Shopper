@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { updateUser, fetchUser } from '../../redux/store/auth';
+import { addProductToCart } from '../../redux/actions/singleProductActions';
 import Order from './Order';
 
 const ProfilePage = ({ updateUser, fetchUser }) => {
+  const dispatch = useDispatch();
   const { userID } = useParams();
   const [userInfo, setUserInfo] = useState({});
   const [showChangePassword, setShowChangePassword] = useState(false);
+  //Nataly Was here
+  useEffect(() => {
+    if (userInfo) {
+      const cartItem = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      cartItem.map(async (item) => {
+        await dispatch(addProductToCart({ ...item, productId: item.id }));
+      });
+      localStorage.removeItem('cartItems');
+    }
+  }, [userInfo]);
 
   useEffect(() => {
     const fetchUserData = async () => {

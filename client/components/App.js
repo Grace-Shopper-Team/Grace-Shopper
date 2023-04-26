@@ -11,6 +11,7 @@ import { Logout } from './User/Logout';
 import AdminDashboard from './AllCoffee/AdminDashboard';
 import GuessForm from './GuessForm';
 import jwt_decode from 'jwt-decode';
+import Confirmation from './confirmation';
 
 export const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -59,6 +60,7 @@ export const App = () => {
         />
         <Route path='/cart/coffee/:id' element={<SingleProduct />} />
         <Route path='/GuessForm' element={<GuessForm />} />
+        <Route path='/confirmation' element={<Confirmation />} />
       </Routes>
     </div>
   );
