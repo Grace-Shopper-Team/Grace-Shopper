@@ -67,3 +67,18 @@ export const addProductToCart = createAsyncThunk(
     }
   }
 );
+
+
+//Confirmation From Erica
+export const fetchOrderInfo = createAsyncThunk(
+  "order/fetchOrderInfo",
+  async (sessionId, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/cart/order-info?session_id=${sessionId}`);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue("Failed to fetch order info");
+    }
+  }
+);

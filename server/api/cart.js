@@ -5,6 +5,7 @@ const Coffee = require('../db/models/Coffee');
 const stripe = require('stripe')(
   'sk_test_51N06kKL5OKQc1cZTVGNrpPhuQwycZnP1Cvtl6PVqSAh9ETMDZXh3GobuAsAs0qUFDp9haM24xnXW5n61PjiRgHom00kKpNQJbl'
 );
+const successUrl= "http://localhost:3000/confirmation"
 
 CartItem.belongsTo(Coffee, {
   foreignKey: 'productId',
@@ -211,47 +212,56 @@ router.post('/stripe', async (req, res) => {
 });
 
 // Confirmation From Erica
-router.post('/stripe', async (req, res) => {
+router.post("/stripe", async (req, res) => {
+  const products = req.body;
   const { firstname, lastname, email, address, city, state, zip } = req.body;
-  const order = {
-    firstname,
-    lastname,
-    email,
-    address,
-    city,
-    state,
-    zip,
-  };
-  const orderId = uuid.v4(); // Generate a unique ID for the order
-  orders.set(orderId, order);
-  const session = await stripe.checkout.sessions.create({
-    line_items: [{ price: 'price_1N06nLL5OKQc1cZTxYFo9msk', quantity: '1' }],
-    mode: 'payment',
-    // success_url: "http://localhost:3000/home"
-    success_url: successUrl + '?session_id={CHECKOUT_SESSION_ID}',
-  });
-  res.redirect(303, session.url);
+  if (products.length < 1) {
+    return res.redirect(303, "http://localhost:3000/home");
+  } else {
+    let productsToPay = products.map(product => {
+      return { price: product.coffee.stripe, quantity: product.quantity };
+    });
+    console.log(productsToPay);
+    const session = await stripe.checkout.sessions.create({
+      line_items: productsToPay,
+      mode: "payment",
+      success_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}&email=${email}&firstname=${firstname}&lastname=${lastname}&address=${address}&city=${city}&state=${state}&zip=${zip}`,
+      // error_url: "http://localhost:3000/home"
+    });
+    // res.redirect(303, session.url);
+    res.status(200).json({ url: session.url });
+  }
 });
-
 router.get('/order-info', async (req, res) => {
-  const orderId = req.query.order_id;
-  const order = orders.get(orderId);
+  const { session_id } = req.query;
+
   try {
-    const sessionId = req.query.session_id;
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await stripe.checkout.sessions.retrieve(session_id);
     const customer = await stripe.customers.retrieve(session.customer);
-    console.log('session:', session);
-    console.log('customer:', customer);
+
+    let currencyFmt = Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: `${session.currency}`,
+    });
+
+    const orderTotal = `${currencyFmt.format(session.amount_total / 100)}`;
+
     res.json({
-      session: session,
-      customer: customer,
-      order: order,
+      session: {
+        payment_status: session.payment_status,
+        amount_total: orderTotal,
+        currency: session.currency,
+      },
+      customer: {
+        email: customer.email,
+      },
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });
   }
-  console.log('Response sent for /order-info');
 });
+
+
 
 module.exports = router;

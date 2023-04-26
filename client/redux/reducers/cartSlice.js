@@ -2,17 +2,21 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addProductToCart,
   fetchAllCartAction,
-  //deleteProductCart,
   deleteCartItemAction,
   updateCartItemAction,
+  fetchOrderInfo, // Import fetchOrderInfo action
 } from '../actions/cartActions';
-
 const initialState = {
   cartItems: [],
   product: null,
   productName: '',
+  orderConfirmation: { // Add orderConfirmation to initialState
+    customerEmail: '',
+    orderTotal: 0,
+    paymentStatus: '',
+  },
+  error: null,
 };
-
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -43,9 +47,16 @@ const cartSlice = createSlice({
       console.log('state.addCart ===', state, action);
       state.cartItems.push(action.payload);
     });
+    builder.addCase(fetchOrderInfo.fulfilled, (state, action) => {
+      state.orderConfirmation.customerEmail = action.payload.customer.email;
+      state.orderConfirmation.orderTotal = action.payload.session.amount_total;
+      state.orderConfirmation.paymentStatus = action.payload.session.payment_status;
+    });
+    builder.addCase(fetchOrderInfo.rejected, (state, action) => {
+      state.error = action.payload;
+    });
   },
 });
-
 export const selectCart = (state) => {
   return state.cart.cartItems;
 };
