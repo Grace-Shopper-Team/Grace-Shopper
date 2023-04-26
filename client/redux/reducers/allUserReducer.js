@@ -17,6 +17,7 @@ export const allUsersSlice = createSlice({
     });
     builder.addCase(deleteSingleUserAsync.fulfilled, (state, action) => {
       const deletedUserId = action.payload.id;
+      console.log('deleted User Id: ', deletedUserId);
       const index = state.users.findIndex((user) => user.id === deletedUserId);
       if (index !== -1) {
         state.users.splice(index, 1);

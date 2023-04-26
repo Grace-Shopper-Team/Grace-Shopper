@@ -2,12 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectOrders } from '../../redux/reducers/allUserReducer';
 import { getUsersOrdersAsync } from '../../redux/actions/additionalUserActions';
-import { useParams } from 'react-router';
 
 const Order = ({ userId }) => {
   const orders = useSelector(selectOrders);
-  console.log('orders: ', orders);
-  console.log('userId: ', userId);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,10 +20,15 @@ const Order = ({ userId }) => {
             <p>{order.orderNumber}</p>
             <p>{order.totalAmount}</p>
             <p>{order.shippingAddress}</p>
+            <p>Items in Order: </p>
+            {orderItems &&
+              orderItems.map((item) => (
+                <p>{order.orderItems[0].coffee.name}</p>
+              ))}
           </div>
         ))
       ) : (
-        <p>no data available</p>
+        <p>No Orders Placed</p>
       )}
     </div>
   );

@@ -13,12 +13,8 @@ const {
 } = require('./gatekeepingMiddleware');
 
 router.get('/users', requireToken, isAdmin, async (req, res) => {
-  try {
-    const users = await User.findAll();
-    res.json(users);
-  } catch (error) {
-    next(error);
-  }
+  const users = await User.findAll();
+  res.json(users);
 });
 
 router.get('/users/:id', requireToken, matchUserId, async (req, res, next) => {
@@ -69,8 +65,15 @@ router.post('/register', async (req, res, next) => {
     });
     res.send({ token: await user.generateToken() });
   } catch (err) {
-    if (err.name === 'SequelizeUniqueConstraintError') {
-      res.status(401).send('User already exists');
+    if (err.name === 'SequelizeValidationError') {
+      const message = err.errors[0].message;
+      res.status(401).send({ error: message });
+    } else if (err.name === 'SequelizeUniqueConstraintError') {
+      const field = err.errors[0].path;
+      const message = `${field.charAt(0).toUpperCase()}${field.slice(
+        1
+      )} is already in use`;
+      res.status(401).send({ error: message });
     } else {
       next(err);
     }
@@ -106,8 +109,16 @@ router.put('/users/:id', requireToken, matchUserId, async (req, res, next) => {
       await user.save();
       res.send(user);
     }
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      res.status(400).json({ error: error.errors[0].message });
+    } else if (error.name === 'SequelizeValidationError') {
+      res.status(400).json({ error: error.errors[0].message });
+    } else {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+    next(error);
   }
 });
 
@@ -138,12 +149,22 @@ router.put(
 router.delete('/users/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const deleteThisUser = await User.findByPk(req.params.id);
+    console.log('deleteduser:', deleteThisUser);
     await CartItem.destroy({
       where: { cartId: req.params.id },
     });
     await Cart.destroy({
       where: { userId: req.params.id },
     });
+    const getAllUserOrders = await Order.findAll({
+      where: { userId: req.params.id },
+    });
+    for (const order of getAllUserOrders) {
+      await OrderItem.destroy({
+        where: { orderId: order.id },
+      });
+    }
+    await Order.destroy({ where: { userId: req.params.id } });
     await deleteThisUser.destroy();
     res.send(deleteThisUser);
   } catch (error) {

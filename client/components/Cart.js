@@ -20,7 +20,7 @@ const Cart = () => {
   console.log('value of cartstate', cartState);
 
   useEffect(() => {
-    dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
+    dispatch(fetchAllCartAction()).then(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const Cart = () => {
       );
       setFavoriteProducts(products.map((product) => product.payload));
     };
-  
+
     fetchFavoriteProducts();
   }, [favorites, dispatch]);
 
@@ -51,7 +51,7 @@ const Cart = () => {
   return (
     <div className='cart'>
       <h1 className='Shopping-Cart'>Shopping Cart</h1>
-  
+
       {loading ? (
         <p>loading...</p>
       ) : (
@@ -87,17 +87,19 @@ const Cart = () => {
         ))
       )}
       <Checkout cartState={cartState} />
-  
-      <div className="favorites-container">
+
+      <div className='favorites-container'>
         <h2>Favorited Items</h2>
         {favoriteProducts.map((favoriteProduct) => (
-          <div key={favoriteProduct.id} className="favorite-item favorite-details" >
+          <div
+            key={favoriteProduct.id}
+            className='favorite-item favorite-details'>
             <img
-              className="favproduct-img"
+              className='favproduct-img'
               src={favoriteProduct.imageUrl}
               alt={favoriteProduct.name}
             />
-            <div className="product-details">
+            <div className='product-details'>
               <Link to={`coffee/${favoriteProduct.id}`}>
                 <h4>{favoriteProduct.name}</h4>
               </Link>
@@ -109,7 +111,6 @@ const Cart = () => {
       </div>
     </div>
   );
-        }  
-
+};
 
 export default Cart;
