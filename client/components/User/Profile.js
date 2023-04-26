@@ -47,7 +47,7 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
   return (
     <div>
       <h1>Profile</h1>
-      <form onSubmit={handleSubmit}>
+      <form className='profile' onSubmit={handleSubmit}>
         <div>
           <label htmlFor='firstname'>
             <small>First Name</small>
