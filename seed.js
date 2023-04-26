@@ -4,6 +4,8 @@ const Cart = require('./server/db/models/Cart');
 const CartItem = require('./server/db/models/CartItem');
 const User = require('./server/db/models/User');
 const bcrypt = require('bcrypt');
+const Order = require('./server/db/models/Order');
+const OrderItem = require('./server/db/models/OrderItem');
 
 const coffeeData = [
   {
@@ -109,7 +111,7 @@ const coffeeData = [
   },
   {
     name: 'Colombian Supremo',
-    stripe:'price_1N06nLL5OKQc1cZTxYFo9msk',
+    stripe: 'price_1N06nLL5OKQc1cZTxYFo9msk',
     price: 12.99,
     description:
       'Smooth and balanced with a medium body. A medium roast coffee with notes of chocolate and nuts.',
@@ -265,6 +267,44 @@ const cartItems = [
   { cartId: 2, productId: 3, quantity: 3 },
   { cartId: 2, productId: 4, quantity: 1 },
 ];
+const orders = [
+  {
+    userId: 1,
+    orderNumber: 'ORD-001',
+    itemsOrdered: [],
+    totalAmount: 150.0,
+    shippingAddress: '123 Main St, Anytown, USA',
+  },
+  {
+    userId: 2,
+    orderNumber: 'ORD-002',
+    itemsOrdered: [],
+    totalAmount: 90.0,
+    shippingAddress: '456 Market St, Anytown, USA',
+  },
+];
+
+// Dummy data for OrderItem
+const orderItems = [
+  {
+    orderId: 1,
+    productId: 1,
+    quantity: 2,
+    price: 50.0,
+  },
+  {
+    orderId: 1,
+    productId: 3,
+    quantity: 1,
+    price: 50.0,
+  },
+  {
+    orderId: 2,
+    productId: 7,
+    quantity: 3,
+    price: 30.0,
+  },
+];
 
 const seed = async () => {
   try {
@@ -274,6 +314,10 @@ const seed = async () => {
     await Promise.all(carts.map((cart) => Cart.create(cart)));
     await Promise.all(coffeeData.map((coffee) => Coffee.create(coffee)));
     await Promise.all(cartItems.map((cartItem) => CartItem.create(cartItem)));
+    await Promise.all(orders.map((order) => Order.create(order)));
+    await Promise.all(
+      orderItems.map((orderItem) => OrderItem.create(orderItem))
+    );
 
     console.log('Seeding was successful');
     db.close();

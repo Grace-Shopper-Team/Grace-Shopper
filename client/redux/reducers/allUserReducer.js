@@ -4,11 +4,12 @@ import {
   deleteSingleUserAsync,
   makeUserAdminAsync,
   removeUserAdminAsync,
+  getUsersOrdersAsync,
 } from '../actions/additionalUserActions.js';
 
 export const allUsersSlice = createSlice({
   name: 'users',
-  initialState: { users: [] },
+  initialState: { users: [], orders: [] },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAllUsersAsync.fulfilled, (state, action) => {
@@ -41,11 +42,16 @@ export const allUsersSlice = createSlice({
         state.users[userIndex].isAdmin = false;
       }
     });
+    builder.addCase(getUsersOrdersAsync.fulfilled, (state, action) => {
+      state.orders = action.payload;
+    });
   },
 });
 
 export const selectUsers = (state) => {
   return state.auth.users;
 };
+
+export const selectOrders = (state) => state.auth.orders;
 
 export default allUsersSlice.reducer;

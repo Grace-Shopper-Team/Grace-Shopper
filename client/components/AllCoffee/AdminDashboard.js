@@ -1,4 +1,3 @@
-// TODO 3. add Registered Users table with deletebtn
 import React, { useState, useEffect } from 'react';
 import AllCoffee from './AllCoffee';
 import AddCoffeeForm from './AddCoffeeForm';

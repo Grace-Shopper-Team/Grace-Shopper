@@ -308,22 +308,24 @@ button:hover {
 }
 .cart {
   padding: 10px;
-  font: 300 1.25em/1.4 "Lato", sans-serif;
+  font: 300 1.25em/1.4 'Lato', sans-serif;
   color: black;
 }
 
-.card{
+.card {
   position: relative;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
-  flex-direction: column;min-width: 0;
+  flex-direction: column;
+  min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;background-clip: 
-  border-box;border: 1px solid rgba(0,0,0,.125);
-  border-radius: 0px
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0px;
 }
-.Items{
+.Items {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -355,22 +357,24 @@ button:hover {
 }
 .cart {
   padding: 10px;
-  font: 300 1.25em/1.4 "Lato", sans-serif;
+  font: 300 1.25em/1.4 'Lato', sans-serif;
   color: black;
 }
 
-.card{
+.card {
   position: relative;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
-  flex-direction: column;min-width: 0;
+  flex-direction: column;
+  min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;background-clip: 
-  border-box;border: 1px solid rgba(0,0,0,.125);
-  border-radius: 0px
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0px;
 }
-.Items{
+.Items {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -403,7 +407,6 @@ button:hover {
   justify-content: space-evenly;
   margin-top: 15px;
 }
-
 
 .coffee-container-admin {
   width: 60%;
@@ -474,7 +477,7 @@ button:hover {
   width: 100%;
   padding-top: 20px;
   box-sizing: border-box;
-  background-color: white ;
+  background-color: white;
 }
 
 .favorite-item {
@@ -508,11 +511,35 @@ button:hover {
   }
 }
 .heart-container {
- margin-left: 90%;
+  margin-left: 90%;
 }
- #heart{
+#heart {
   height: 50px;
   font-size: 30px;
 }
 
+/* ALL USERS */
+.registered-users-container {
+  text-align: center;
+  margin-top: 15px;
+}
 
+.registered-users-container span {
+  font-size: 14pt;
+  text-decoration: underline;
+  width: 100%;
+}
+.users-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.user-container {
+  border: 1px solid;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+}

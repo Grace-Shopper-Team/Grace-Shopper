@@ -30,7 +30,7 @@ const AllUsers = () => {
 
   return (
     <>
-      <div className='container'>
+      <div className='users-container'>
         {users ? (
           users.map((user) => (
             <div key={user.id} className='user-container'>
@@ -40,16 +40,18 @@ const AllUsers = () => {
               <p>lastName: {user.lastName}</p>
               <p>email: {user.email}</p>
               <p>isAdmin: ${user.isAdmin}</p>
-              <button onClick={() => handleDeleteUser(user.id)}>❌</button>
-              {!user.isAdmin ? (
-                <button onClick={() => handleMakeAdmin(user.id)}>
-                  Make Admin ➕
-                </button>
-              ) : (
-                <button onClick={() => handleRemoveAdmin(user.id)}>
-                  Remove Admin ➖
-                </button>
-              )}
+              <div className='buttons-container'>
+                <button onClick={() => handleDeleteUser(user.id)}>❌</button>
+                {!user.isAdmin ? (
+                  <button onClick={() => handleMakeAdmin(user.id)}>
+                    Make Admin ➕
+                  </button>
+                ) : (
+                  <button onClick={() => handleRemoveAdmin(user.id)}>
+                    Remove Admin ➖
+                  </button>
+                )}
+              </div>
             </div>
           ))
         ) : (

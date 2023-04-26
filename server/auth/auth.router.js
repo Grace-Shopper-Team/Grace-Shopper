@@ -2,6 +2,10 @@ const router = require('express').Router();
 const User = require('../db/models/User');
 const CartItem = require('../db/models/CartItem');
 const Cart = require('../db/models/Cart');
+const Order = require('../db/models/Order');
+const OrderItem = require('../db/models/OrderItem');
+const Coffee = require('../db/models/Coffee');
+
 const {
   requireToken,
   isAdmin,
@@ -147,5 +151,87 @@ router.delete('/users/:id', requireToken, isAdmin, async (req, res, next) => {
     next(error);
   }
 });
+
+// ! order routes ! //
+
+router.get(
+  '/users/:id/orders',
+  requireToken,
+  matchUserId,
+  async (req, res, next) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      const getOrders = await Order.findAll({
+        where: { userId: user.id },
+        include: { model: OrderItem, include: [Coffee] },
+      });
+      res.send(getOrders);
+    } catch (error) {
+      console.error('error retrieving order data', error);
+      next(error);
+    }
+  }
+);
+
+router.get(
+  '/users/:id/orders/:orderId',
+  requireToken,
+  matchUserId,
+  async (req, res, next) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      const getSingleOrder = await Order.findOne({
+        where: { userId: user.id },
+        include: { model: OrderItem, include: [Coffee] },
+      });
+      res.send(getSingleOrder);
+    } catch (error) {
+      console.error('error retrieving single order', error);
+      next(error);
+    }
+  }
+);
+
+router.post(
+  '/users/:id/orders',
+  requireToken,
+  matchUserId,
+  async (req, res, next) => {
+    try {
+      //! working, just need to connect to purchase data
+      const orderData = req.body;
+      const { orderItems } = req.body;
+      const userId = req.params.id;
+
+      const newOrder = await Order.create({ ...orderData, userId });
+      const createOrderItems = await Promise.all(
+        orderItems.map((item) => {
+          return OrderItem.create({ ...item, orderId: newOrder.id });
+        })
+      );
+      res.send({ newOrder, createOrderItems });
+    } catch (error) {
+      console.error('error creating order', error);
+      next(error);
+    }
+  }
+);
+
+router.delete(
+  '/users/:id/orders/:orderId',
+  requireToken,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const deleteThisOrder = await Order.findByPk(req.params.orderId);
+      await OrderItem.destroy({ where: { orderId: req.params.orderId } });
+      await Order.destroy({ where: { id: req.params.id } });
+      res.send(deleteThisOrder);
+    } catch (error) {
+      console.error('error deleting order', error);
+      next(error);
+    }
+  }
+);
 
 module.exports = router;

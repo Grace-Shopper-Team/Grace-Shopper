@@ -61,3 +61,20 @@ export const removeUserAdminAsync = createAsyncThunk(
     }
   }
 );
+
+export const getUsersOrdersAsync = createAsyncThunk(
+  'users/fetchOrders',
+  async (id) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      const response = await axios.get(`/auth/users/${id}/orders`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('error fetching users orders', error);
+    }
+  }
+);
