@@ -12,6 +12,7 @@ import AdminDashboard from './AllCoffee/AdminDashboard';
 import GuestForm from './GuestForm';
 import jwt_decode from 'jwt-decode';
 import Confirmation from './confirmation';
+import LandingPage from './Landing';
 
 export const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -47,6 +48,7 @@ export const App = () => {
     <div id='app-container'>
       <NavBar isAdmin={isAdmin} userId={userId} />
       <Routes>
+      <Route path='/' element={<LandingPage />} />
         <Route path='/home' element={<Home />} />
         <Route path='/coffee/:id' element={<SingleProduct />} />
         <Route path='/login' element={<Login />} />

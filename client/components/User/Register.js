@@ -29,7 +29,7 @@ const RegisterForm = (props) => {
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e, pwdError, error)} name={name}>
+      <form className='register' onSubmit={(e) => handleSubmit(e, pwdError, error)} name={name}>
         <>
           <div>
             <label htmlFor='firstname'>
