@@ -48,13 +48,13 @@ const Checkout = (props) => {
   //Guess Checkout
   const handleGuessCheckout = () => {
     localStorage.setItem('cartProducts', JSON.stringify(cartState.cartState));
-    navegate('/GuessForm');
+    navigate('/GuessForm');
     console.log('Guest checkout clicked');
   };
 
   //SingIn
   const handleSignIn = () => {
-    navegate('/login');
+    navigate('/login');
     console.log('Sign in clicked');
   };
   return (
