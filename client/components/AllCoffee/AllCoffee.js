@@ -54,7 +54,7 @@ const AllCoffee = ({ isAdmin = false, selectedCoffee, setSelectedCoffee }) => {
           currentCoffees.map((coffee) => (
             <div key={coffee.id} className='coffee-container'>
               <img className='coffee-img' src={coffee.imageUrl} />
-              <Link to={`/coffee/${coffee.id}`}>
+              <Link id='spro' to={`/coffee/${coffee.id}`}>
                 <p>{coffee.name}</p>
               </Link>
               <p>Origin: {coffee.origin}</p>

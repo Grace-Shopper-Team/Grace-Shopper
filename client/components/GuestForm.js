@@ -63,7 +63,7 @@ const GuestForm = (props) => {
 
   return (
     <div>
-      <form
+      <form className='guest'
         onSubmit={(e) => {
           pay(e);
           clearCart();

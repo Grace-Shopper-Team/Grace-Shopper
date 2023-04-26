@@ -77,9 +77,11 @@ const NavBar = ({ isAdmin, userId }) => {
           <Link className='nav-bar-links' to='/login'>
             Log In
           </Link>
+          <div className='carty'>
           <Link className='nav-bar-links' to='/cart'>
             🛒
           </Link>
+          </div>
         </div>
       )}
     </div>

@@ -29,9 +29,6 @@ const LoginForm = (props) => {
           <p>
             New user? <a href='/register'>Register here.</a>
           </p>
-          <p>
-            <a href='/forgot'>Forgot username or password?</a>
-          </p>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

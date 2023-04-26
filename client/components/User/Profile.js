@@ -134,8 +134,8 @@ const ProfilePage = ({ updateUser, fetchUser }) => {
               </option>
             ))}
           </select>
-        </div>
-        <div>
+        </div>     
+          <div>
           <label htmlFor='zip'>
             <small>Zipcode</small>
           </label>

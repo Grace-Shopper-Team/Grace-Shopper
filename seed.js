@@ -1,3 +1,6 @@
+
+ 
+
 const db = require('./server/db/db');
 const Coffee = require('./server/db/models/Coffee');
 const Cart = require('./server/db/models/Cart');
@@ -14,6 +17,7 @@ const coffeeData = [
     price: 12.49,
     description:
       'Smooth and medium-bodied with a mild acidity. This medium roast coffee has notes of cocoa and caramel.',
+      imageUrl:'https://trulyexperiences.com/blog/wp-content/uploads/2022/09/Where-Do-Coffee-Beans-Come-From-Origins-Processing-Explained.jpg',
     roast: 'Medium',
     origin: 'Nicaragua',
     stock: 42,
@@ -24,6 +28,7 @@ const coffeeData = [
     price: 13.99,
     description:
       'Well-rounded and balanced with a medium body. This medium roast coffee has notes of milk chocolate and nuts.',
+      imageUrl:  'https://s.abcnews.com/images/GMA/cofee-01-sh-iwb-220822_1661167194119_hpMain_16x9_992.jpg',
     roast: 'Medium',
     origin: 'Honduras',
     stock: 36,
@@ -34,6 +39,7 @@ const coffeeData = [
     price: 15.29,
     description:
       'Mild and fruity with a medium body. This medium roast coffee has notes of mango and citrus.',
+      imageUrl: 'https://www.eac.int/images/Press_Releases/coffee.jpg',
     roast: 'Medium',
     origin: 'Papua New Guinea',
     stock: 55,
@@ -44,6 +50,7 @@ const coffeeData = [
     price: 14.99,
     description:
       'Low acidity and full-bodied. This dark roast coffee has notes of dark chocolate and spice.',
+      imageUrl: 'https://www.fanabc.com/english/wp-content/uploads/2022/08/ethiopia-coffee-450x300.jpg',
     roast: 'Dark',
     origin: 'India',
     stock: 34,
@@ -54,6 +61,7 @@ const coffeeData = [
     price: 49.99,
     description:
       'Smooth and well-balanced with a medium body. This medium roast coffee has notes of chocolate, mild fruit, and floral undertones.',
+      imageUrl: 'https://c4.wallpaperflare.com/wallpaper/876/132/1002/coffee-cup-coffee-beans-aroma-wallpaper-preview.jpg',
     roast: 'Medium',
     origin: 'Jamaica',
     stock: 20,
@@ -64,6 +72,7 @@ const coffeeData = [
     price: 16.49,
     description:
       'Bright and fruity with a medium body. This medium roast coffee has notes of red fruit and milk chocolate.',
+      imageUrl:'https://assets.weforum.org/article/image/35kAYYz4rpnZaN6_gKoMRMNRO6kVGKTQG7_o2fgCL0I.jpg',
     roast: 'Medium',
     origin: 'Panama',
     stock: 38,
@@ -74,6 +83,7 @@ const coffeeData = [
     price: 13.49,
     description:
       'Mild and sweet with a medium body. This medium roast coffee has notes of chocolate, nuts, and fruit.',
+      imageUrl:'https://s3.envato.com/files/276644652/DSC_4918%20finish.jpg',
     roast: 'Medium',
     origin: 'Bolivia',
     stock: 47,
@@ -84,6 +94,7 @@ const coffeeData = [
     price: 15.99,
     description:
       'Bright and fruity with a medium body. This medium roast coffee has notes of blackcurrant, lemon, and dark chocolate.',
+      imageUrl:'https://img2.goodfon.com/wallpaper/nbig/1/1e/bag-coffee-beans-shoulder-cup.jpg',
     roast: 'Medium',
     origin: 'Zimbabwe',
     stock: 30,
@@ -94,6 +105,7 @@ const coffeeData = [
     price: 34.99,
     description:
       'Smooth and well-rounded with a medium body. This medium roast coffee has notes of milk chocolate, caramel, and a hint of fruit.',
+      imageUrl:'https://cdn.shopify.com/s/files/1/0470/1709/9432/collections/the-single-origin-528790.jpg?v=1640106799',
     roast: 'Medium',
     origin: 'Hawaii, USA',
     stock: 25,
@@ -104,6 +116,7 @@ const coffeeData = [
     price: 14.49,
     description:
       'Bright and fruity with a medium body. This medium roast coffee has notes of red fruit, floral undertones, and a wine-like acidity.',
+      imageUrl:'https://www.mashed.com/img/gallery/the-real-difference-between-espresso-and-black-coffee/intro-1619445662.jpg',
     roast: 'Medium',
     origin: 'Ecuador',
     stock: 40,
@@ -115,8 +128,8 @@ const coffeeData = [
     description:
       'Bright, fruity, and aromatic. A light roast coffee with notes of citrus and floral undertones.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
-    roast: 'Light',
+'https://rare-gallery.com/uploads/posts/1185020-food-coffee-drink-cup-coffee-beans-dessert-Turkish-coffee-caffeine-flavor-coffee-cup-masala-chai.jpg' ,
+   roast: 'Light',
     origin: 'Ethiopia',
     stock: 50,
   },
@@ -127,8 +140,7 @@ const coffeeData = [
     description:
       'Smooth and balanced with a medium body. A medium roast coffee with notes of chocolate and nuts.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
-    roast: 'Medium',
+'https://images.getbento.com/accounts/3c9cd02c164296a7d92c31335376ebb1/media/images/13197white-ceramic-mug-filled-with-coffee-beside-coffee-beans-678654.jpg?w=1800&fit=max&auto=compress,format&h=1800',    roast: 'Medium',
     origin: 'Colombia',
     stock: 60,
   },
@@ -139,7 +151,7 @@ const coffeeData = [
     description:
       'Mild and sweet with a medium body. A medium roast coffee with notes of chocolate and a smooth finish.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpLWVTroDm7jhGhq24PtoxrTrjdsFx6MI3Ow&usqp=CAU',
     roast: 'Medium',
     origin: 'Brazil',
     stock: 40,
@@ -163,7 +175,7 @@ const coffeeData = [
     description:
       'Smooth and well-rounded. A medium roast coffee with notes of chocolate, caramel, and a hint of fruit.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
+'https://img.freepik.com/free-photo/front-view-cup-coffee-with-muffins_23-2148251568.jpg',
     roast: 'Medium',
     origin: 'Guatemala',
     stock: 45,
@@ -175,7 +187,7 @@ const coffeeData = [
     description:
       'Complex and vibrant. A medium roast coffee with bright acidity and notes of blackcurrant and citrus.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
+      'https://static.vecteezy.com/system/resources/previews/003/556/888/non_2x/roasted-coffee-beans-with-coffee-cup-setup-on-dark-stone-background-photo.jpg',
     roast: 'Medium',
     origin: 'Kenya',
     stock: 55,
@@ -187,7 +199,7 @@ const coffeeData = [
     description:
       'Lively and fruity. A medium roast coffee with a medium body and notes of blackberry and dark chocolate.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
+      'https://img.freepik.com/photos-premium/vue-dessus-tasse-cafe-table_23-2148336777.jpg?w=2000',
     roast: 'Medium',
     origin: 'Tanzania',
     stock: 35,
@@ -199,7 +211,7 @@ const coffeeData = [
     description:
       'Bright and balanced. A medium roast coffee with crisp acidity and notes of red fruit and milk chocolate.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
+      'https://ae01.alicdn.com/kf/H4d1fc3b6fe81422fbde45c603ecdd394x/550-750-1200ml-Storage-Bottle-Bean-Sugar-Tea-Coffee-Cork-Stopper-Glass-Jar-Can-Food-Preservation.jpg',
     roast: 'Medium',
     origin: 'Costa Rica',
     stock: 60,
@@ -211,7 +223,7 @@ const coffeeData = [
     description:
       'Smooth and nutty. A medium roast coffee with a medium body and notes of almond and cocoa.',
     imageUrl:
-      'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2237&q=80',
+      'https://wallpapers.com/images/hd/cappuccino-with-coffee-beans-kwrv8tjpabo5bhj0.jpg',
     roast: 'Medium',
     origin: 'Mexico',
     stock: 50,
@@ -229,6 +241,7 @@ const coffeeData = [
     stock: 45,
   },
 ];
+
 
 const users = [
   {
