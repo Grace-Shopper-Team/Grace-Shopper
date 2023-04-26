@@ -20,7 +20,7 @@ const Cart = () => {
   console.log('value of cartstate', cartState);
 
   useEffect(() => {
-    dispatch(fetchAllCartAction()).then(() => setLoading(false));
+    dispatch(fetchAllCartAction(1)).then(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ const Cart = () => {
       {loading ? (
         <p>loading...</p>
       ) : (
+        cartState &&
         cartState.map((cartItem, index) => (
           <div key={`${index}-${cartItem.productid}`} className='Items'>
             <h4> {cartItem.coffee.name}</h4>

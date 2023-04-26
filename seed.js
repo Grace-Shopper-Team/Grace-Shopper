@@ -10,6 +10,7 @@ const OrderItem = require('./server/db/models/OrderItem');
 const coffeeData = [
   {
     name: 'Nicaraguan Jinotega',
+    stripe: 'price_1N0UMQL5OKQc1cZT3zKWjxFK',
     price: 12.49,
     description:
       'Smooth and medium-bodied with a mild acidity. This medium roast coffee has notes of cocoa and caramel.',
@@ -19,6 +20,7 @@ const coffeeData = [
   },
   {
     name: 'Honduran Marcala',
+    stripe: 'price_1N0UOFL5OKQc1cZTvVmNIPfM',
     price: 13.99,
     description:
       'Well-rounded and balanced with a medium body. This medium roast coffee has notes of milk chocolate and nuts.',
@@ -28,6 +30,7 @@ const coffeeData = [
   },
   {
     name: 'Papua New Guinea Sigri',
+    stripe: 'price_1N0USHL5OKQc1cZTVytBw2Ks',
     price: 15.29,
     description:
       'Mild and fruity with a medium body. This medium roast coffee has notes of mango and citrus.',
@@ -37,6 +40,7 @@ const coffeeData = [
   },
   {
     name: 'Indian Monsooned Malabar',
+    stripe: 'price_1N0UUDL5OKQc1cZTbDxXRIpc',
     price: 14.99,
     description:
       'Low acidity and full-bodied. This dark roast coffee has notes of dark chocolate and spice.',
@@ -46,6 +50,7 @@ const coffeeData = [
   },
   {
     name: 'Jamaican Blue Mountain',
+    stripe: 'price_1N0UVkL5OKQc1cZT6wbn1xZf',
     price: 49.99,
     description:
       'Smooth and well-balanced with a medium body. This medium roast coffee has notes of chocolate, mild fruit, and floral undertones.',
@@ -55,6 +60,7 @@ const coffeeData = [
   },
   {
     name: 'Panamanian Boquete',
+    stripe: 'price_1N0UYML5OKQc1cZTouF3lThn',
     price: 16.49,
     description:
       'Bright and fruity with a medium body. This medium roast coffee has notes of red fruit and milk chocolate.',
@@ -64,6 +70,7 @@ const coffeeData = [
   },
   {
     name: 'Bolivian Yungas Valley',
+    stripe: 'price_1N0UZdL5OKQc1cZT6l2Qi9Je',
     price: 13.49,
     description:
       'Mild and sweet with a medium body. This medium roast coffee has notes of chocolate, nuts, and fruit.',
@@ -73,6 +80,7 @@ const coffeeData = [
   },
   {
     name: 'Zimbabwe Chipinge',
+    stripe: 'price_1N0UbGL5OKQc1cZTzJ358RjW',
     price: 15.99,
     description:
       'Bright and fruity with a medium body. This medium roast coffee has notes of blackcurrant, lemon, and dark chocolate.',
@@ -82,6 +90,7 @@ const coffeeData = [
   },
   {
     name: 'Hawaiian Kona',
+    stripe: 'price_1N0UeQL5OKQc1cZTAKdeMZcy',
     price: 34.99,
     description:
       'Smooth and well-rounded with a medium body. This medium roast coffee has notes of milk chocolate, caramel, and a hint of fruit.',
@@ -91,6 +100,7 @@ const coffeeData = [
   },
   {
     name: 'Ecuadorian Loja',
+    stripe: 'price_1N0UhAL5OKQc1cZTrOM0UKdj',
     price: 14.49,
     description:
       'Bright and fruity with a medium body. This medium roast coffee has notes of red fruit, floral undertones, and a wine-like acidity.',
@@ -100,6 +110,7 @@ const coffeeData = [
   },
   {
     name: 'Ethiopian Yirgacheffe',
+    stripe: 'price_1N0UihL5OKQc1cZT5ZHQPOOy',
     price: 15.99,
     description:
       'Bright, fruity, and aromatic. A light roast coffee with notes of citrus and floral undertones.',
@@ -112,7 +123,7 @@ const coffeeData = [
   {
     name: 'Colombian Supremo',
     stripe: 'price_1N06nLL5OKQc1cZTxYFo9msk',
-    price: 12.99,
+    price: 14.99,
     description:
       'Smooth and balanced with a medium body. A medium roast coffee with notes of chocolate and nuts.',
     imageUrl:
@@ -123,6 +134,7 @@ const coffeeData = [
   },
   {
     name: 'Brazilian Santos',
+    stripe: 'price_1N0UjzL5OKQc1cZTet6KF2zM',
     price: 11.99,
     description:
       'Mild and sweet with a medium body. A medium roast coffee with notes of chocolate and a smooth finish.',
@@ -134,6 +146,7 @@ const coffeeData = [
   },
   {
     name: 'Sumatra Mandheling',
+    stripe: 'price_1N0UlqL5OKQc1cZT5czbyuYs',
     price: 14.99,
     description:
       'Full-bodied and rich. A dark roast coffee with earthy and spicy notes, and a bold finish.',
@@ -145,6 +158,7 @@ const coffeeData = [
   },
   {
     name: 'Guatemalan Antigua',
+    stripe: 'price_1N0UogL5OKQc1cZT6LADTa7k',
     price: 13.99,
     description:
       'Smooth and well-rounded. A medium roast coffee with notes of chocolate, caramel, and a hint of fruit.',
@@ -156,6 +170,7 @@ const coffeeData = [
   },
   {
     name: 'Kenyan AA',
+    stripe: 'price_1N0UprL5OKQc1cZT9VCqo2cb',
     price: 16.99,
     description:
       'Complex and vibrant. A medium roast coffee with bright acidity and notes of blackcurrant and citrus.',
@@ -167,6 +182,7 @@ const coffeeData = [
   },
   {
     name: 'Tanzanian Peaberry',
+    stripe: 'price_1N0UrFL5OKQc1cZTdC4w4p6V',
     price: 15.49,
     description:
       'Lively and fruity. A medium roast coffee with a medium body and notes of blackberry and dark chocolate.',
@@ -178,6 +194,7 @@ const coffeeData = [
   },
   {
     name: 'Costa Rican Tarrazu',
+    stripe: 'price_1N0UtdL5OKQc1cZTVppa9m5T',
     price: 13.49,
     description:
       'Bright and balanced. A medium roast coffee with crisp acidity and notes of red fruit and milk chocolate.',
@@ -189,6 +206,7 @@ const coffeeData = [
   },
   {
     name: 'Mexican Chiapas',
+    stripe: 'price_1N0UvFL5OKQc1cZT25s0VFgU',
     price: 12.49,
     description:
       'Smooth and nutty. A medium roast coffee with a medium body and notes of almond and cocoa.',
@@ -200,6 +218,7 @@ const coffeeData = [
   },
   {
     name: 'Peruvian Chanchamayo',
+    stripe: 'price_1N0UwTL5OKQc1cZTQbZB28RB',
     price: 14.29,
     description:
       'Mild and clean. A medium roast coffee with a medium body and notes of chocolate, nuts, and fruit.',

@@ -15,6 +15,9 @@ const Coffee = db.define('coffee', {
   description: {
     type: Sequelize.TEXT,
   },
+  stripe: {
+    type: Sequelize.STRING,
+  },
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:

@@ -543,3 +543,188 @@ button:hover {
   display: flex;
   justify-content: space-between;
 }
+
+/* order and order items in profile page */
+.orders-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.one-order {
+  border: 1px solid;
+}
+
+.orders-coffee-container {
+  display: flex;
+}
+
+.order-coffee {
+  margin: 10px;
+  border: 1px solid;
+}
+
+/*! erika css !*/
+.order-info {
+  height: 600px;
+}
+.order-info ul {
+  list-style-type: none;
+}
+.order-info p {
+  display: inline;
+}
+.order-info h1 {
+  color: #242d60;
+  text-align: center;
+}
+
+/* Login page */
+
+.Login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.Login input[type='text'],
+.Login input[type='password'],
+.Login select {
+  width: 80%;
+  max-width: 350px;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+.Login button[type='submit'] {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 25px;
+  margin-top: 20px;
+}
+
+.Login button[type='submit']:hover {
+  background-color: #3e8e41;
+}
+
+.Login a {
+  color: #007bff;
+  margin-top: 20px;
+  display: block;
+}
+
+/* register form */
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.register form {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.register label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.register input[type='text'],
+.register input[type='number'],
+.register input[type='password'],
+.register select {
+  width: 100%;
+  padding: 4px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+.register select option {
+  color: #333;
+}
+
+.register button[type='submit'] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.register span {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.register small {
+  font-size: 14px;
+}
+
+/* profile */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.profile input[type='text'],
+.profile input[type='password'],
+.profile select {
+  width: 100%;
+  max-width: 350px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+.profile button[type='submit'],
+.profile button[type='button'] {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  /* cursor: pointer; */
+  margin-top: 20px;
+}
+
+.profile button[type='submit']:hover,
+.profile button[type='button']:hover {
+  background-color: #3e8e41;
+}
+#profile {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+#login {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 75px;
+}
