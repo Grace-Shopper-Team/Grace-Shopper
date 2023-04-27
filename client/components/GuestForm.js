@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { fetchUser } from "../redux/store/auth";
 import { useDispatch } from "react-redux";
+import axios from 'axios';
 
 const GuestForm = (props) => {
   const products = JSON.parse(localStorage.getItem("cartProducts"));
@@ -48,21 +49,20 @@ const GuestForm = (props) => {
     fetchUserData();
   }, [userId, isTokenChecked]);
 
-
-
-
   const pay = async (form) => {
     form.preventDefault();
-    const data = await fetch("https://thebeanhub-7p0o.onrender.com/api/cart/stripe", {
-      method: "POST",
-      headers: {
-        Accept: "Application/json",
-        "Content-type": "Application/json",
-      },
-      body: JSON.stringify(products),
-    }).then(async (data) => data.json());
-    window.location.href = data.url;
-  };
+    try {
+      const response = await axios.post("https://thebeanhub-7p0o.onrender.com/api/cart/stripe", products, {
+        headers: {
+          Accept: "Application/json",
+          "Content-type": "Application/json",
+        },
+      });
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error(error);
+    }
+  }; 
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
