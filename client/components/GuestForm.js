@@ -53,7 +53,7 @@ const GuestForm = (props) => {
 
   const pay = async (form) => {
     form.preventDefault();
-    const data = await fetch("http://localhost:3000/api/cart/stripe", {
+    const data = await fetch("https://thebeanhub-7p0o.onrender.com/api/cart/stripe", {
       method: "POST",
       headers: {
         Accept: "Application/json",
