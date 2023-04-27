@@ -193,7 +193,7 @@ router.post('/stripe', async (req, res) => {
   const products = req.body;
   console.log('products: ', products);
   if (products.length < 1) {
-    return res.redirect(303, 'http://localhost:3000/home');
+    return res.redirect(303, 'https://thebeanhub-7p0o.onrender.com/home');
   } else {
     let productsToPay = products.map((product) => {
       return { price: product.coffee.stripe, quantity: product.quantity };
@@ -203,7 +203,7 @@ router.post('/stripe', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       line_items: productsToPay,
       mode: 'payment',
-      success_url: 'http://localhost:3000/confirmation',
+      success_url: 'https://thebeanhub-7p0o.onrender.com/confirmation',
       //error_url: "http://localhost:3000/home"
     });
     //res.redirect(303, session.url);
